@@ -1,0 +1,180 @@
+{% extends 'base2.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    div#title {
+        padding-bottom: 5px;
+    }
+    div#title h1 {
+        color: #0033CC;
+    }
+    div#contents {
+        
+    }
+    p {
+        padding: 5px;
+    }    
+    li {
+        margin-left: 1.1em;
+    }
+</style>
+
+<div id="title">    
+</div>
+<div id="contents" class="font-normal">
+
+    <h2>Steps for conducting the experiment</h2>
+
+    <h3>General Instructions</h3>
+
+    <p>
+        Follow are the steps to be followed in general to perform the experiments
+        in <strong>Advanced Network Technologies Virtual Lab</strong>.
+    </p>
+
+    <p>
+        <ol>
+            <li>Read the theory about the experiment</li>
+            <li>View the simulation provided for a chosen, related problem</li>
+            <li>Take the self evaluation to judge your understanding (optional, 
+                but recommended)</li>
+            <li>Go to the exercises section, choose a problem, and carefully 
+                read the problem description</li>
+            <li>Write a script (or make necessary changes) to simulate the desired 
+                scenario in the <strong>code editor</strong> just below the problem statement
+            </li>
+            <li>Click on the <strong>'Run'</strong> button to execute the simulation script</li>
+            <li>Simulation with <strong>ns2</strong>: If the simulation was successful,
+                and was instructed to create a trace file, contents of the trace file
+                would be displayed in the area <strong>below</strong> the 'Run' button
+            </li>
+            <li>Simulation with <strong>ns3</strong>: If the simulation was successful,
+                output of the program would be displayed in the area <strong>below</strong> the 'Run' button
+            </li>
+            <li>A trace file generated as a result of simulation with ns2 could be
+                used for certain kind of analysis, which would be discussed in a
+                later section
+            </li>
+        </ol>
+    </p>
+
+    <h3>Experiment Specific Instructions</h3>
+
+    <p> {{ procedure|safe }} </p>
+    
+    
+    <h2>Trace File Analysis</h2>
+
+    <p>
+    A simple tool has been provided as part of this lab to analyze the trace files 
+    generated after simulation with ns2. A summary of the available options, and
+    usage guide is given below.
+    </p>
+    
+    <h3>Features List</h3>
+    <p>
+        Following is a list of functionalities provided by the Trace Analysis tool:
+    <ul>
+        <li>
+            <strong>Trace file formats: </strong> Following trace file formats are 
+            being supported:
+            <ul>
+                <li>Wired</li>
+                <li>Wireless (new format)</li>
+                <li>Satellite -- currently redirects to wired mode</li>
+                <li>Mixed -- when both wired and wireless connections are present in the simulation</li>
+            </ul>
+        </li>
+        <li>
+            <strong>General Statistics:</strong> To provide some common statistics
+            about the simulation being run. Currently displays only the simulation duration.
+            <ul>
+                <li>
+                    <strong>Inputs:</strong> None
+                </li>
+                <li>
+                    <strong>Output:</strong> Text
+                </li>
+            </ul>
+        </li>
+        <li>
+            <strong>Average Throughput:</strong> Computes total # of bytes received
+            by a node over the entire simulation duration
+            <br>
+            <ul>
+                <li><strong>Inputs:</strong> Node #</li>
+                <li><strong>Output:</strong> Number</li>
+            </ul>                      
+        </li>
+        <li>
+            <strong>Bytes Received:</strong> Plots cumulative count of bytes received by
+            a node over the entire simulation duration
+            <br>
+            <ul>
+                <li><strong>Inputs:</strong> Node #; for wireless scenario, trace 
+                    levels (AGT, MAC, RTR)</li>
+                <li><strong>Output:</strong> Graph</li>
+            </ul>                     
+        </li>
+        <li>
+            <strong>End-to-end Delay: </strong> Plots the end-to-end delay delay encountered
+            by packets while moving from a source node to the destination node
+            <br>
+            <ul>
+                <li><strong>Inputs:</strong> Source node #, destination node #, 
+                    scaling factor [optional] -- scaling factor helps to amplify the y-axis values</li>
+                <li><strong>Output:</strong> Graph</li>
+            </ul>                        
+        </li>
+        <li>
+            <strong>Packet Retransmissions:</strong> Plots # of retransmission(s) of
+            a given packet occurs between the source and destination nodes
+            <br>
+            <ul>
+                <li><strong>Inputs:</strong> Source node #, destination node #</li>
+                <li><strong>Output:</strong> Graph</li>
+            </ul>                        
+        </li>
+        <li>
+            <strong>Hop Count:</strong> Plots the # of hops traveled by a packet to reach
+            the destination node from the source node. It counts the destination node as well.
+            <br>
+            <ul>
+                <li><strong>Inputs:</strong> Source node #, source port #, 
+                    destination node #, destination port #</li>
+                <li><strong>Output:</strong> Graph</li>
+            </ul>                      
+        </li>
+    </ul>
+    </p>
+        
+    <h3>Limitations</h3>
+    <div class="note">
+        <ol>
+            <li>
+                For analyzing the problems in the "Satellite Networks" experiment, 
+                please use the Wired mode of analysis
+            </li>
+            <li>
+                Analysis of trace files for mixed mode of simulations (wired & wireless)
+                is not supported currently
+            </li>
+            <li>
+                Outputs produced do not necessarily have accuracy for scientific publications.
+                In particular, the plot of hop counts may vary a bit from the original count
+                (in wireless mode) in cases when a packet has been forwarded to more than one node.
+            </li>
+            <li>
+                The tool currently allows only a single instance of a given type of plot. For example,
+                this doesn't let you plot end-to-end delays between multiple (source, destination) node pairs
+            </li>
+        </ol>
+    </div>
+      
+</div>
+
+{% endblock %}

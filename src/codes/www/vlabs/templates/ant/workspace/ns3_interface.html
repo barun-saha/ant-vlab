@@ -1,0 +1,47 @@
+<link href="{{ MEDIA_URL }}css/ns2workspace.css" rel="stylesheet" type="text/css">
+
+
+<div class="ns3-form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="ns3-code">
+            <textarea id="ns3code" style="width: 900px; height: 474px;" name="ns3code">{{ default_code }}</textarea>
+
+        </div>
+        <div class="ns3-code-submit centerAlign">
+            <button type="button" id='run' class="button-icon">
+                <img src="{{ MEDIA_URL }}images/new/icons/workspace/next24x24.png"
+                     class="button-image buttonText button-run" />
+                <strong>Run!</strong>
+            </button>
+            <button type="button" id='clear' class="button-icon" style="border: 1px solid white;">
+                <img src="{{ MEDIA_URL }}images/new/icons/workspace/edit_clear24x24.png"
+                     class="button-image buttonText button-clear" />
+                Clear
+            </button>
+        </div>
+
+        <h3>Output</h3>
+        <div class="ns3-code-output" style="margin-bottom: 5px;">
+        </div>
+
+        <div class="filter-output" style="margin-top: 10px; margin-bottom: 5px;">
+            <label for="filter-pattern">Filter the above output by the following string</label>
+            <input type="text" name="filter-pattern" id="filter-pattern" style="width: 350px;">
+            <input type="button" value="Filter" id="filter-btn">
+            <br>
+            <div class="filtered-output">
+            </div>
+            <div style="margin-top: 7px; display: inline;">
+                Found <span id="pattern-match-count">0</span> occurence(s) of the search string
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-min.js"></script>
+<script language="Javascript" type="text/javascript" src="{{ MEDIA_URL }}lib/editarea_0_8_2/edit_area/edit_area_full.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/jquery.smart-poll.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/ant/ns3workspace-min.js"></script>

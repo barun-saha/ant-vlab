@@ -1,0 +1,278 @@
+<link href="{{ MEDIA_URL }}css/ns2workspace.css" rel="stylesheet" 
+    type="text/css">
+
+<div class="ns2-form">
+  <form action="" method="post">
+      {% csrf_token %}
+      <div class="ns2-code">
+          <textarea id="ns2code" style="width: 900px; height: 474px;" 
+            name="ns2code">{{ default_code }}</textarea>
+      </div>
+      
+      <div class="ns2-code-submit centerAlign">
+          <button type="button" id='run' class="button-icon">
+              <img src="{{ MEDIA_URL }}images/new/icons/workspace/next24x24.png"
+                   class="button-image buttonText button-run">
+              <strong>Run!</strong>
+          </button>
+          <button type="button" id='clear' 
+            class="button-icon button-reset-icon">
+              <img 
+           src="{{ MEDIA_URL }}images/new/icons/workspace/edit_clear24x24_b.png"
+                   class="button-image buttonText button-clear">
+              Clear
+          </button>
+      </div>
+
+      <h3>Output</h3>
+      <div class="ns2-code-output" style="height: 250px; overflow: scroll;">
+      </div>
+
+      <div class="filter-output" style="margin-top: 10px; margin-bottom: 5px;">
+          <label for="filter-pattern">Filter the above output 
+            by the following string</label>
+          <input type="text" name="filter-pattern" id="filter-pattern" 
+            style="width: 350px;">
+          <input type="button" value="Filter" id="filter-btn">
+          <input type="button" value="Clear" id="filter-clr" 
+            style="border: 1px solid white;">
+          <br>
+          <div class="filtered-output">
+          </div>
+          <div style="margin-top: 7px; display: inline;">
+              Found <span id="pattern-match-count">0</span> occurence(s) of 
+              the search string
+          </div>
+      </div>
+      
+      <h3>Trace File</h3>
+      <textarea class="ns2-trace-text wordwrap"></textarea>
+      <br>     
+
+
+      <div style="height: 15px; border: 0;">&nbsp;</div>
+
+      <h2>Trace File Analysis</h2>
+      <div id="trace-file-analysis" style="padding: 5px;">
+          <div id="dummy"></div>
+
+          <div class="toolbar-other">
+              <ul class="toolbar-buttons">
+                  <li><strong>Simulation mode:</strong>
+                      <input type="radio" name="trace-file-mode" 
+                            class="trace-file-mode" value="Wired">Wired
+                      <input type="radio" name="trace-file-mode" 
+                        class="trace-file-mode" value="Wireless">Wireless (New)
+                      <input type="radio" name="trace-file-mode" 
+                            class="trace-file-mode" value="Satellite">Satellite
+                      <input type="radio" name="trace-file-mode" 
+                            class="trace-file-mode" value="Mixed">Mixed
+                  </li>
+                  <li class="last-item" id="clear-session" 
+                    style="padding-left: 5px;"><a href="/" 
+                    title="Clear current session">Clear Session</a></li>
+              </ul>
+          </div>
+
+          <div class="toolbar" 
+            style="height: auto; margin-top: 0; display: none;">
+                <ul class="toolbar-buttons">
+                    <li><a href="/" id="gen-stats" 
+                        title="Get simulation statistics">General Statistics
+                        </a></li>
+                    <li><a href="/" id="avg-thruput-dialog" 
+                        title="Get average throughput of a node">Average 
+                        Throughput</a></li>
+                    <li><a href="/" id="bytes-rcvd-dialog" 
+                        title="Plot bytes received by a node (cumulative sum)">
+                        Bytes Received</a></li>
+                    <li><a href="/" id="e2e-delay-dialog" 
+                        title="Plot end-to-end delay between two nodes">
+                        End-to-end Delay</a></li>
+                    <li><a href="/" id="pkt-retransmit-dialog" 
+                     title="Plot packet retransmission count between two nodes">
+                     Packet Retransmissions</a></li>
+                    <li class="last-item"><a href="/" 
+                        id="hop-cnt-vs-seq-num-dialog" 
+                        title="Plot hop count vs. sequence #s of packets sent between two nodes">
+                        Hop Count</a></li>
+                </ul>
+          </div>
+
+          <style type="text/css">
+            .entry #contents table {
+                margin-left: 0;
+                margin-right: 0;
+                text-align: left;
+                width: auto;
+            }
+          </style>
+
+          <div class="bluish marginT5" style="padding: 5px;">
+              <div id="plotarea"></div>
+
+              <h3 class="marginT5">Legend</h3>
+              <div id="graphs-plotted" 
+                style="border: 1px dotted silver; width: auto;">
+              </div>
+          </div>
+
+      </div>
+      
+      <div style="height: 15px; border: 0;">&nbsp;</div>
+      
+      <h2>Plot Custom Data</h2>
+      <div>
+          Plot Label <input type="text" id="plot-label">
+          <br>
+          <textarea rows="10" cols="65" id="custom-plot-data" 
+            name="custom-plot-data">x_val, y_val</textarea>
+          <br>
+          X-axis label: <input type="text" id="x-axis-label">
+          Y-axis label: <input type="text" id="y-axis-label">
+          <br>
+          <button id="custom-plot">
+              Plot
+          </button>
+          <br>
+      </div>
+      <br>
+  </form>
+
+</div>
+
+
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-min.js"></script>
+<script type="text/javascript" 
+    src="{{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js">
+</script>
+
+<script language="Javascript" type="text/javascript" 
+    src="{{ MEDIA_URL }}lib/editarea_0_8_2/edit_area/edit_area_full.js">
+</script>
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/jquery.smart-poll.js">
+</script>
+<!--script type="text/javascript" src="{{ MEDIA_URL }}js/ant/ns2workspace-min.js">
+</script-->
+<script type="text/javascript" src="{{ MEDIA_URL }}js/ant/ns2workspace.js">
+</script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/enhancements-min.js">
+</script>
+<!--script type="text/javascript" src="{{ MEDIA_URL }}lib/jquery.expose.min.js"></script-->
+
+<link href="{{ MEDIA_URL }}css/jquery-ui.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" 
+    src="{{ MEDIA_URL }}js/jquery-ui-1.7.3.custom-min.js"></script>
+<!--[if IE]><script type="text/javascript" src="{{ MEDIA_URL }}js/excanvas.min-min.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" 
+    src="{{ MEDIA_URL }}lib/flot/jquery.flot.min.js"></script>
+<script language="javascript" type="text/javascript" 
+    src="{{ MEDIA_URL }}lib/flot/flot-axislabels/jquery.flot.axislabels.min.js">
+</script>
+<script language="javascript" type="text/javascript" 
+    src="{{ MEDIA_URL }}lib/flot/jquery.flot.navigate.min.js"></script>
+<script language="javascript" type="text/javascript" 
+    src="{{ MEDIA_URL }}lib/flot/jquery.flot.crosshair.min.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    //var plot_data = [];
+    plot_data = [];
+    var placeholder = $("#plotarea");
+    //var alreadyFetchedPlotData = {};
+    //alreadyFetchedPlotData = {};
+    var plot_handle;
+
+    //plot_handle = $.plot(placeholder, plot_data, plot_options);
+
+    // Fetch the data with jQuery
+/*
+    function onDataReceived(series, xaxisLabel, yaxisLabel) {
+        // let's add it to our current data
+        
+        if (series.data.length == 0) {
+            alert('No data found for ' + series.label);
+            return;
+        }
+        alert(series.data.length);
+        if (!alreadyFetchedPlotData[series.label]) {
+            alreadyFetchedPlotData[series.label] = true;
+            plot_data.push(series);
+            // and plot all we got
+            plot_options.xaxis.axisLabel = xaxisLabel;
+            plot_options.yaxis.axisLabel = yaxisLabel;
+            $.plot(placeholder, plot_data, plot_options);
+        }
+    }
+*/
+
+    function showTooltip(x, y, contents) {
+        $(document.createElement('div'))
+        .attr('id', 'tooltip')
+        .text(contents)
+        .css( {
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fcc',
+            padding: '2px',
+            'background-color': '#fed',
+            opacity: 0.90
+        })
+        .appendTo("body").fadeIn(200);
+    }
+    
+    var popup_top = $(placeholder).css('top');
+    var popup_left = $(placeholder).css('right');
+    var popup_options = {
+        'position': 'absolute',
+        'border':   '1px solid blue',
+        'background-color': 'white',
+        'z-index':  '98765',
+        'top':      popup_top,
+        'left':     popup_left
+    };
+    $(placeholder).bind("plothover",  function (event, pos, item) {
+        $("#tooltip").remove();
+        if (item) {
+            var x = item.datapoint[0].toFixed(2),
+                y = item.datapoint[1].toFixed(2);
+
+            showTooltip(item.pageX, item.pageY, '( '+ x + ', ' + y + ' )');
+        }
+    });
+
+    // Click on a plot legend to remove it from being displayed
+    $('.plot-legend').live('click', function(event) {
+        event.preventDefault();
+        var new_data = [];
+
+        if ($('.plot-legend').length > 1) {
+            // Currently there are more than one plots
+            // So, on removing a single plot, there will still remain atleast one plot
+            for ( var k in plot_data ) {
+                //alert(plot_data[k].label + ': ' + plot_data[k].length)
+                if ( plot_data[k].label != $(this).text() ) {
+                    new_data.push(plot_data[k]);
+                }
+                else {
+                    //alreadyFetchedPlotData[plot_data[k].label] = false;
+                }
+            }            
+            // Update the data set -- this is * absolutely * essential
+            plot_data = new_data;                        
+        } else {
+            // When the last plot (and it's legend) has been removed, color of the
+            // plot still appears inside this div. So, empty all it's children
+            //$('#graphs-plotted').empty();
+        }
+        $(this).parent().parent().parent().remove();
+        $.plot(placeholder, plot_data, plot_options);
+    });  
+   
+});
+
+</script>

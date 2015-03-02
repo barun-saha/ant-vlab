@@ -1,0 +1,92 @@
+{% extends 'base2.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+&nbsp;
+
+<!-- Fix the positioning of div tags for IE and Firefox -->
+<style type="text/css">
+    .ieFix {
+        position: absolute;        
+    }
+</style>
+<!--[if IE]>
+<style type="text/css">
+    .ieFix {
+        position: fixed;        
+    }
+</style>
+<![EndIf]-->
+
+<!--div id="problem" class="exerciseProblem" style="width: 40%; float: right; position: absolute; top: 105px; height: auto;"-->
+
+<!-- Fix the top of div tag for IE and Firefox -->
+<!--[if IE]>
+<style type="text/css">
+    .ieFixTop {
+        top: -70px;
+    }    
+</style>
+<![EndIf]-->
+
+{% if simulation.type != 'flash' %}
+<!--[if IE]>
+<style type="text/css">    
+    .ieHTMLSimFixTop {
+        top: -150px;
+    }
+</style>
+<![EndIf]-->
+{% endif %}
+
+
+<div id="contents" class="font-normal">
+<!--div id="problem" class="exerciseProblem ieFix" style="top: 105px; height: auto; width: 40%;"-->
+    <div id="simulator" class="twoColContainer">
+        <div id="statement" class="twoColLeft">
+        {{ simulation.problem|safe }}
+        </div>
+
+        <div id="simulation" class="twoColRight" style="border-left: 1px dotted silver;">
+
+            {% if simulation.type == 'flash' %}
+            <object type="application/x-shockwave-flash" data="{{ MEDIA_URL }}video/simulations/ant/{{ object_id }}/{{ simulation.video_url }}" 
+                width="510" height="415">
+                <param name="movie" value="{{ MEDIA_URL }}video/simulations/ant/{{ object_id }}/{{ simulation.video_url }}">
+                <param name="quality" value="high">
+                <param name="play" value="true">
+                <param name="loop" value="true">
+                <param name="wmode" value="transparent">
+            </object>
+	    
+            <!--object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,16,0"
+                width="530" height="415" >
+                <param name="movie" value="{{ MEDIA_URL }}video/simulations/ant/{{ object_id }}/{{ simulation.video_url }}">
+                <param name="quality" value="high">
+                <param name="play" value="true">
+                <param name="loop" value="true">
+                <param name="wmode" value="transparent">
+                <embed src="{{ MEDIA_URL }}video/simulations/ant/{{ object_id }}/{{ simulation.video_url }}" width="530" height="415" play="true" loop="false" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                type="application/x-shockwave-flash" >
+                </embed>
+            </object-->
+            {% else %}
+            <script type="text/javascript" src="{{ MEDIA_URL }}js/_django/dutils-min.js"></script>
+            <script type="text/javascript" src="{{ MEDIA_URL }}js/_django/dutils.conf.urls-min.js"></script>
+            <script type="text/javascript">
+                myAjaxLoader("#simulation", "/ant/ant/" + {{ simulation.theory.id }} + "/html_sim/");
+            </script>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div id="discussions" class="clear"
+         style="border: 0; border-top: 2px dotted silver; margin-left: 0; margin-top: 5px; width: 98%; overflow: auto;
+                position: relative; padding-top: 5px;">
+        {{ simulation.discussion|safe }}
+    </div>
+</div>
+{% endblock %}

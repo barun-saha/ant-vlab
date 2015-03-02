@@ -1,0 +1,204 @@
+{% extends 'general.html' %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/home.css">
+<link rel="stylesheet" type="text/css" 
+    href="{{ MEDIA_URL }}js/tipsy-0.1.7/src/stylesheets/tipsy.css" />
+
+
+
+<h1>Introduction</h1>
+
+<div id="lab-introduction" class="rounded-border-shadow home-page-section" 
+    style="background-color: white;">
+    <p>
+        <img align="right" src="{{ MEDIA_URL }}images/new/network_64.png" 
+            style="float: left; padding-right: 15px; padding-bottom: 5px;" 
+            alt="ANT VLabs">
+        Research analysis manifests clear trends of growing interest of the 
+        Computer Science students towards e-learning. To keep this trend as well 
+         as the pace with the rapid advancement of software technologies, the
+        <strong>&quot;Advanced Network Technologies Virtual Lab&quot;</strong> 
+        has been developed. This lab exposes the students to various advanced 
+        topics including Wi-Fi, WiMAX, MANET, WSN, and encourages them to work 
+        on related problems in a partially constrained environment. Apart from 
+        providing detailed theory on each topic, each &quot;virtual&quot; 
+        experiment in the lab has a set of exercises to be solved using remote 
+        network simulations. Network Simulator 2 (NS-2) and Network Simulator 3 
+        (NS-3) have been used for this purpose.
+    </p>
+    <p style="margin-top: 10px;">
+        This virtual lab also offer benefits such as reduced software and 
+        hardware costs for setting up an actual advanced network technology lab, 
+        improved learning by interactive visualization, and self-learning 
+        advanced network technologies in the absence of a real-life instructor. 
+        Additionally, the students can learn at their own pace any time and from 
+        any place which has a PC with high speed Internet connectivity.
+    </p>    
+</div>
+
+
+<h1>Objectives</h1>
+
+<div id="lab-objectives" class="rounded-border-shadow home-page-section">
+    <p>
+        The Advanced Network Technologies Virtual Lab has been developed by 
+        keeping in mind the following objectives:
+    </p>
+    <ul>
+        <li>To impart state-of-the-art knowledge on advanced topics in Computer 
+            Networks in an interactive manner through the Web</li>
+        <li>Introduce the concept of network simulation to the students</li>        
+        <li>Involve students in analytical studies of Computer Networks through 
+            network simulation</li>        
+    </ul>
+    <p>
+        All the while it is intended to present Computer Networks as an 
+        interesting subject to the students where learning and fun can go 
+        alongside.
+    </p>
+</div>
+
+
+<h1>List of Experiments</h1>
+
+<div id="lab-experiments" class="rounded-border-shadow home-page-section">
+    <ol id="exp_list" style="">
+    {% for t in theory %}
+    <li style="" class="experiment" id="exp-{{ forloop.counter }}">
+        <!--a id="exp{{ forloop.counter }}" href="{% url theory t.id %}" original-title="{{ t.tooltip }}">{{ t.title }}</a-->
+        <a id="exp{{ forloop.counter }}" href="{% url introduction t.id %}" style="font-size: 1.1em;">{{ t.title }}</a>
+        <!--span class="show-hide show-hide-exp-outline">[Show]</span-->
+        <div class="experiment-outline">
+            {{ t.tooltip }}
+        </div>
+    </li>
+    {% endfor %}
+    </ol>
+</div>
+
+
+<h1>Target Audience</h1>
+
+<div id="lab-audience" class="rounded-border-shadow home-page-section">
+    <p>
+        This lab is suitable for undergraduate (3<sup>rd</sup> year or above) or 
+        postgraduate students having a course on advanced topics related to 
+        Computer Networks.
+    </p>
+</div>
+
+
+<h1>Relevant Courses</h1>
+
+<div id="lab-courses" class="rounded-border-shadow home-page-section">    
+    <p>
+        <span class="bold-block">Anna University</span>
+        Many universities in India, which offer UG/PG courses in CSE/IT, have a 
+        subject on advanced networks in their curriculum. Being an advanced 
+        level subject, there is a lack of consistency in the topical coverage 
+        across the curriculum followed in different universities on this 
+        subject. However, the set of experiments presented here match about 
+        around 50% of <em>Anna University</em>'s B. Tech. (IT) subject 
+        &quot;High Performance Networks&quot;. 
+
+        <span class="bold-block" style="margin-top: 15px;">Other Universities
+        </span>
+        Further, at least 70% of the experiments would help to reinforce the 
+        learning on different courses offered by many other universities, some 
+        of which are listed below.
+    </p>
+    <p>
+        <span class="bold-block" style="margin-top: 10px;">PG Courses</span>
+        <ul>
+            <li>M.Tech. (Networking) at <em>Visvesvaraya Technical 
+                University</em></li>
+            <li>M.Tech. (CSE, IT) at <em>Vellore Institute of 
+                Technology</em></li>
+        </ul>
+    </p>
+    <p>
+        <span class="bold-block" style="margin-top: 5px;">UG Courses</span>
+        <ul>
+            <li>B.Tech. (CSE) at <em>Jadavpur University</em></li>
+            <li>B.Tech. (CSE, IT) at <em>Rajasthan Technical 
+                University</em></li>
+            <li>B.Tech. (IT) at <em>West Bengal University of 
+                Technology</em></li>
+            <li>B.Tech. (CSE, ECE) at <em>Vellore Institute of 
+                Technology</em></li>
+        </ul>
+    </p>
+    
+</div>
+
+
+<h1>System Requirements</h1>
+
+<div id="system-requirements" class="rounded-border-shadow home-page-section">
+    <p>
+    You need a modern web browser with JavaScript enabled to access the complete 
+    set of features of <strong>Advanced Network Technologies Virtual 
+    Lab</strong>. In particular, this lab has been tested and found to work 
+    successfully with
+    
+    <ul>
+        <li>
+            <img src="{{ MEDIA_URL }}images/new/icons/browsers/firefox24x24.png">
+            Firefox 3.6, 5.0
+        </li>
+        <li style="margin-top: 3px;">
+            <img src="{{ MEDIA_URL }}images/new/icons/browsers/chrome24x24.png">
+            Google Chrome 13.0
+        </li>
+        <li style="margin-top: 3px;">
+            <img src="{{ MEDIA_URL }}images/new/icons/browsers/opera24x24.png">
+            Opera 11.0
+        </li>
+        <li style="margin-top: 3px;">
+            <img 
+            src="{{ MEDIA_URL }}images/new/icons/browsers/internet_explorer24x24.png">
+            Internet Explorer 7
+        </li>
+    </ul>   
+    </p>
+    <p>
+     Any higher version of the above mentioned four web browsers would also work 
+     fine. Moreover, any web browser using modern versions of Gecko, WebKit 
+     rendering engines should be able to display properly and access all the 
+     features.
+    </p>
+</div>
+
+{% endblock %}
+
+
+{% block includeScripts %}
+    <script type="text/javascript" 
+        src="{{ MEDIA_URL }}js/tipsy-0.1.7/src/javascripts/jquery.tipsy-min.js">
+    </script>    
+    <script type="text/javascript" language="JavaScript">
+        // (#20: #2)
+        //$(document).ready(function() {$('a[id^=exp]').tipsy({fade: true});});
+        $(document).ready(function() {
+            $('a[id^=exp]')
+            .mouseover(function() {
+               var li_id = $(this).parent().attr('id');
+               $('li#' + li_id + ' div.experiment-outline')
+               .css('color', '#454545');
+            })
+            .mouseout(function() {
+               var li_id = $(this).parent().attr('id');
+               $('li#' + li_id + ' div.experiment-outline')
+               .css('color', 'gray');
+            });
+            $('div.experiment-outline')
+            .mouseover(function() {
+                $(this).css('color', '#454545');
+            }).mouseout(function() {
+                $(this).css('color', 'gray');
+            });
+        });
+    </script>
+{% endblock %}

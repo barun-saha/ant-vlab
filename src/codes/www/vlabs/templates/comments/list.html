@@ -1,0 +1,43 @@
+{% load comments %}
+
+{% get_comment_count for theory as comment_count %}  
+<p class="commentPostLabel">{{ comment_count }} people have shared their thoughts on this topic</p>
+<p>&nbsp;</p>
+
+{% get_comment_list for ant.theory theory.id as comment_list %}
+
+<ul style="border: 0px solid red; padding-left: 20px;">
+
+{% for comment in comment_list %}
+<li class="comment-list-item" style="padding-bottom: 10px;" id="comment-{{ comment.id }}">
+    <div class="comment-number">
+        #{{ forloop.counter }} <br />        
+    </div>
+
+    <div class="comment-date">
+        <p class="comment-date-year">{{ comment.submit_date|date:"Y" }}</p>
+        <p class="comment-date-month">{{ comment.submit_date|date:"M" }}</p>
+        <p class="comment-date-day">{{ comment.submit_date|date:"d" }}</p>        
+    </div>
+
+            
+    {% load gravatar %}
+    {% show_gravatar comment.email 44 %}
+
+    <div class="comment-message-block">
+        <p>
+            <span class="comment-author">{{ comment.user_name|title }}</span>
+        </p>
+        <p class="comment-message"> {{ comment.comment }} </p>
+    </div>
+
+    <div style="display: block; padding-left: 10px;">
+        <a href="#comment-{{ comment.id }}" title="Permalink to this comment" class="permalink">[PermaLink]
+            <!--img src="{{ MEDIA_URL }}images/new/icons/gnome_insert_link_24x24.png"
+                 alt="Permalink to this comment" title="Permalink to this comment" /-->
+        </a>
+    </div>
+</li>
+{% endfor %}
+
+</ul>

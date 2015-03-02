@@ -1,0 +1,41 @@
+<p>
+    <strong>Note:</strong>
+    In cases where you've to enter multiple values (for example, listing the operators
+    from a code snippet), please separate them with a comma
+
+</p>
+<p>&nbsp;</p>
+
+<table class="techno" style="padding-left: 550px;">
+      <thead>
+          <tr>
+              <th>Variable</th>
+              <th>Value</th>             
+          </tr>
+      </thead>
+      <tbody>      
+      <script type="text/javascript" language="javascript">
+          var labels = new Array();
+          var solutions = new Array();
+
+          {% for label, value in entries %}
+              labels[{{ forloop.counter0 }}] = '{{ label }}'; solutions[{{ forloop.counter0 }}] = '{{ value }}';
+          {% endfor %}
+
+          for (var i = 0; i < labels.length; i++) {
+              var html = "<td><input type='text' id='txt" + i + "'/> </td></tr>";
+              $('#workspace tbody').append("<tr><td>" + labels[i] + "</td>" + html);
+          }
+          $('#workspace tbody').append("<tr><td colspan='2' align='center'><input type='button' value='Submit' id='btnSave' /></td></tr>");
+
+          // Submit button below the exercise won't be used here
+          $('#btnSubmit').attr('disabled', true);
+      </script>    
+      </tbody>
+  </table>
+
+<!-- Exercise specific JavaScript code -->
+<script type="text/javascript" language="javascript" src="{{ MEDIA_URL }}js/exercises/exercise_{{ object_id }}_{{ problem_id }}-min.js">
+<script type="text/javascript" language="javascript">
+
+</script>

@@ -1,0 +1,61 @@
+{% extends 'base2.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/workspace.css">
+
+<p>&nbsp;</p>
+
+<div id="contents" class="font-normal">
+    <div id="problem_id" class="centerAlign problemId"
+         style="border-bottom: 1px dotted silver; background-color: #f9fdff;">
+         Select <select name="ddlExercises" id="ddlExercises">
+            {% if exercise %}
+                {% for e in exercise %}
+                <option value="{{ e.id }}">{{ e.problem_id }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+
+    <div id="problem" class="" style="width: 100%;">
+        <div id="problem_statement" class="" style="padding-left: 10px; padding-right: 8px;"></div>
+
+        <div class="centerAlign" style="padding: 10px;">
+            <!--input type="submit" value="Submit" id="btnSubmit" /-->
+        </div>
+    </div>
+
+
+    <div id="workspace" style="border-top: 1px dotted silver; padding-top: 10px; margin-top: 5px; padding-left: 10px; padding-right: 8px;">
+        {% csrf_token %}
+        {{ workspace }}
+    </div>
+
+    <div id="result_header" class="clear" style="border-top: 1px dotted silver;">
+        <h2 id="title">Result</h2>
+    </div>
+    <div id="result_display" class="clear" style="padding-left: 20px;">
+    </div>
+
+    <div class='centerAlign'>
+        <button type="button" id='viewSolution' class="button-icon">
+          <img src="{{ MEDIA_URL }}images/new/icons/workspace/gnome_mime_application_vnd_lotus_1_2_3_24x24.png"
+               class="button-clear" alt="View Solution">
+          View Solution
+      </button>
+    </div>
+
+    <input type="hidden" id="hObjId" value="{{ object_id }}">
+    <input type="hidden" id="xerciseId" value="{{ exercise.problem_id }}">    
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/_django/dutils-min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/_django/dutils.conf.urls-min.js"></script>
+    
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/exercises_ant-min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js"></script>
+    <script language="Javascript" type="text/javascript" src="{{ MEDIA_URL }}lib/editarea_0_8_2/edit_area/edit_area_full.js"></script>
+</div>
+{% endblock %}

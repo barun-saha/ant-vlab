@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+    <title>Advanced Network Technologies Virtual Labs - IIT Kharagpur</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="Virtual Lab, VLabs, Advanced Network Technologies, ns2, ns3, Python, Django">
+    <link rel="shortcut icon" type="image/png" href="{{ MEDIA_URL }}images/folder_labs_32.png">
+
+    <link href="{{ MEDIA_URL }}css/isad.css" rel="stylesheet" type="text/css">
+    <link href="{{ MEDIA_URL }}css/default.css" rel="stylesheet" type="text/css">
+    <!--link href="{{ MEDIA_URL }}css/custom.css" rel="stylesheet" type="text/css" /-->
+
+    <!--style type="text/css">@import "css/flexnav.css";</style-->
+    <!--script type="text/javascript" src="js/beethoven-min.js"></script-->
+
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}ddtabmenufiles/glowtabs.css">
+
+    <!--[if IE]>
+    <style type="text/css">
+    .glowingtabs{
+        float: left;
+        width: 90%;
+        line-height: normal;
+        border-bottom: 2px solid #7e9fff; /*Add border strip to bottom of menu*/
+        margin-bottom: 5px;
+    }
+    </style>
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}lib/SyntaxHighlighter/styles/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}lib/SyntaxHighlighter/styles/shThemeDefault.css"/>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47707640-2', 'virtual-labs.ac.in');
+  ga('send', 'pageview');
+
+</script>
+
+
+</head>
+
+
+<body bgcolor="#FFFFFF">
+
+<div id="header_main">
+    <img src="{{ MEDIA_URL }}images/iit_kgp_80.png" align="right" class="iitLogo" />
+</div>
+<div id="no_print"></div>
+
+<!-- Header -->
+<div id="header">
+    <ul id="menuTop">
+        <li><a href="{% url index_page %}" target="_self">Home</a></li>
+        <li><a href="{% url about_us %}" target="_self">Credits</a></li>
+        <li><a href="http://virtual-labs.ac.in/feedback/" target="_blank">
+            Feedback</a></li>
+        <li><a href="http://virtual-labs.ac.in/cse08/">Software Engineering Virtual Lab</a></li>
+        <li><a href="http://vlab.co.in/">Virtual Labs</a></li>
+    </ul>
+</div>
+
+<div style="text-align: left; position: relative; margin:auto; width: 1024px; background-color: #e3f2fc;">
+    <span class="title" style="padding-left: 22px; display: inline;">{% block title %}Virtual Labs{% endblock %}</span>
+    <!-- AddThis -->
+    <div class="addthis_toolbox addthis_default_style" 
+        style="float: right; padding-right: 25px; display: inline; vertical-align: middle;">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_4"></a>
+        <a class="addthis_button_compact"></a>
+        <a class="addthis_counter addthis_bubble_style"></a>
+    </div>    
+    <!-- AddThis -->
+</div>
+<div id="no_print"></div>
+
+<div id="contentBoxBack">
+    <!-- Tabs -->
+    <div id="contentBox">
+        <br>
+        <div id="ddtabs2" class="glowingtabs">
+            <ul>
+                <li><a href="{% url introduction object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/flag.png">Introduction</center></span></a></li>
+                <li><a href="{% url theory object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/theory.jpg">Theory</center></span></a></li>
+                <li><a href="{% url simulation object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/sim.jpg">Simulation</center></span></a></li>
+                <li><a href="{% url self_evaluation object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/eval.jpg">Self-evaluation</center></span></a></li>
+                <li><a href="{% url procedure object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/procedure.jpg">Procedure</center></span></a></li>
+                <li><a href="{% url exercise object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/kivio.png">Exercises</center></span></a></li>
+                <li><a href="{% url references object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/library.png">References</center></span></a></li>
+            </ul>
+            
+        </div>
+
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-min.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/common-min.js"></script>
+
+        <div class="entry">
+
+            <!-- Actual content from here -->
+            {% block content %}{% endblock %}
+
+        </div>
+
+        <div class="icons-toolbar">
+                <img src="{{ MEDIA_URL }}images/new/icons/page_toolbar/format_font_size_less_32x32_blue.png"
+                     alt="Decrease font size" title="Decrease font size" class="decrease-font-size" style="display: block;">
+                <img src="{{ MEDIA_URL }}images/new/icons/page_toolbar/format_font_size_more_32x32_blue.png"
+                     alt="Increase font size" title="Increase font size" class="increase-font-size" style="padding: 0; display: block;">                
+                <img src="{{ MEDIA_URL }}images/new/icons/page_toolbar/blue_experiment32.png" 
+                    alt="List of experiments" title="List of experiments" class="experiments">                          
+        </div> 
+
+    </div>
+
+</div>
+
+<div class="experiment-list-popup" style="display: none;"><ol><li><a href="/ant/ant/1/">Basics of Network Simulation</a></li><li><a href="/ant/ant/2/">Simulating a Local Area Network</a></li><li><a href="/ant/ant/3/">Measuring Network Performance</a></li><li><a href="/ant/ant/4/">Simulation of a Satellite Network</a></li><li><a href="/ant/ant/5/">Simulating a WiFi Network</a></li><li><a href="/ant/ant/6/">Simulating a WiMax Network</a></li><li><a href="/ant/ant/7/">Simulating a Mobile Adhoc Network</a></li><li><a href="/ant/ant/8/">Simulating a Wireless Sensor Network</a></li><li><a href="/ant/ant/9/">Setting up a Bluetooth Network</a></li><li><a href="/ant/ant/10/">Setting up a ZigBee Network and studying a few protocols</a></li></ol></div>
+
+
+<div  id="top_arrow" class="topArrow">
+    <img src="{{ MEDIA_URL }}images/arrow_up2.png" alt="Top"  align="right">
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <img src="{{ MEDIA_URL }}images/new/footer-curve.jpg" width="1024" height="31" alt="">
+    <div class="tos">
+        <a href="http://virtual-labs.ac.in/nmeict/" target="_blank" class="tos">Sponsored by MHRD (NME-ICT)</a>
+        <span class="tos">&nbsp; | &nbsp; </span>
+        <a href="http://virtual-labs.ac.in/licensing/" target="_blank" class="tos">Licensing Terms</a>
+    </div>
+    <div class="copyright">Copyright &copy; 2010-2013 IIT Kharagpur</div>
+    <br>
+</div>
+
+<script type="text/javascript" src="{{ MEDIA_URL }}ddtabmenufiles/ddtabmenu.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/center-plugin_1.0.1.js"></script>
+
+<!-- For syntax highlighting -->
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/SyntaxHighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/SyntaxHighlighter/scripts/shBrushBash.js"></script>        
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+
+<!-- AddThis -->
+<script type="text/javascript" defer 
+src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4ecfdbed4593f1f7">
+</script>
+
+
+</body>
+</html>

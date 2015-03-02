@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <style type="text/css">
+        div#ns2-code {
+            overflow: auto;
+        }
+        div.grippie {
+            background: #EEEEEE url({{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/grippie.png) no-repeat scroll center 2px;
+            border-color: #DDDDDD;
+            border-style: solid;
+            border-width: 0pt 1px 1px;
+            cursor: s-resize;
+            height: 9px;
+            overflow: hidden;
+            width: 99.9%;
+        }
+        .resizable-textarea textarea {
+            display: block;
+            margin-bottom: 0pt;
+            width: 95%;
+            height: 20%;
+        }
+    </style>
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common-min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js"></script>
+
+    <script language="Javascript" type="text/javascript" src="{{ MEDIA_URL }}lib/editarea_0_8_2/edit_area/edit_area_full.js"></script>
+    <script language="Javascript" type="text/javascript">
+        $(document).ready(function() {
+            $('textarea.resizable:not(.processed)').TextAreaResizer();
+            
+            // initialisation
+            editAreaLoader.init({
+                id: "ns2code"	// id of the textarea to transform
+                ,start_highlight: true	// if start with highlight
+                ,allow_resize: "both"
+                ,allow_toggle: false
+                ,word_wrap: true
+                ,language: "en"
+                ,syntax: "php"
+                ,replace_tab_by_spaces: 4
+            });
+            
+            
+            $('div.ns2-form input#reset').click(function(event) {
+                $('div.ns2-code-output').text('');
+                $('div.ns2-code-trace').text('');
+            });
+
+            $('div.ns2-form form').submit(function(event) {
+               event.preventDefault();
+
+               $('div.ns2-code-output').text('');
+               $('div.ns2-code-trace').text('');
+
+               var contents = {'ns2code': editAreaLoader.getValue('ns2code')}; //$('div.ns2-form form').serialize();   // editAreaLoader.getValue('ns2code');
+               $('div.ns2-code-output').text(contents);   // .replace(/\n/g, '<br />')
+
+               var ajax_loading = "<img src='{{ MEDIA_URL }}images/ajax/ajax_loader.gif' alt='Loading ...' style='width: auto; height: auto; border: 0; margin: 0; padding-left: 44.5%; padding-right: 44.5%; padding-top: 25px; padding-bottom: 25px;' />"
+               $('div.ns2-code-output').html(ajax_loading);
+               $('textarea.ns2-code-trace').html(ajax_loading);
+
+               // Use AJAX to post the comment.
+                $.ajax({
+                    type: 'POST',
+                    url: '/ant/ns2_test_submit/',
+                    data: contents,
+                    cache: false,
+                    success: function(mesg, textStatus, XMLHttpRequest) {
+                        //$('div.ns2-code-output').html(mesg.replace(/\n/g, '<br />'));
+                        resultObj = $.parseJSON(mesg);
+                        $('div.ns2-code-output').html(resultObj['mesg'].replace(/\n/g, '<br />'));
+                        //$('div.ns2-code-trace').html('<pre>'+resultObj['trace'].replace(/\n/g, '<br />')+'</pre>')
+                        $('textarea.ns2-code-trace').text(resultObj['trace']);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $('div.ns2-code-output').html('Error: ' + textStatus + '; ' +  errorThrown + '; ' +  XMLHttpRequest.responseText);
+                    },
+                    dataType: 'html'
+                });
+                return false;
+            });
+
+            $('#expand').click(function(event) {
+               event.preventDefault();
+               if ($('#expand').attr('src') == '{{ MEDIA_URL }}images/new/ant/sort_up_24.png') {
+                    $('div#traceVisible').css('visibility', 'hidden');                    
+                    $('#expand').attr('src', '{{ MEDIA_URL }}images/new/ant/sort_down_24.png');
+                    $('textarea.ns2-code-trace').css('height', '0px');
+               } else {
+                   $('div#traceVisible').css('visibility', 'visible');
+                   $('#expand').attr('src', '{{ MEDIA_URL }}images/new/ant/sort_up_24.png');
+                   $('textarea.ns2-code-trace').css('height', '250px');                                      
+               }
+               
+            });
+        });
+    </script>
+
+  </head>
+
+  <body>
+      <div class="ns2-form">
+          <form action="/ant/ns2_test_submit/" method="post">
+              {% csrf_token %}
+              <div class="ns2-code">
+                  <textarea id="ns2code" style="height: 472px; width: 98%;" name="ns2code">
+# Create a simulator object
+set ns [new Simulator]
+
+# Open tracefile
+set tracefile [open out.tr w]
+$ns trace-all $tracefile</textarea>
+                  
+              </div>
+              <div class="ns2-code-submit">
+                  <input type="reset" value="Clear" id="reset" />
+                  <input type="submit" value="Submit" />
+              </div>
+
+              <h3>Output</h3>
+              <div class="ns2-code-output" style="height: 30x; width: 97%; background-color: #F0F0F0; border: 1px ridge #0E8DE0; padding: 5px;">
+              </div>
+
+              <h3>Contents of Trace File</h3>
+              <div class="ns2-code-trace-block" style="background-color: #F0F0F0; border: 1px ridge #0E8DE0; padding: 2px; display: block; height: auto; width: 97.4%;">
+                  <div style="clear: both; width: 100%; text-align: right;">
+                      <img src="{{ MEDIA_URL }}images/new/ant/sort_down_24.png" style="text-align: right; width: 24px; height: 17px;" id="expand" />
+                  </div>
+                  <div style="display: block; visibility: hidden;" id="traceVisible">
+                    <textarea class="ns2-code-trace resizable" style="height: 0px; width: 100%; overflow: auto; border: 1px solid silver; border-bottom-width: 2px; padding: 3px; margin-top: 10px;"></textarea>
+                  </div>
+              </div>
+
+              <h3>Contents of NAM Trace File</h3>
+              <div class="ns2-code-namtrace" style="height: 350px; width: 97%; overflow: auto; border: 1px solid silver; padding: 5px;">
+              </div>
+          </form>
+      </div>
+  </body>
+</html>

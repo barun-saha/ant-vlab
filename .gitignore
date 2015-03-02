@@ -1,0 +1,21 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*~
+
+# Files containing private information
+credentials.py
+secret.txt
+
+# Results
+media/vlabs/*
+
+# pip logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Version control files
+*.rej
+
+# SQL files
+*.sql
