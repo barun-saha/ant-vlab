@@ -1,5 +1,5 @@
 #
-# Dummy credentials for RabbitMQ setup
+# Dummy credentials for RabbitMQ setup -- Please change the values
 #
 
 R_USER_ID=ruser
