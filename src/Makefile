@@ -20,6 +20,7 @@ install:
 	$(MAKE) install_packages
 	#$(MAKE) deploy
 	$(MAKE) install_ns2
+	$(MAKE) install_ns3
 
 deploy:
 	echo '*** Executing make deploy' >> $(LOG_FILE)
@@ -98,6 +99,10 @@ install_ns2:
 #	export LD_LIBRARY_PATH=$(shell echo $(LD_LIBRARY_PATH)):/root
 #	echo $$TEST
 	#$(shell echo $(LD_LIBRARY_PATH))
+
+install_ns3:
+	echo '*** Executing make: installing ns3' >> $(LOG_FILE)
+	bash ../scripts/install_ns3.sh
 
 upgrade:
 	sudo -E apt-get update

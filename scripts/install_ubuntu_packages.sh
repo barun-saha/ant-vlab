@@ -30,3 +30,34 @@ sudo -E apt-get -y install libx11-6 libx11-data libx11-dev libxmu-dev libxmu-hea
 sudo -E apt-get -y install --fix-missing
 #sudo apt-get -y install libboost-python-dev libboost-python1.40-dev libboost-python1.40.0 libgcc1 libgv-python
 #sudo -E apt-get -y install --fix-missing
+
+# Installation of individual packages for NS3
+
+sudo -E apt-get -y install python-dev
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install python-pygccxml
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install mpic++
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install libgtk2.0-0 libgtk2.0-dev
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install libxml2 libxml2-dev
+sudo -E apt-get -y install --fix-missing
+#sudo -E apt-get -y install doxygen graphviz imagemagick
+#sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install libsqlite3-dev
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install libcr-dev mpich2 mpich2-doc
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install libcr-dev gtk+-2.0
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install libgsl0ldbl
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install gsl-bin libgsl0-dev
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install gtk+-2.0
+sudo -E apt-get -y install --fix-missing
+sudo -E apt-get -y install python-dev pkg-config valgrind
+sudo -E apt-get -y install --fix-missing
+
+
