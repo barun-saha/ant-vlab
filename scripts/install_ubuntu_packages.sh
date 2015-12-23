@@ -14,6 +14,11 @@ source ../scripts/common.sh
 
 log 'Installing necessary Ubuntu packages'
 
+sudo -E apt-get -y install libapache2-mod-wsgi
+
+# Enable WSGIScriptAlias for Apache2
+sudo a2enmod wsgi
+
 # Installation of individual packages for NS2
 
 sudo -E apt-get -y install build-essential
@@ -60,4 +65,8 @@ sudo -E apt-get -y install --fix-missing
 sudo -E apt-get -y install python-dev pkg-config valgrind
 sudo -E apt-get -y install --fix-missing
 
+# Installation of individual packages for Erlang
+
+sudo -E apt-get -y install build-essential libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev
+sudo -E apt-get -y install --fix-missing
 

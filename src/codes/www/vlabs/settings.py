@@ -1,4 +1,17 @@
-# Django settings for the Advanced Network Technologies Virtual Lab (cse28)
+# Django settings for the Advanced Networking Virtual Lab
+
+ANT_PATH = '/home/barun/codes/www/vlabs'
+SECRET_KEY_PATH = '/'.join([ANT_PATH, 'secret.txt',])
+CREDENTIALS_PATH = '/'.join([ANT_PATH, 'credentials.py',])
+
+
+from utils import generate_secret_key as GS
+from utils import generate_credentials as GC
+
+# Create the secret key and credentials file at target locations
+GS.generate_secret(SECRET_KEY_PATH)
+GC.generate_credentials(SECRET_KEY_PATH, CREDENTIALS_PATH)
+
 
 from credentials import *
 
@@ -32,12 +45,15 @@ CELERY_AMQP_TASK_RESULT_EXPIRES = 18000  # Task queue expires after 5 hours
 CELERY_SEND_EVENTS = True
 ###
 
-BROKER_HOST = app_credentials['broker_host']
-BROKER_PORT = app_credentials['broker_port']
-BROKER_USER = app_credentials['broker_user']
-BROKER_PASSWORD = app_credentials['broker_password']
-BROKER_VHOST = app_credentials['broker_vhost']
-
+RABBITMQ = {
+    'default': {
+        'BROKER_HOST': app_credentials['broker_host'],
+        'BROKER_PORT': app_credentials['broker_port'],
+        'BROKER_USER': app_credentials['broker_user'],
+        'BROKER_PASSWORD': app_credentials['broker_password'],
+        'BROKER_VHOST': app_credentials['broker_vhost']
+    }
+}
 
 ADMINS = (
     ('Barun Saha', 'barun<DOT>saha04<AT>gmail<DOT>com'),
@@ -53,12 +69,11 @@ DATABASES = {
         'PASSWORD': app_credentials['db_password'],
         'HOST': app_credentials['db_host'],
         'PORT': app_credentials['db_port'],
-		'OPTIONS': {
-			'init_command': 'SET storage_engine=INNODB'
-		},
+        'OPTIONS': {
+            'init_command': 'SET storage_engine=INNODB'
+        },
     }
 }
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -134,7 +149,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
     'vlabs.ant',

@@ -1,5 +1,5 @@
 HOME_PATH=/home/barun
-SE_PATH=$(HOME_PATH)/codes/python/django/nb/ISAD/src/vlabs
+ANT_PATH=$(HOME_PATH)/codes/www/vlabs
 LOG_FILE=ant.log
 CURRENT_DIR=$(shell pwd)
 LS_CURRENT_DIR=$(shell ls)
@@ -14,11 +14,12 @@ APT_CONF_FILE=/etc/apt/apt.conf
 #export TEST:="Something Good!"
 
 install:
-	echo '' > $(LOG_FILE)
+	echo '' > $(LOG_FILE);
 	echo '*** Executing make install' >> $(LOG_FILE)
-	#$(MAKE) init
+	$(MAKE) init
 	$(MAKE) install_packages
-	#$(MAKE) deploy
+	$(MAKE) install_rabbitmq
+	$(MAKE) install_celery
 	$(MAKE) install_ns2
 	$(MAKE) install_ns3
 
@@ -33,17 +34,27 @@ deploy:
 	# Set ownership of files
 	chown -R barun:www-data $(HOME_PATH)/codes
 	# Apache needs write permission on vlabs/ to generate two files
-	chmod g+w $(SE_PATH)
+	chmod g+w $(ANT_PATH)
 	
 	echo "Copying Apache configuration file" >> $(LOG_FILE)
 	cp conf/httpd.conf /etc/apache2/
 	
 	echo "Moving other configuration files" >> $(LOG_FILE)
 	cp -r conf/www /usr/local/
+	cp -r _wimax_ref_ /var/vlabs/ant
+	
+	echo "Creating symlinks" >> $(LOG_FILE)
+	ln -sf /var/vlabs $(ANT_PATH)/media/vlabs
+	ln -sf /usr/bin/gcc-4.4 /usr/bin/gcc
+	ln -sf /usr/bin/g++-4.4 /usr/bin/g++
 
 init: repo bash
-	echo "Executing make init" >> $(LOG_FILE)
+	echo "*** Executing make: init" >> $(LOG_FILE)
 	bash ../scripts/configure.sh
+	echo "*** Executing make: deploy" >> $(LOG_FILE)
+	$(MAKE) deploy
+	echo "Invoking script for creating database" >> $(LOG_FILE)
+	bash ../scripts/init_database.sh
 
 repo:
 	echo '' >> $(LOG_FILE)
@@ -51,7 +62,7 @@ repo:
 	echo 'Current directory is: ' $(CURRENT_DIR) >> $(LOG_FILE)
 	echo 'Contents of current directory: ' $(LS_CURRENT_DIR) >> $(LOG_FILE)
 	
-	echo "*** Executing make repo" >> $(LOG_FILE)
+	echo "*** Executing make: repo" >> $(LOG_FILE)
 	# Explicitly setting repositories here since the default repos resulted 
 	# in installation failure of some software
 	sudo echo '###### Ubuntu Main Repos' > $(APT_SRC_FILE)
@@ -91,10 +102,18 @@ install_ubuntu_packages:
 	echo "*** Executing make: installing Ubuntu packages" >> $(LOG_FILE)
 	bash ../scripts/install_ubuntu_packages.sh
 
+install_rabbitmq:
+	echo '*** Executing make: installing rabbitmq' >> $(LOG_FILE)
+	bash ../scripts/install_rabbitmq.sh
+
+install_celery:
+	echo '*** Executing make: installing celery' >> $(LOG_FILE)
+	bash ../scripts/install_celery.sh
+
 install_ns2:
 	echo '*** Executing make: installing ns2' >> $(LOG_FILE)
 	bash ../scripts/install_ns2.sh
-	bash ~/.bashrc
+	#bash ~/.bashrc
 	#$(shell export LD_LIBRARY_PATH=$(shell echo $(LD_LIBRARY_PATH)):/root)
 #	export LD_LIBRARY_PATH=$(shell echo $(LD_LIBRARY_PATH)):/root
 #	echo $$TEST

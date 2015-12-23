@@ -28,26 +28,27 @@ import stat
 import sys
 
 
-secret = "".join(
-	[random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") \
-		for i in range(50)]
-)
+def generate_secret(output_file):
+	secret = "".join(
+		[random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") \
+			for i in range(50)]
+	)
 
 #print secret
 
-file_name = 'secret.txt'
+	file_name = 'secret.txt'
 
-try:
-	
-	#with open(file_name, 'w') as sfile:
-	open(file_name, 'w').write(secret)
-	
-	# Read-only by owner and group
-	os.chmod(file_name, stat.S_IRUSR | stat.S_IRGRP)
-	
-except IOError, ioe:
-	print ioe
-	sys.exit(1)
+	try:
+		
+		#with open(file_name, 'w') as sfile:
+		open(file_name, 'w').write(secret)
+		
+		# Read-only by owner and group
+		os.chmod(file_name, stat.S_IRUSR | stat.S_IRGRP)
+		
+	except IOError, ioe:
+		print ioe
+		sys.exit(1)
 
 
 
