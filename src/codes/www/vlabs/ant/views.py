@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from vlabs.ant.models import *
+from ant.models import *
 from django.conf import settings
 from django.template.loader import render_to_string
 import subprocess as sp
@@ -20,7 +20,7 @@ from django.forms.models import modelformset_factory
 #from recaptcha.client import captcha
 
 # (Rev #32: #1)
-from vlabs.ant import tasks
+from . import tasks
 import celery
 
 import sys

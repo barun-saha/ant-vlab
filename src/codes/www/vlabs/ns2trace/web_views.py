@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 
-from vlabs.ns2trace.trace_analyzer import TraceAnalyzer
+from ns2trace.trace_analyzer import TraceAnalyzer
 import common_fields as cf
 
 from django.conf import settings

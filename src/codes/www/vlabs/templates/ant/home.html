@@ -67,8 +67,8 @@
     <ol id="exp_list" style="">
     {% for t in theory %}
     <li style="" class="experiment" id="exp-{{ forloop.counter }}">
-        <!--a id="exp{{ forloop.counter }}" href="{% url theory t.id %}" original-title="{{ t.tooltip }}">{{ t.title }}</a-->
-        <a id="exp{{ forloop.counter }}" href="{% url introduction t.id %}" style="font-size: 1.1em;">{{ t.title }}</a>
+        <!--a id="exp{{ forloop.counter }}" href="{% url 'theory' t.id %}" original-title="{{ t.tooltip }}">{{ t.title }}</a-->
+        <a id="exp{{ forloop.counter }}" href="{% url 'introduction' t.id %}" style="font-size: 1.1em;">{{ t.title }}</a>
         <!--span class="show-hide show-hide-exp-outline">[Show]</span-->
         <div class="experiment-outline">
             {{ t.tooltip }}

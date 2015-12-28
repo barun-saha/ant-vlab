@@ -30,8 +30,21 @@ CUR_PATH=$(pwd)
 
 export HOME_PATH=/home/"$USER"
 export ANT_PATH=$HOME_PATH/codes/www/vlabs
+APACHE_DEFAULT_FILE=/etc/apache2/sites-available/default
+APACHE_DEFAULT_SSL_FILE=/etc/apache2/sites-available/default-ssl
 
 # Directories where intermediate files would be created
 log 'Creating directories'
 mkdir -p /var/vlabs/ant/ns3
 chown -R www-data /var/vlabs
+
+# Copying Apache configuration files
+log ' 3. Copying Apache configuration file'
+echo '' > /etc/apache2/httpd.conf
+
+# Remove the default configuration files
+[ -f "$APACHE_DEFAULT_FILE" ] && rm "$APACHE_DEFAULT_FILE"
+[ -f "$APACHE_DEFAULT_SSL_FILE" ] && rm "$APACHE_DEFAULT_SSL_FILE"
+cp conf/default "$APACHE_DEFAULT_FILE"
+
+apache2ctl restart

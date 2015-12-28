@@ -36,9 +36,6 @@ deploy:
 	# Apache needs write permission on vlabs/ to generate two files
 	chmod g+w $(ANT_PATH)
 	
-	echo "Copying Apache configuration file" >> $(LOG_FILE)
-	cp conf/httpd.conf /etc/apache2/
-	
 	echo "Moving other configuration files" >> $(LOG_FILE)
 	cp -r conf/www /usr/local/
 	cp -r _wimax_ref_ /var/vlabs/ant

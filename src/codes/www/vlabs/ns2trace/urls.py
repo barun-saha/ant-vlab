@@ -4,11 +4,11 @@ __author__= "barun"
 __date__  = "$24 May, 2011 5:04:01 PM$"
 
 
-from django.conf.urls.defaults import patterns
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns
+from django.conf.urls import *
 
 
-urlpatterns = patterns('vlabs.ns2trace.web_views',
+urlpatterns = patterns('ns2trace.web_views',
     url(r'^(?P<sim_mode>[a-zA-Z]+?)/$',             'initialize',           name='trace_initialize',),
     url(r'^general_stats/$',                        'general_stats',        name='trace_gen_stats',),
     url(r'^avg_thruput/(?P<node_id>\d+)/$',           'avg_thruput',        name='trace_avg_thruput',),

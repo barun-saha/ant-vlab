@@ -1,9 +1,9 @@
-from django.conf.urls.defaults import patterns
-from django.conf.urls.defaults import *
-from vlabs.ant.models import *
+from django.conf.urls import patterns
+from django.conf.urls import *
+from ant.models import *
 from django.conf import settings
 
-urlpatterns = patterns('vlabs.ant.views',
+urlpatterns = patterns('ant.views',
     url(r'^$',                                 'index',                 name='index_page'),
     url(r'^(?P<object_id>\d+)/$',              'introduction',          name='introduction'),
     url(r'^(?P<object_id>\d+)/theory/$',       'theory',                name='theory'),
@@ -34,7 +34,7 @@ urlpatterns = patterns('vlabs.ant.views',
 ###)
 
 # Ajax based request URLs
-urlpatterns += patterns('vlabs.ant.views',
+urlpatterns += patterns('ant.views',
     url(r'^load_exercise/(?P<exercise_id>\d+)/$',    'get_exercise_problem',     name='get_problem',),
     url(r'^load_workspace/(?P<exercise_id>\d+)/(?P<object_id>\d+)/(?P<problem_id>\d+)/$',   'get_exercise_workspace', name='get_workspace',),
     #url(r'^wireit/$',                               'wireit',),
@@ -47,7 +47,7 @@ urlpatterns += patterns('vlabs.ant.views',
 )
 
 # Celery related
-urlpatterns += patterns('vlabs.ant.celery_helper',            
+urlpatterns += patterns('ant.celery_helper',            
 #    url(r'^cel/state/(?P<uuid>[a-z0-9\-]+)/$',                  'task_state',   name='task_state',),
     url(r'^cel/result/(?P<uuid>[a-z0-9\-]+)/$',                  'task_result', name='task_result',),
 )
@@ -59,7 +59,7 @@ urlpatterns += patterns('djcelery.views',
 if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^v_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-        url(r'^xhr_test$',  'vlabs.ant.views.xhr_test'),
-        url(r'^ajax/$',     'vlabs.ant.views.ajax_test'),
-        url(r'^url_test/$',     'vlabs.ant.views.url_test'),
+        url(r'^xhr_test$',  'ant.views.xhr_test'),
+        url(r'^ajax/$',     'ant.views.ajax_test'),
+        url(r'^url_test/$',     'ant.views.url_test'),
     )

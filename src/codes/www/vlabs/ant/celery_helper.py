@@ -4,7 +4,7 @@ date__  = "$3 Sep, 2011 11:38:54 PM$"
 # (Rev #32: #1)
 
 from django.http import HttpResponse, HttpResponseRedirect
-from vlabs.ant import tasks
+from ant import tasks
 import celery
 import json
 

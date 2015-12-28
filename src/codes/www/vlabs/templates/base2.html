@@ -56,8 +56,8 @@
 <!-- Header -->
 <div id="header">
     <ul id="menuTop">
-        <li><a href="{% url index_page %}" target="_self">Home</a></li>
-        <li><a href="{% url about_us %}" target="_self">Credits</a></li>
+        <li><a href="{% url 'index_page' %}" target="_self">Home</a></li>
+        <li><a href="{% url 'about_us' %}" target="_self">Credits</a></li>
         <li><a href="http://virtual-labs.ac.in/feedback/" target="_blank">
             Feedback</a></li>
         <li><a href="http://virtual-labs.ac.in/cse08/">Software Engineering Virtual Lab</a></li>
@@ -87,13 +87,13 @@
         <br>
         <div id="ddtabs2" class="glowingtabs">
             <ul>
-                <li><a href="{% url introduction object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/flag.png">Introduction</center></span></a></li>
-                <li><a href="{% url theory object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/theory.jpg">Theory</center></span></a></li>
-                <li><a href="{% url simulation object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/sim.jpg">Simulation</center></span></a></li>
-                <li><a href="{% url self_evaluation object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/eval.jpg">Self-evaluation</center></span></a></li>
-                <li><a href="{% url procedure object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/procedure.jpg">Procedure</center></span></a></li>
-                <li><a href="{% url exercise object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/kivio.png">Exercises</center></span></a></li>
-                <li><a href="{% url references object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/library.png">References</center></span></a></li>
+                <li><a href="{% url 'introduction' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/flag.png">Introduction</center></span></a></li>
+                <li><a href="{% url 'theory' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/theory.jpg">Theory</center></span></a></li>
+                <li><a href="{% url 'simulation' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/sim.jpg">Simulation</center></span></a></li>
+                <li><a href="{% url 'self_evaluation' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/eval.jpg">Self-evaluation</center></span></a></li>
+                <li><a href="{% url 'procedure' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/procedure.jpg">Procedure</center></span></a></li>
+                <li><a href="{% url 'exercise' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/kivio.png">Exercises</center></span></a></li>
+                <li><a href="{% url 'references' object_id %}"><span><center><img src="{{ MEDIA_URL }}images/new/sections/library.png">References</center></span></a></li>
             </ul>
             
         </div>

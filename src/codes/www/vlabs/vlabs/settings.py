@@ -45,15 +45,11 @@ CELERY_AMQP_TASK_RESULT_EXPIRES = 18000  # Task queue expires after 5 hours
 CELERY_SEND_EVENTS = True
 ###
 
-RABBITMQ = {
-    'default': {
-        'BROKER_HOST': app_credentials['broker_host'],
-        'BROKER_PORT': app_credentials['broker_port'],
-        'BROKER_USER': app_credentials['broker_user'],
-        'BROKER_PASSWORD': app_credentials['broker_password'],
-        'BROKER_VHOST': app_credentials['broker_vhost']
-    }
-}
+BROKER_HOST = app_credentials['broker_host']
+BROKER_PORT = app_credentials['broker_port']
+BROKER_USER = app_credentials['broker_user']
+BROKER_PASSWORD = app_credentials['broker_password']
+BROKER_VHOST = app_credentials['broker_vhost']
 
 ADMINS = (
     ('Barun Saha', 'barun<DOT>saha04<AT>gmail<DOT>com'),
@@ -74,6 +70,10 @@ DATABASES = {
         },
     }
 }
+
+
+SECRET_KEY = app_credentials['secret_key']
+#SECRET_KEY = '*nx6_(1-tqrplw-omsbt8sl&ualjvn)i5rdpsa%yy(ey5ovvr4'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -103,6 +103,7 @@ USE_L10N = True
 
 # Path where the code is placed -- Barun
 SITE_BASE_PATH = '/home/barun/codes/www/vlabs/'
+#SITE_BASE_PATH = '/home/soumen/Gittest/ant-vlab/src/codes/www/vlabs/'
 
 # Prod
 MEDIA_ROOT = SITE_BASE_PATH + 'media/'
@@ -134,7 +135,27 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',    
 )
 
+import os
+
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 ROOT_URLCONF = 'vlabs.urls'
+
+#TEMPLATES = [
+#    {
+#        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+#        'APP_DIRS': True,
+#        'OPTIONS': {
+#            'context_processors': [
+#                'django.template.context_processors.debug',
+#                'django.template.context_processors.request',
+#                'django.contrib.auth.context_processors.auth',
+#                'django.contrib.messages.context_processors.messages',
+#            ],
+#        },
+#    },
+#]
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -145,6 +166,8 @@ TEMPLATE_DIRS = (
     SITE_BASE_PATH + 'templates',
 )
 
+ALLOWED_HOSTS = []
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,11 +175,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'vlabs.ant',
-    'vlabs.ns2trace',
-    'django.contrib.comments',
+    'ant',
+    'ns2trace',
+    #'django.contrib.comments',
     #'ajaxcomments',
-    'vlabs.ant.templatetags',
+    'ant.templatetags',
     # Change #21, #2
     #'threadedcomments',
     # Change #32,
@@ -179,5 +202,5 @@ SESSION_SAVE_EVERY_REQUEST = True
 #else:
     #from settings_env.development import *
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG

@@ -1,4 +1,4 @@
-from vlabs.ant.models import *
+from ant.models import *
 from django.core.context_processors import request
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings

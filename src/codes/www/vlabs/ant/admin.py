@@ -1,4 +1,4 @@
-from vlabs.ant.models import *
+from .models import *
 from django.contrib import admin
 
 class TheoryAdmin(admin.ModelAdmin):

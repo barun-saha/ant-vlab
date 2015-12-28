@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+    ServerAdmin barun<DOT>saha04<AT>gmail<DOT>com
+
+    Alias /ant_static/ /home/barun/codes/www/vlabs/static_media/
+
+    <Directory /home/barun/codes/www/vlabs/static_media>
+        Allow from all
+    </Directory>
+
+    <Directory /home/barun/codes/www/vlabs/vlabs>
+        <Files wsgi.py>
+#            Require all granted
+            # http://stackoverflow.com/a/18747320/147021
+            Allow from all
+        </Files>
+    </Directory>
+
+    WSGIDaemonProcess vlab_ant python-path=/home/barun/codes/www/vlabs
+    WSGIProcessGroup vlab_ant
+    WSGIScriptAlias / /home/barun/codes/www/vlabs/vlabs/wsgi.py
+</VirtualHost>
