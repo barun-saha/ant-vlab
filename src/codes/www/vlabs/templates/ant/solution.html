@@ -5,6 +5,7 @@
 
 <body style="background-color: #e3f2fc;">
 
+    {% load staticfiles %}
     <h1>Solution</h1>
     <hr />
     
@@ -21,7 +22,7 @@
     <hr />
     
     <div id="close">
-        <a href="javascript:window.close();"><img src="{{ MEDIA_URL }}images/new/cancel_32.png" style="border: 0; padding: 3px;" alt="Close"/></a>
+        <a href="javascript:window.close();"><img src="{% static 'ant/images/new/cancel_32.png' %}" style="border: 0; padding: 3px;" alt="Close"/></a>
     </div>
 
 </body>

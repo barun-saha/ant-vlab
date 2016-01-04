@@ -5,13 +5,14 @@
     <title>Advanced Network Technologies Virtual Labs - IIT Kharagpur</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="Virtual Lab, VLabs, Advanced Network Technologies, ns2, ns3, Python, Django">
-    <link rel="shortcut icon" type="image/png" href="{{ MEDIA_URL }}images/folder_labs_32.png">
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'ant/images/folder_labs_32.png' %}">
 
-    <link href="{{ MEDIA_URL }}css/isad.css" rel="stylesheet" type="text/css" />
-    <link href="{{ MEDIA_URL }}css/default.css" rel="stylesheet" type="text/css" />
+    <link href="{% static 'ant/css/isad.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'ant/css/default.css' %}" rel="stylesheet" type="text/css" />
     <!--link href="{{ MEDIA_URL }}css/custom.css" rel="stylesheet" type="text/css" /-->
 
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}ddtabmenufiles/glowtabs.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ant/ddtabmenufiles/glowtabs.css' %}" />
 
     <!--[if IE]>
     <style type="text/css">
@@ -56,7 +57,7 @@
 <body bgcolor="#FFFFFF" style="">
 
 <div id="header_main">
-    <img src="{{ MEDIA_URL }}images/iit_kgp_80.png" align="right" class="iitLogo" />
+    <img src="{% static 'ant/images/iit_kgp_80.png' %}" align="right" class="iitLogo" />
 </div>
 <div id="no_print"></div>
 
@@ -105,7 +106,7 @@
 
 <!-- Footer -->
 <div class="footer">
-    <img src="{{ MEDIA_URL }}images/new/footer-curve.jpg" width="1024" height="31" alt="">
+    <img src="{% static 'ant/images/new/footer-curve.jpg' %}" width="1024" height="31" alt="">
     <div class="tos">
         <a href="http://virtual-labs.ac.in/nmeict/" target="_blank" class="tos">Sponsored by MHRD (NME-ICT)</a>
         <span class="tos">&nbsp; | &nbsp;</span>
@@ -116,14 +117,14 @@
 </div>
 
 <div  id="top_arrow" class="topArrow">
-    <img src="{{ MEDIA_URL }}images/arrow_up2.png" alt="Top"  align="right" />
+    <img src="{% static 'ant/images/arrow_up2.png' %}" alt="Top"  align="right" />
 </div>
 
-<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-min.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/common-min.js"></script>
+<script type="text/javascript" src="{% static 'ant/js/jquery-min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ant/js/common-min.js' %}"></script>
 
-<script type="text/javascript" src="{{ MEDIA_URL }}ddtabmenufiles/ddtabmenu.js"></script>
-<script type="text/javascript" defer src="{{ MEDIA_URL }}lib/SyntaxHighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="{% static 'ant/ddtabmenufiles/ddtabmenu.js' %}"></script>
+<script type="text/javascript" defer src="{% static 'ant/lib/SyntaxHighlighter/scripts/shCore.js' %}"></script>
 
 {% block includeScripts %} {% endblock %}
 

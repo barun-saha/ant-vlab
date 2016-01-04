@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+    'django.contrib.staticfiles',
     'ant',
     'ns2trace',
     #'django.contrib.comments',
@@ -201,6 +202,13 @@ SESSION_SAVE_EVERY_REQUEST = True
     #from settings_env.production import *
 #else:
     #from settings_env.development import *
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_URL = '/ant_static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static_media/')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

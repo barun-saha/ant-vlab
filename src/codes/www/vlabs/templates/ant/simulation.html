@@ -1,5 +1,6 @@
 {% extends 'base2.html' %}
 
+{% load staticfiles %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
@@ -51,9 +52,9 @@
         <div id="simulation" class="twoColRight" style="border-left: 1px dotted silver;">
 
             {% if simulation.type == 'flash' %}
-            <object type="application/x-shockwave-flash" data="{{ MEDIA_URL }}video/simulations/ant/{{ object_id }}/{{ simulation.video_url }}" 
+            <object type="application/x-shockwave-flash" data="{% static 'ant/video/simulations/ant/' %}{{ object_id }}/{{ simulation.video_url }}" 
                 width="510" height="415">
-                <param name="movie" value="{{ MEDIA_URL }}video/simulations/ant/{{ object_id }}/{{ simulation.video_url }}">
+                <param name="movie" value="{% static 'ant/video/simulations/ant/' %}{{ object_id }}/{{ simulation.video_url }}">
                 <param name="quality" value="high">
                 <param name="play" value="true">
                 <param name="loop" value="true">
@@ -73,8 +74,8 @@
                 </embed>
             </object-->
             {% else %}
-            <script type="text/javascript" src="{{ MEDIA_URL }}js/_django/dutils-min.js"></script>
-            <script type="text/javascript" src="{{ MEDIA_URL }}js/_django/dutils.conf.urls-min.js"></script>
+            <script type="text/javascript" src="{% static 'ant/js/_django/dutils-min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'ant/js/_django/dutils.conf.urls-min.js' %}"></script>
             <script type="text/javascript">
                 myAjaxLoader("#simulation", "/ant/ant/" + {{ simulation.theory.id }} + "/html_sim/");
             </script>

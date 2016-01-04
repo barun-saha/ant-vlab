@@ -1,5 +1,6 @@
 {% extends 'base2.html' %}
 
+{% load staticfiles %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
@@ -11,16 +12,16 @@
             <h2 id="q_{{ se.question_num }}" style="padding-top: 7px;">{{ se.question_num }}. {{ se.question }}</h2>
             <div id="choices_{{ se.question_num }}">
                 <p id="option{{ se.question_num }}_1" class="option"><input type="radio" name="q_{{ se.question_num }}" value="1"> {{ se.option1 }}
-                        <img src="{{ MEDIA_URL }}images/transparent_2x2.png" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
+                        <img src="{% static 'ant/images/transparent_2x2.png' %}" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
                 <p id="option{{ se.question_num }}_2" class="option"><input type="radio" name="q_{{ se.question_num }}" value="2"> {{ se.option2 }}
-                        <img src="{{ MEDIA_URL }}images/transparent_2x2.png" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
+                        <img src="{% static 'ant/images/transparent_2x2.png' %}" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
                 {% if se.option3 %}
                 <p id="option{{ se.question_num }}_3" class="option"><input type="radio" name="q_{{ se.question_num }}" value="3"> {{ se.option3 }}
-                        <img src="{{ MEDIA_URL }}images/transparent_2x2.png" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
+                        <img src="{% static 'ant/images/transparent_2x2.png' %}" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
                 {% endif %}
                 {% if se.option4 %}
                 <p id="option{{ se.question_num }}_4" class="option"><input type="radio" name="q_{{ se.question_num }}" value="4"> {{ se.option4 }}
-                        <img src="{{ MEDIA_URL }}images/transparent_2x2.png" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
+                        <img src="{% static 'ant/images/transparent_2x2.png' %}" class="ansImageInvisible" style="display: inline; padding-left: 20px;"></p>
                 {% endif %}
                 <input type="hidden" id="qa_{{ se.question_num }}" value="{{ se.answer }}">
             </div>
@@ -34,12 +35,12 @@
             <input type="button" id="btnSubmit" value="Submit"-->
 
             <button type="button" id="btnSubmit" class="button-icon">
-                <img src="{{ MEDIA_URL }}images/new/icons/workspace/next24x24.png" class="button-run">
+                <img src="{% static 'ant/images/new/icons/workspace/next24x24.png' %}" class="button-run">
                 <strong>Submit</strong>
             </button>
             &nbsp;
             <button type="button" id="btnReset" class="button-icon">
-                <img src="{{ MEDIA_URL }}images/new/icons/workspace/edit_clear24x24.png" class="button-clear">
+                <img src="{% static 'ant/images/new/icons/workspace/edit_clear24x24.png' %}" class="button-clear">
                 Clear
             </button>
 
@@ -89,7 +90,7 @@
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").removeClass("ansImage");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").removeClass("ansImageInvisible");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").addClass("ansImageVisible");
-                    $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("src", "{{ MEDIA_URL }}images/exclamation.gif");
+                    $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("src", "{% static 'ant/images/exclamation.gif' %}");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("height", "16");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("width", "16");
                 }
@@ -98,7 +99,7 @@
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").removeClass("ansImage");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").removeClass("ansImageInvisible");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").addClass("ansImageVisible");
-                    $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("src", "{{ MEDIA_URL }}images/accept.png");
+                    $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("src", "{% static 'ant/images/accept.png' %}");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("height", "16");
                     $("div#question_" + i + " p#option" + i + "_" + answers[i] + " img").attr("width", "16");
                     ++ nCorrect;

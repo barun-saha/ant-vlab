@@ -3,7 +3,8 @@
         overflow: auto;
     }
     div.grippie {
-        background: #EEEEEE url({{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/grippie.png) no-repeat scroll center 2px;
+        {% load staticfiles %}
+        background: #EEEEEE url({% static 'ant/lib/TextArea_Resizer_1.0.4/grippie.png' %}) no-repeat scroll center 2px;
         border-color: #DDDDDD;
         border-style: solid;
         border-width: 0pt 1px 1px;
@@ -54,7 +55,7 @@
            var contents = {'ns2code': editAreaLoader.getValue('ns2code')}; //$('div.ns2-form form').serialize();   // editAreaLoader.getValue('ns2code');
            $('div.ns2-code-output').text(contents);   // .replace(/\n/g, '<br />')
 
-           var ajax_loading = "<img src='{{ MEDIA_URL }}images/ajax/ajax_loader.gif' alt='Loading ...' style='width: auto; height: auto; border: 0; margin: 0; padding-left: 44.5%; padding-right: 44.5%; padding-top: 25px; padding-bottom: 25px;' />"
+           var ajax_loading = "<img src='{% static 'ant/images/ajax/ajax_loader.gif' %}' alt='Loading ...' style='width: auto; height: auto; border: 0; margin: 0; padding-left: 44.5%; padding-right: 44.5%; padding-top: 25px; padding-bottom: 25px;' />"
            $('div.ns2-code-output').html(ajax_loading);
            $('textarea.ns2-code-trace').html(ajax_loading);
 
@@ -81,13 +82,13 @@
 
         $('#expand').click(function(event) {
            event.preventDefault();
-           if ($('#expand').attr('src') == '{{ MEDIA_URL }}images/new/ant/sort_up_24.png') {
+           if ($('#expand').attr('src') == '{% static 'ant/images/new/ant/sort_up_24.png' %}') {
                 $('div#traceVisible').css('visibility', 'hidden');
-                $('#expand').attr('src', '{{ MEDIA_URL }}images/new/ant/sort_down_24.png');
+                $('#expand').attr('src', '{% static 'ant/images/new/ant/sort_down_24.png' %}');
                 $('textarea.ns2-code-trace').css('height', '0px');
            } else {
                $('div#traceVisible').css('visibility', 'visible');
-               $('#expand').attr('src', '{{ MEDIA_URL }}images/new/ant/sort_up_24.png');
+               $('#expand').attr('src', '{% static 'ant/images/new/ant/sort_up_24.png' %}');
                $('textarea.ns2-code-trace').css('height', '250px');
            }
 
@@ -120,7 +121,7 @@ $ns trace-all $tracefile</textarea>
           <h3>Contents of Trace File</h3>
           <div class="ns2-code-trace-block" style="background-color: #F0F0F0; border: 1px ridge #0E8DE0; padding: 2px; display: block; height: auto; width: 97.4%;">
               <div style="clear: both; width: 100%; text-align: right;">
-                  <img src="{{ MEDIA_URL }}images/new/ant/sort_down_24.png" style="text-align: right; width: 24px; height: 17px;" id="expand" />
+                  <img src="{% static 'ant/images/new/ant/sort_down_24.png' %}" style="text-align: right; width: 24px; height: 17px;" id="expand" />
               </div>
               <div style="display: block; visibility: hidden;" id="traceVisible">
                 <textarea class="ns2-code-trace resizable" style="height: 0px; width: 100%; overflow: auto; border: 1px solid silver; border-bottom-width: 2px; padding: 3px; margin-top: 10px;"></textarea>

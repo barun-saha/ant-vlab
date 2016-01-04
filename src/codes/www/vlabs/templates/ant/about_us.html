@@ -1,7 +1,8 @@
 {% extends 'general.html' %}
 
+{% load staticfiles %}
 {% block icon %}
-    {{ MEDIA_URL }}images/new/about/user_80.png
+    {% static 'ant/images/new/about/user_80.png' %}
 {% endblock %}
 
 {% block heading %}
@@ -9,10 +10,10 @@
 {% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/about_us.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ant/css/about_us.css' %}" />
 
     <div id="contents" class="aboutUs rounded-border-shadow" style="padding: 15px; background-color: white;">
-        <div style="background-image: url({{ MEDIA_URL }}images/new/about/weather_sun_24.png);" class="creditsIcon">
+        <div style="background-image: url({% static 'ant/images/new/about/weather_sun_24.png' %});" class="creditsIcon">
             <h2 class="creditsHeader">Project Guide</h2>
         </div>
         <p class="aboutUs aboutUsText">
@@ -24,7 +25,7 @@
     </div>
 
     <div id="contents" class="aboutUs rounded-border-shadow" style="margin-top: 15px; padding: 15px; background-color: white;">
-        <div style="background-image: url({{ MEDIA_URL }}images/new/about/user_group_24.png); margin-top: 10px;" class="creditsIcon">
+        <div style="background-image: url({% static 'ant/images/new/about/user_group_24.png' %}); margin-top: 10px;" class="creditsIcon">
             <h2 class="creditsHeader">Developers</h2>
         </div>
         <p class="aboutUs aboutUsText">

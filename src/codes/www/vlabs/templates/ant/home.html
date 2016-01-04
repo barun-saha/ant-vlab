@@ -1,10 +1,10 @@
 {% extends 'general.html' %}
 
-
+{% load staticfiles %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/home.css">
+<link rel="stylesheet" type="text/css" href="{% static 'ant/css/home.css' %}">
 <link rel="stylesheet" type="text/css" 
-    href="{{ MEDIA_URL }}js/tipsy-0.1.7/src/stylesheets/tipsy.css" />
+    href="{% static 'ant/js/tipsy-0.1.7/src/stylesheets/tipsy.css' %}" />
 
 
 
@@ -13,7 +13,7 @@
 <div id="lab-introduction" class="rounded-border-shadow home-page-section" 
     style="background-color: white;">
     <p>
-        <img align="right" src="{{ MEDIA_URL }}images/new/network_64.png" 
+        <img align="right" src="{% static 'ant/images/new/network_64.png' %}" 
             style="float: left; padding-right: 15px; padding-bottom: 5px;" 
             alt="ANT VLabs">
         Research analysis manifests clear trends of growing interest of the 
@@ -145,20 +145,20 @@
     
     <ul>
         <li>
-            <img src="{{ MEDIA_URL }}images/new/icons/browsers/firefox24x24.png">
+            <img src="{% static 'ant/images/new/icons/browsers/firefox24x24.png' %}">
             Firefox 3.6, 5.0
         </li>
         <li style="margin-top: 3px;">
-            <img src="{{ MEDIA_URL }}images/new/icons/browsers/chrome24x24.png">
+            <img src="{% static 'ant/images/new/icons/browsers/chrome24x24.png' %}">
             Google Chrome 13.0
         </li>
         <li style="margin-top: 3px;">
-            <img src="{{ MEDIA_URL }}images/new/icons/browsers/opera24x24.png">
+            <img src="{% static 'ant/images/new/icons/browsers/opera24x24.png' %}">
             Opera 11.0
         </li>
         <li style="margin-top: 3px;">
             <img 
-            src="{{ MEDIA_URL }}images/new/icons/browsers/internet_explorer24x24.png">
+            src="{% static 'ant/images/new/icons/browsers/internet_explorer24x24.png' %}">
             Internet Explorer 7
         </li>
     </ul>   
@@ -176,7 +176,7 @@
 
 {% block includeScripts %}
     <script type="text/javascript" 
-        src="{{ MEDIA_URL }}js/tipsy-0.1.7/src/javascripts/jquery.tipsy-min.js">
+        src="{% static 'ant/js/tipsy-0.1.7/src/javascripts/jquery.tipsy-min.js' %}">
     </script>    
     <script type="text/javascript" language="JavaScript">
         // (#20: #2)

@@ -3,10 +3,11 @@
   <head>
     <title>NS3 Interface</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js"></script>
-    <script language="Javascript" type="text/javascript" src="{{ MEDIA_URL }}lib/editarea_0_8_2/edit_area/edit_area_full.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/ant/ns3workspace.js"></script>
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'ant/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ant/lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js' %}"></script>
+    <script language="Javascript" type="text/javascript" src="{% static 'ant/lib/editarea_0_8_2/edit_area/edit_area_full.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ant/js/ant/ns3workspace.js' %}"></script>
   </head>
 
   <body>
@@ -19,12 +20,12 @@
               </div>
               <div class="ns3-code-submit centerAlign">
                   <button type="button" id='run' class="button-icon">
-                      <img src="{{ MEDIA_URL }}images/new/icons/workspace/next24x24.png"
+                      <img src="{% static 'ant/images/new/icons/workspace/next24x24.png' %}"
                            class="button-image buttonText button-run" />
                       <strong>Run!</strong>
                   </button>
                   <button type="button" id='clear' class="button-icon">
-                      <img src="{{ MEDIA_URL }}images/new/icons/workspace/edit_clear24x24.png"
+                      <img src="{% static 'ant/images/new/icons/workspace/edit_clear24x24.png' %}"
                            class="button-image buttonText button-clear" />
                       Clear
                   </button>

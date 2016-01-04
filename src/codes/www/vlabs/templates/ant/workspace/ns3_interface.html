@@ -1,4 +1,5 @@
-<link href="{{ MEDIA_URL }}css/ns2workspace.css" rel="stylesheet" type="text/css">
+{% load staticfiles %}
+<link href="{% static 'ant/css/ns2workspace.css' %}" rel="stylesheet" type="text/css">
 
 
 <div class="ns3-form">
@@ -10,12 +11,12 @@
         </div>
         <div class="ns3-code-submit centerAlign">
             <button type="button" id='run' class="button-icon">
-                <img src="{{ MEDIA_URL }}images/new/icons/workspace/next24x24.png"
+                <img src="{% static 'ant/images/new/icons/workspace/next24x24.png' %}"
                      class="button-image buttonText button-run" />
                 <strong>Run!</strong>
             </button>
             <button type="button" id='clear' class="button-icon" style="border: 1px solid white;">
-                <img src="{{ MEDIA_URL }}images/new/icons/workspace/edit_clear24x24.png"
+                <img src="{% static 'ant/images/new/icons/workspace/edit_clear24x24.png' %}"
                      class="button-image buttonText button-clear" />
                 Clear
             </button>
@@ -40,8 +41,8 @@
 </div>
 
 
-<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-min.js"></script>
-<script language="Javascript" type="text/javascript" src="{{ MEDIA_URL }}lib/editarea_0_8_2/edit_area/edit_area_full.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}lib/jquery.smart-poll.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/ant/ns3workspace-min.js"></script>
+<script type="text/javascript" src="{% static 'ant/js/jquery-min.js' %}"></script>
+<script language="Javascript" type="text/javascript" src="{% static 'ant/lib/editarea_0_8_2/edit_area/edit_area_full.js' %}"></script>
+<script type="text/javascript" src="{% static 'ant/lib/TextArea_Resizer_1.0.4/jquery.textarearesizer.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ant/lib/jquery.smart-poll.js' %}"></script>
+<script type="text/javascript" src="{% static 'ant/js/ant/ns3workspace-min.js' %}"></script>

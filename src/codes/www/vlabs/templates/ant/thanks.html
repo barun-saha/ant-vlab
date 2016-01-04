@@ -1,7 +1,8 @@
 {% extends 'general.html' %}
 
+{% load staticfiles %}
 {% block icon %}
-    {{ MEDIA_URL }}images/new/about/mail2_80_1.png
+    {% static 'ant/images/new/about/mail2_80_1.png' %}
 {% endblock %}
 
 {% block heading %}
@@ -11,7 +12,7 @@
 {% block content %}
 <div style="height: 200px; text-align: center; font-size: medium; padding: 20px; vertical-align: middle; margin: 0 auto; width: 60%;">
     <p>
-        <img src="{{ MEDIA_URL }}images/new/done.png" align="left" alt="Done" style="border: 0; padding: 5px;" />
+        <img src="{% static 'ant/images/new/done.png' %}" align="left" alt="Done" style="border: 0; padding: 5px;" />
     </p>
     <h2>Thank you for your valuable feedback!</h2>
     <p>&nbsp;</p>

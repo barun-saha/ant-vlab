@@ -1,7 +1,8 @@
 {% extends 'general.html' %}
 
+{% load staticfiles %}
 {% block icon %}
-    {{ MEDIA_URL }}images/new/icons/_packs/gpl/customized/500error.png
+    {% static 'ant/images/new/icons/_packs/gpl/customized/500error.png' %}
 {% endblock %}
 
 {% block heading %}
