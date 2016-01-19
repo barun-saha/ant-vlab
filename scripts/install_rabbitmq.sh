@@ -4,36 +4,21 @@ source ../scripts/common.sh
 
 log ''
 log '*** Executing install_rabbitmq.sh'
+log $TIMESTAMP 'Host: ' $SYSTEM
+log 'Current directory is: ' $CURRENT_DIR
+log 'Proxy is: ' $PROXY
 
-# Moved to install_ubuntu_packages.sh
-
-## Erlang dependencies installation
-#sudo -E apt-get -y install build-essential libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev
-#sudo -E apt-get -y install --fix-missing
-
-
-# Removing directories
-sudo rm otp_src_R15B01.tar.gz
-sudo rm -rf otp_src_R15B01
-echo 'Existing directories removed'
-
-DOWNLOAD_URL_ERLANG='http://erlang.org/download/otp_src_R15B01.tar.gz'
-
-wget -O otp_src_R15B01.tar.gz "$DOWNLOAD_URL_ERLANG"
-
-# unzip Erlang
-tar zxvf otp_src_R15B01.tar.gz
-
-CURRENT_DIR=$(pwd)
-ERLANG_DIR=otp_src_R15B01/
 
 # Install Erlang
 log 'Installing Erlang'
-cd "$ERLANG_DIR"
-./configure
-sudo make
-sudo make install
-cd "$CURRENT_DIR"
+echo "deb http://packages.erlang-solutions.com/ubuntu precise contrib"  | sudo tee  /etc/apt/sources.list > /dev/null
+wget -O erlang-signing-key-public.asc http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+sudo apt-key add erlang-signing-key-public.asc
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get update
+sudo apt-get install erlang
+sudo apt-get install erlang-nox
+
 
 # Install RabbitMQ
 log 'Installing RabbitMQ'
