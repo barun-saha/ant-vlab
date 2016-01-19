@@ -1,6 +1,6 @@
-HOME_PATH=/home/barun
-ANT_PATH=$(HOME_PATH)/codes/www/vlabs
-LOG_FILE=ant.log
+export HOME_PATH=/home/barun
+export ANT_PATH=$(HOME_PATH)/codes/www/vlabs
+export LOG_FILE=ant.log
 CURRENT_DIR=$(shell pwd)
 LS_CURRENT_DIR=$(shell ls)
 TIMESTAMP=$(shell date +'%F %T')
@@ -10,47 +10,37 @@ IP_ADDRESS=$(shell ip addr show eth0 | grep 'inet ')
 APT_SRC_FILE=/etc/apt/sources.list
 APT_CONF_FILE=/etc/apt/apt.conf
 
+
 #SHELL := /bin/bash
 #export TEST:="Something Good!"
 
 install:
 	echo '' > $(LOG_FILE);
 	echo '*** Executing make install' >> $(LOG_FILE)
+	#$(MAKE) clean_all
 	$(MAKE) init
 	$(MAKE) install_packages
+	$(MAKE) deploy
+	$(MAKE) init_db
 	$(MAKE) install_rabbitmq
-	$(MAKE) install_celery
+	#$(MAKE) install_celery
 	$(MAKE) install_ns2
 	$(MAKE) install_ns3
+	$(MAKE) test_installation
 
 deploy:
-	echo '*** Executing make deploy' >> $(LOG_FILE)
-	
-	echo "Moving codes to $(HOME_PATH)/codes" >> $(LOG_FILE)
-	mkdir -p $(HOME_PATH)/codes
-	cp -r codes/* $(HOME_PATH)/codes/
-	cp -r content $(HOME_PATH)/
-	
-	# Set ownership of files
-	chown -R barun:www-data $(HOME_PATH)/codes
-	# Apache needs write permission on vlabs/ to generate two files
-	chmod g+w $(ANT_PATH)
-	
-	echo "Moving other configuration files" >> $(LOG_FILE)
-	cp -r conf/www /usr/local/
-	cp -r _wimax_ref_ /var/vlabs/ant
-	
-	echo "Creating symlinks" >> $(LOG_FILE)
-	ln -sf /var/vlabs $(ANT_PATH)/media/vlabs
-	ln -sf /usr/bin/gcc-4.4 /usr/bin/gcc
-	ln -sf /usr/bin/g++-4.4 /usr/bin/g++
+	echo '' >> $(LOG_FILE)
+	echo "*** Executing make: deploy" >> $(LOG_FILE)
+	bash ../scripts/deploy.sh
 
 init: repo bash
+	echo '' >> $(LOG_FILE)
 	echo "*** Executing make: init" >> $(LOG_FILE)
 	bash ../scripts/configure.sh
-	echo "*** Executing make: deploy" >> $(LOG_FILE)
-	$(MAKE) deploy
-	echo "Invoking script for creating database" >> $(LOG_FILE)
+
+init_db:
+	echo '' >> $(LOG_FILE)
+	echo "*** Executing make: init db" >> $(LOG_FILE)
 	bash ../scripts/init_database.sh
 
 repo:
@@ -85,29 +75,38 @@ repo:
 	sudo -E apt-get update || true
 
 bash:
+	echo '' >> $(LOG_FILE)
+	echo "*** Executing make: bash" >> $(LOG_FILE)
 	sudo -E apt-get install bash
 
 install_packages:
+	echo '' >> $(LOG_FILE)
+	echo "*** Executing make: install packages" >> $(LOG_FILE)
 	$(MAKE) install_ubuntu_packages
 	$(MAKE) install_python_packages
 
 install_python_packages:
+	echo '' >> $(LOG_FILE)
 	echo "*** Executing make: installing Python packages" >> $(LOG_FILE)
 	bash ../scripts/install_python_packages.sh
 
 install_ubuntu_packages:
+	echo '' >> $(LOG_FILE)
 	echo "*** Executing make: installing Ubuntu packages" >> $(LOG_FILE)
 	bash ../scripts/install_ubuntu_packages.sh
 
 install_rabbitmq:
+	echo '' >> $(LOG_FILE)
 	echo '*** Executing make: installing rabbitmq' >> $(LOG_FILE)
 	bash ../scripts/install_rabbitmq.sh
 
 install_celery:
+	echo '' >> $(LOG_FILE)
 	echo '*** Executing make: installing celery' >> $(LOG_FILE)
 	bash ../scripts/install_celery.sh
 
 install_ns2:
+	echo '' >> $(LOG_FILE)
 	echo '*** Executing make: installing ns2' >> $(LOG_FILE)
 	bash ../scripts/install_ns2.sh
 	#bash ~/.bashrc
@@ -117,6 +116,7 @@ install_ns2:
 	#$(shell echo $(LD_LIBRARY_PATH))
 
 install_ns3:
+	echo '' >> $(LOG_FILE)
 	echo '*** Executing make: installing ns3' >> $(LOG_FILE)
 	bash ../scripts/install_ns3.sh
 
@@ -134,10 +134,11 @@ upgrade:
 ##	sudo rm -fR /var/lib/apt/lists/*
 ##	sudo apt-get update
 
-test:
-	bash ../test/test_installation.sh
+test_installation:
+	bash ../scripts/test_installation.sh
 
 syncdb:
+	echo '' >> $(LOG_FILE)
 	echo '*** Executing syncdb' >> $(LOG_FILE)
 	$(PYTHON) $(SE_PATH)/manage.py syncdb
 
