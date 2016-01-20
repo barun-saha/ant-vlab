@@ -11,7 +11,7 @@ log 'Proxy is: ' $PROXY
 
 # Install Erlang
 log 'Installing Erlang'
-echo "deb http://packages.erlang-solutions.com/ubuntu precise contrib"  | sudo tee  /etc/apt/sources.list > /dev/null
+echo 'deb http://packages.erlang-solutions.com/ubuntu precise contrib' >> /etc/apt/sources.list
 wget -O erlang-signing-key-public.asc http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
 sudo apt-key add erlang-signing-key-public.asc
 sudo rm -rf /var/lib/apt/lists/*
