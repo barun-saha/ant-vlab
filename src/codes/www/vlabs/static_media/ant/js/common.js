@@ -1,5 +1,14 @@
+// URL prefix for accessing static files
+var STATIC_URL = '/ant_static/';
+
+function get_static(url) {
+    var str = STATIC_URL;
+    str += url;
+    return str;
+}
+
 $(document).ready(function() {    
-    SyntaxHighlighter.config.clipboardSwf = '../lib/wireit/res/SyntaxHighlighter/clipboard.swf';
+    SyntaxHighlighter.config.clipboardSwf = get_static('ant/lib/wireit/res/SyntaxHighlighter/clipboard.swf');
     SyntaxHighlighter.all();
 
     $('#top_arrow').mouseover(function() {
@@ -101,11 +110,12 @@ $(document).ready(function() {
     )
 });
 
-
-var ajax_loading = "<img src='../images/ajax/ajax_loader.gif' alt='Loading ...' \n\
-                     style='width: auto; height: auto; border: 0; margin: 0;\n\
-                     padding-left: 44.5%; padding-right: 44.5%; padding-top: 25px; padding-bottom: 25px;' />";
-
+var ajax_loading_image = get_static('ant/images/ajax/ajax_loader.gif');
+var ajax_loading = "<img src='";
+ajax_loading += ajax_loading_image;
+ajax_loading += "' alt='Loading ...' \n\
+			style='width: auto; height: auto; border: 0; margin: 0;\n\
+			padding-left: 44.5%; padding-right: 44.5%; padding-top: 25px; padding-bottom: 25px;' />";
 
 var ajax_error = "<p style='color: red;'><strong>Failed to load the contents!</strong></p>";
 
