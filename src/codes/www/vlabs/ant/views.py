@@ -61,10 +61,11 @@ def theory(request, object_id=9):
 #        request.session['key'] = 'Key'
 #    return HttpResponse('Session')
 
-    t = get_object_or_404(Theory, pk=object_id)    
+    t = get_object_or_404(Theory, pk=object_id)
+    t.content = t.content.replace('_STATIC_URL_', settings.STATIC_URL)    
     context = RequestContext(request)
     # Required to differentiate between ISAD and ANT in post-comment.js
-    context['SITE_BASE'] = '/ant/ant/'
+    context['SITE_BASE'] = '/cse28/ant/'
 
     return render_to_response(
         'ant/theory.html',
@@ -101,6 +102,7 @@ def procedure(request, object_id=9):
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     p = get_object_or_404(Procedure.objects.select_related(), theory=object_id)
+    p.content = p.content.replace('_STATIC_URL_', settings.STATIC_URL)
     return render_to_response(
         'ant/procedure.html',
         {
@@ -316,7 +318,7 @@ def get_exercise_workspace(request, exercise_id, object_id, problem_id=1):
         workspace = render_to_string(
             template,
             {
-                'MEDIA_URL': '/ant/v_media/',
+                'MEDIA_URL': '/cse28/ant/v_media/',
                 'object_id':    object_id,
                 'problem_id':   problem_id,
                 'default_code': default_code ,
@@ -338,7 +340,7 @@ def get_inline_workspace(object_id, problem_id):
     html = render_to_string(
         template,
         {
-            'MEDIA_URL': '/ant/v_media/',
+            'MEDIA_URL': '/cse28/ant/v_media/',
             'object_id': object_id,
             'problem_id': problem_id,
         },
