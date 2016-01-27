@@ -23,23 +23,37 @@
 
 
 
-log 'Installing necessary Python packages'
+MAX_ATTEMPTS=2
+COUNTER=1
+while [[ $COUNTER -le $MAX_ATTEMPTS ]]
+do
+	log 'Installing necessary Python packages'
 
-# Upgrade pip
-sudo -E pip install -U setuptools
-sudo -E pip install -U pip
+	# Upgrade pip
+	sudo -E pip install -U setuptools
+	sudo -E pip install -U pip
 
-sudo -E pip install Django==1.8.4
+	# Django version problem
+	#sudo -E pip install Django==1.4.2
+	sudo -E pip install Django==1.8.4
 
-# Environment error while installing 'MySQL-python' package
-# http://stackoverflow.com/questions/5178292/pip-install-mysql-python-fails-with-environmenterror-mysql-config-not-found
-sudo -E apt-get -y install libmysqlclient-dev
-sudo -E pip install MySQL-python
+	# Environment error while installing 'MySQL-python' package
+	# http://stackoverflow.com/questions/5178292/pip-install-mysql-python-fails-with-environmenterror-mysql-config-not-found
+	sudo -E apt-get -y install libmysqlclient-dev
+	sudo -E pip install MySQL-python
+	
+	# Commented because it autimatically updates the Django to the newest version
+	#sudo -E pip install django-maintenancemode
+	sudo -E pip install django-ajaxcomments
+	sudo -E pip install django-tinymce
+	sudo -E pip install recaptcha-client
+	sudo -E pip install PIL
 
-# Commented because it autimatically updates the Django to the newest version
-#sudo -E pip install django-maintenancemode
+	# Installation of celery and django-celery
+	#sudo -E pip install celery
+	#sudo -E pip install django-celery
 
-sudo -E pip install django-ajaxcomments
-sudo -E pip install django-tinymce
-sudo -E pip install recaptcha-client
-sudo -E pip install PIL
+	sudo -E apt-get update
+
+	COUNTER=$((COUNTER + 1))
+done

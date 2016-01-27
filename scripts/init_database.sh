@@ -23,6 +23,7 @@ log 'Current directory is: ' $CURRENT_DIR
 log 'Proxy is: ' $PROXY
 
 HOME_PATH=/home/barun
+ANT_PATH=$HOME_PATH/codes/www/vlabs
 ANT_DB_ROOT_PASSWD_FILE=$HOME_PATH/ant_mysql_root_passwd
 ANT_DB_USR_PASSWD_FILE=$HOME_PATH/ant_mysql_usr_passwd
 DUMP_FILE=$HOME_PATH/content/cse28-ant_db.sql
@@ -84,6 +85,7 @@ echo mysql-server mysql-server/root_password_again password $ROOT_PASSWD | debco
 counter=1
 while [[ $counter -le $MAX_ATTEMPTS ]]
 do
+    sudo -E apt-get update
     sudo -E DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
     sudo -E apt-get install --fix-missing
     
