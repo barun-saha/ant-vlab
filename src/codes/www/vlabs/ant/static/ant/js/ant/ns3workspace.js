@@ -37,7 +37,7 @@ $(document).ready(function() {
 
        var ajax_loading = $(document.createElement('img'));
        ajax_loading
-       .attr({'src': '$MEDIA_URL$images/ajax/ajax_loader.gif', 'alt': 'Loading ...'})
+       .attr({'src': get_static('ant/images/ajax/ajax_loader.gif'), 'alt': 'Loading ...'})
        .css({
                 'width': 'auto', 'height': 'auto', 
                 'border': 0, 'margin': 0, 

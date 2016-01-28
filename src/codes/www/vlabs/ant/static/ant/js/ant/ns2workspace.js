@@ -194,7 +194,7 @@ $(document).ready(function() {
        //var ajax_loading = "<img src='/cse28/ant/v_media/images/ajax/ajax_loader.gif' alt='Loading ...' style='width: auto; height: auto; border: 0; margin: 0; padding-left: 44.5%; padding-right: 44.5%; padding-top: 25px; padding-bottom: 25px;'>"
        var ajax_loading = $(document.createElement('img'));
        ajax_loading
-       .attr({'src': '$MEDIA_URL$images/ajax/ajax_loader.gif', 'alt': 'Loading ...'})
+       .attr({'src': get_static('ant/images/ajax/ajax_loader.gif'), 'alt': 'Loading ...'})
        .css({
                 'width': 'auto', 'height': 'auto', 
                 'border': 0, 'margin': 0, 
