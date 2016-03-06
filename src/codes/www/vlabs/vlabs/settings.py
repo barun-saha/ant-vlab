@@ -132,7 +132,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',    
+    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 import os
@@ -161,7 +161,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    
+
     # Prod
     SITE_BASE_PATH + 'templates',
 )
@@ -186,6 +186,7 @@ INSTALLED_APPS = (
     # Change #32,
     'djcelery',
     'django_js_utils',
+    'django_js_reverse',
 )
 
 SESSION_COOKIE_AGE = 1800  # 30 min
