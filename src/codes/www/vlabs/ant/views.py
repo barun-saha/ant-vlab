@@ -17,7 +17,7 @@ import json
 import exercises
 
 from django.forms.models import modelformset_factory
-#from recaptcha.client import captcha
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 # (Rev #32: #1)
 from . import tasks
@@ -36,7 +36,7 @@ def index(request):
     '''
     Home page -- display the list of experiments
     '''
-    #t = Theory.objects.all()    
+    #t = Theory.objects.all()
     # (Rev #36: #1)
     t = Theory.objects.filter(id__in = allowed_list)
     return render_to_response(
@@ -46,10 +46,10 @@ def index(request):
     )
 
 def theory(request, object_id=9):
-    # (Rev #36: #1)    
-    if object_id in block_list:        
+    # (Rev #36: #1)
+    if object_id in block_list:
         return index(request)
-        
+
     '''
     Theory for the selected experiment
     '''
@@ -62,7 +62,7 @@ def theory(request, object_id=9):
 #    return HttpResponse('Session')
 
     t = get_object_or_404(Theory, pk=object_id)
-    t.content = t.content.replace('_STATIC_URL_', settings.STATIC_URL)    
+    t.content = t.content.replace('_STATIC_URL_', settings.STATIC_URL)
     context = RequestContext(request)
     # Required to differentiate between ISAD and ANT in post-comment.js
     context['SITE_BASE'] = '/cse28/ant/'
@@ -81,8 +81,8 @@ def introduction(request, object_id=1):
     # (Rev #36: #1)
     if object_id in block_list:
         return index(request)
-        
-    t = get_object_or_404(Theory, pk=object_id)    
+
+    t = get_object_or_404(Theory, pk=object_id)
     return render_to_response(
         'ant/introduction.html',
         {
@@ -92,13 +92,13 @@ def introduction(request, object_id=1):
         },
         context_instance=RequestContext(request)
     )
-        
+
 
 def procedure(request, object_id=9):
-    # (Rev #36: #1)    
-    if object_id in block_list:        
+    # (Rev #36: #1)
+    if object_id in block_list:
         return index(request)
-        
+
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     p = get_object_or_404(Procedure.objects.select_related(), theory=object_id)
@@ -114,10 +114,10 @@ def procedure(request, object_id=9):
     )
 
 def simulation(request, object_id):
-    # (Rev #36: #1)    
-    if object_id in block_list:        
+    # (Rev #36: #1)
+    if object_id in block_list:
         return index(request)
-        
+
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     s = get_object_or_404(Simulation.objects.select_related(), theory=object_id)
@@ -132,10 +132,10 @@ def simulation(request, object_id):
     )
 
 def self_evaluation(request, object_id):
-    # (Rev #36: #1)    
-    if object_id in block_list:        
+    # (Rev #36: #1)
+    if object_id in block_list:
         return index(request)
-        
+
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     se = get_list_or_404(SelfEvaluation.objects.select_related(), theory=object_id)
@@ -155,10 +155,10 @@ def self_evaluation(request, object_id):
     )
 
 def exercise(request, object_id):
-    # (Rev #36: #1)    
-    if object_id in block_list:        
+    # (Rev #36: #1)
+    if object_id in block_list:
         return index(request)
-        
+
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     e = get_list_or_404(Exercise.objects.select_related(), theory=object_id)
@@ -173,10 +173,10 @@ def exercise(request, object_id):
     )
 
 def references(request, object_id):
-    # (Rev #36: #1)    
-    if object_id in block_list:        
+    # (Rev #36: #1)
+    if object_id in block_list:
         return index(request)
-        
+
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     r = get_list_or_404(Reference.objects.select_related(), theory=object_id)
@@ -197,7 +197,7 @@ def about_us(request):
         context_instance=RequestContext(request)
     )
 
-###def contact(request):        
+###def contact(request):
 ###    ContactFormSet = modelformset_factory(Contact, fields = ('name', 'email', 'website', 'organization', 'subject', 'comment',))
 ###    managementFormData = {
 ###        'form-TOTAL_FORMS':     u'1',
@@ -207,10 +207,10 @@ def about_us(request):
 ###        'form-0-pub_date':      u'01 November 2010',
 ###    }
 ###    captcha_response = ''
-###    
+###
 ###    if request.method == 'POST':                # The form has been already submitted
 ###        formSet = ContactFormSet(request.POST, managementFormData)  # A form bound tot he POST data
-###        if formSet.is_valid():                  # All validation rules pass            
+###        if formSet.is_valid():                  # All validation rules pass
 ###            # Process the data
 ###            name    = formSet.cleaned_data[0]['name']
 ###            email   = formSet.cleaned_data[0]['email']
@@ -238,10 +238,10 @@ def about_us(request):
 
 ###            else:
 ###                captcha_response = 'Please type in the two words exactly as shown below'
-###            
+###
 ###    else:
-###        formSet =  ContactFormSet(managementFormData)             # An unbound form        
-###        
+###        formSet =  ContactFormSet(managementFormData)             # An unbound form
+###
 ###    return render_to_response(
 ###        'ant/contact.html',
 ###        {
@@ -250,7 +250,7 @@ def about_us(request):
 ###        },
 ###        context_instance=RequestContext(request)
 ###    )
-###    
+###
 ###def thanks(request):
 ###    return render_to_response(
 ###        'ant/thanks.html',
@@ -258,14 +258,14 @@ def about_us(request):
 ###        context_instance=RequestContext(request)
 ###    )
 
-def ns2test(request):    
+def ns2test(request):
     return render_to_response(
         'ant/workspace/ns2_interface.html',
         {},
         context_instance=RequestContext(request)
     )
 
-    
+
 # AJAX requests
 def html_simulator(request, object_id=2):
     template_file = 'ant/special/simulator_%s.html' % (object_id,)
@@ -288,6 +288,7 @@ def get_exercise_problem(request, exercise_id):
 
     return HttpResponse(ep.problem)
 
+@ensure_csrf_cookie
 def get_exercise_workspace(request, exercise_id, object_id, problem_id=1):
     '''
     Return the problem solving workspace for the selected exercise.
@@ -309,7 +310,7 @@ def get_exercise_workspace(request, exercise_id, object_id, problem_id=1):
     else: # Either ns2 or ns3 interface
         template = None
         default_code = get_object_or_404(DefaultCode, exercise__id=exercise_id).code
-        
+
         if wtype == 'ns3':
             template = 'ant/workspace/ns3_interface.html'
         else:   # By default ns2 workspace
@@ -318,15 +319,16 @@ def get_exercise_workspace(request, exercise_id, object_id, problem_id=1):
         workspace = render_to_string(
             template,
             {
-                'MEDIA_URL': '/cse28/ant/v_media/',
+                #'MEDIA_URL': '/cse28/ant/v_media/',
                 'object_id':    object_id,
                 'problem_id':   problem_id,
                 'default_code': default_code ,
             },
+            request=request
             #context_instance=RequestContext(request)
         )
-    
     return HttpResponse(workspace)
+
 
 # An extremely simple, but very lengthy function
 def get_inline_workspace(object_id, problem_id):
@@ -416,10 +418,10 @@ def export2pdf(request):
     pass
 
 
-# Submit a Celery task to execute ns2 code    
+# Submit a Celery task to execute ns2 code
 # Returns UUID of the created task
 def ns2test_submit(request):
-    # (Rev #32: #1)    
+    # (Rev #32: #1)
     #return exercises.ns2_submit(request)
     output = {}
     if request.method == 'POST':
@@ -436,9 +438,9 @@ def ns2test_submit(request):
             output['error'] = 'Failed to submit simulation!\n%s' % ex
             #print ex
     else:
-        output['error'] = 'Invalid attempt to access a resource!'        
+        output['error'] = 'Invalid attempt to access a resource!'
 
-    return HttpResponse(json.dumps(output), mimetype='application/json')
+    return HttpResponse(json.dumps(output), content_type='application/json')
 
 
 # (Rev #35: #2)
@@ -460,7 +462,7 @@ def ns3(request):
 
 
 def ns3_submit(request):
-    # (Rev #32: #1) 
+    # (Rev #32: #1)
     #return exercises.ns3_submit(request)
     output = {}
     if request.method == 'POST':
@@ -469,12 +471,12 @@ def ns3_submit(request):
         session_key = request.session.session_key
         new_task = tasks.ns3run.delay(code, session_key)
         #print '<b>%d</b>' % (result.get(),)
-        #print 'Simulation # :', new_task.task_id 
-        output['id'] = new_task.task_id        
+        #print 'Simulation # :', new_task.task_id
+        output['id'] = new_task.task_id
     else:
-        output['error'] = 'Invalid attempt to access a resource!'        
+        output['error'] = 'Invalid attempt to access a resource!'
 
-    return HttpResponse(json.dumps(output), mimetype='application/json')
+    return HttpResponse(json.dumps(output), content_type='application/json')
 
 
 def url_test(request):

@@ -211,6 +211,7 @@ $(document).ready(function() {
        $('.trace-file-mode').removeAttr('checked');
 
        // Use AJAX to post the code
+       setUpCsrf();
         $.ajax({
             type: 'POST',
             //url: NS2_BASE_URL+'ns2_test_submit/',
@@ -310,6 +311,7 @@ $(document).ready(function() {
 
         $('.trace-file-mode').attr('disabled', 'true');
         $('.toolbar').css({visibility: 'visible'}).slideDown('slow');
+        setUpCsrf();
         $.ajax({
             //url:    NS2TRACE_URL + $(this).val() + '/' ,
             //url:    dutils.urls.resolve('trace_initialize', {sim_mode: simulation_mode}),
@@ -334,6 +336,7 @@ $(document).ready(function() {
     // General statistics
     $('#gen-stats').click(function(event) {
         event.preventDefault();
+        setUpCsrf();
         $.ajax({
             type:   'GET',
             //url:    NS2TRACE_URL + 'general_stats/',
@@ -384,6 +387,7 @@ $(document).ready(function() {
             }
 
             $(this).attr('disabled', 'true');
+            setUpCsrf();
             $.ajax({
                 type:   'GET',
                 //url:    NS2TRACE_URL + 'avg_thruput/' + node_id + '/',
@@ -479,7 +483,7 @@ $(document).ready(function() {
             }
 
             $(this).attr('disabled', 'true');
-
+            setUpCsrf();
             $.ajax({
                 type:   'GET',
                 //url:    NS2TRACE_URL + 'plot/end2end_delay/' + src + '/' + dst + '/' + scale,
@@ -561,6 +565,7 @@ $(document).ready(function() {
             }
 
             $(this).attr('disabled', 'true');
+            setUpCsrf();
             $.ajax({
                 type:   'GET',
                 //url:    NS2TRACE_URL + 'plot/pkt_retransmits/' + src + '/' + dst + '/',
@@ -681,6 +686,7 @@ $(document).ready(function() {
             var url = Urls.trace_bytes_rcvd(node_id, trace_levels);
             url = url.replace('*)', '');
             //alert(url);
+            setUpCsrf();
             $.ajax({
                 type:   'GET',
                 url:    url,
@@ -705,6 +711,7 @@ $(document).ready(function() {
     // Clear session (trace file name and mode)
     $('#clear-session').click(function(event) {
         event.preventDefault();
+        setUpCsrf();
         $.ajax({
             //url:    NS2TRACE_URL + 'clear_session/',
             //url:    dutils.urls.resolve('trace_clr_session'),
@@ -817,6 +824,7 @@ $(document).ready(function() {
 
             $(this).attr('disabled', 'true');
             var url = NS2TRACE_URL + ['plot/hop_cnt_seq_num', src_node, src_port, dst_node, dst_port].join('/') + '/';
+            setUpCsrf();
             $.ajax({
                 type:   'GET',
                 //url:    url,

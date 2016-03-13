@@ -47,6 +47,7 @@ $(document).ready(function() {
        $('textarea.ns3-code-trace').html(ajax_loading);
 
        // Use AJAX to submit the code
+       setUpCsrf();
         $.ajax({
             type: 'POST',
             //url: '/ant/ant/ns3_submit/',

@@ -79,29 +79,59 @@ $(document).ready(function() {
            alert('Please select a problem!');
        }
     });
-
-
-    // $("#btnSubmit").click(function() {
-    //     $("#result_display").html(ajax_loading);
-    //     $("html, body").animate({scrollTop: $("#contentBox").height()}, 790);
-    //
-    //     // Now send the exercise ID to server and obtain the correct solution
-    //     // Compare with user's result to verify if he's drawn correctly
-    //     var e_value = $("#ddlExercises option:selected").val();
-    //        if (eval(e_value) > 0) {
-    //             $.get(
-    //                 "/ant/ant/answer/" + $("#hObjId").val() + "/" + e_value + "/",
-    //                 {
-    //                  graph: $("#divStoreGraphForServer").text()
-    //                 },
-    //                 function(data) {
-    //                     $("#result_display").html(data);
-    //                 },
-    //                 ""
-    //             );
-    //        } else {
-    //            $("#result_display").html('<h2>Please select a problem!</h2>');
-    //        }
-    // });
-
 });
+
+/*
+ * For handling CSRF token while POSTing via AJAX
+ * SOurce: https://docs.djangoproject.com/en/1.7/ref/contrib/csrf/
+ */
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+function sameOrigin(url) {
+    // test that a given url is a same-origin URL
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
+}
+
+function setUpCsrf() {
+var csrftoken = getCookie('csrftoken');
+//$(document).ready(function() {
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                // Send the token to same-origin, relative URLs only.
+                // Send the token only if the method warrants CSRF protection
+                // Using the CSRFToken value acquired earlier
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+//});
+}
