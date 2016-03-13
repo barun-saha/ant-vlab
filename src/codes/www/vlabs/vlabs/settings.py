@@ -185,7 +185,6 @@ INSTALLED_APPS = (
     #'threadedcomments',
     # Change #32,
     'djcelery',
-    'django_js_utils',
     'django_js_reverse',
 )
 

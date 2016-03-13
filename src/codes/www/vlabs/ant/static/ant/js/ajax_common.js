@@ -38,11 +38,3 @@ strAjaxErrorDiv += "' align='right' alt='[Close]' />\n\
 			</div>\n\
 			<div class="message"></div>\n\
 			</div>";
-
-
-/* Functions */
-
-
-/* Actions */
-
-// Close message box created in response to AJAX call

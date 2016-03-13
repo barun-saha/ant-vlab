@@ -27,6 +27,6 @@ urlpatterns = patterns('ns2trace.web_views',
     url(r'^plot/pkt_retransmits/(?P<src_node>\d+)/(?P<dst_node>\d+)/$',    'pkt_retransmits',           name='trace_retransmits',),
     url(r'^clear_session/$',                        'clear_session',        name='trace_clr_session',),
     # (Rev #28 : #3)
-    url(r'^plot/hop_cnt_seq_num/(?P<src_node>\d+)/(?P<src_port>\d+)/(?P<dst_node>\d+)/(?P<dst_port>\d+)/$',    
+    url(r'^plot/hop_cnt_seq_num/(?P<src_node>\d+)/(?P<src_port>\d+)/(?P<dst_node>\d+)/(?P<dst_port>\d+)/$',
         'hop_count_pkt_seq_num',                                            name='trace_hop_cnt',),
 )

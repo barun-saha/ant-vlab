@@ -41,7 +41,8 @@ $(document).ready(function() {
            // Use AJAX to post the comment.
             $.ajax({
                 type: 'POST',
-                url: '/ant/ant/ns2_test_submit/',
+                //url: '/ant/ant/ns2_test_submit/',
+                url: Urls.ns2_submit(),
                 data: contents,
                 cache: false,
                 success: function(mesg, textStatus, XMLHttpRequest) {

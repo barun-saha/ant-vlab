@@ -3,7 +3,7 @@ var NS2TRACE_URL = '/ant/ant/ns2trace/';
 // (Rev #28: #1)
 var MAX_NODES = 100;
 var MAX_PORT = 50;
-var INITIAL_POLL_INTERVAL  = 2000 ;     // in milliseconds    
+var INITIAL_POLL_INTERVAL  = 2000 ;     // in milliseconds
 
 
 /** For Flot */
@@ -23,45 +23,45 @@ var plot_options = {
             return ('<span class="plot-legend-wrapper" title="Click to remove"><a href="/" class="plot-legend">' + label + '</a><span>');
         }
     }
-};    
+};
 var alreadyFetchedPlotData = {};
 var plot_data = [];
 var placeholder = $("#plotarea");
 
 function onDataReceived(series, xaxisLabel, yaxisLabel) {
     // let's add it to our current data
-    
+
     if ( series.data.length == 0 ) {
         alert('No data found for ' + series.label);
         return;
     }
-            
+
     // If a series with a given label already exists, then append (i) to it i.e.
     // 'Bytes received by 4' would become 'Bytes received by 4 (1)'
     var nSimilarSeries = 0;
-    var nNumbered = 0;    
+    var nNumbered = 0;
     var nmax = 0;
     for (var iSeries in plot_data) {
         // series.label will always be in pure form, without any (i)
         if ( plot_data[iSeries].label.indexOf(series.label) >= 0 ) {
             ++ nSimilarSeries;
 
-            if ( plot_data[iSeries].label.indexOf('(#') > 0 ) {       
+            if ( plot_data[iSeries].label.indexOf('(#') > 0 ) {
                 ++ nNumbered;
                 var cur_num = parseInt( plot_data[iSeries].label.split('(#')[1].split(')')[0] ) || -1;
                 if (nmax < cur_num)
-                    nmax = cur_num;                    
+                    nmax = cur_num;
             }
-        }                                
+        }
     }
-    
+
     //var k = (nmax >= nSimilarSeries) ? nmax : nSimilarSeries;
-    var k = 0;    
+    var k = 0;
     if ( (nNumbered < nSimilarSeries) || (nmax > 0) )
         k = nmax + 1;
     else if ( nSimilarSeries && (nNumbered == 1) )
         k = 1;
-    
+
     //alert(k);
     if (k > 0)
         series.label += ' (#' + k + ')';
@@ -151,13 +151,13 @@ function createSlidingDiv2(elements, title, nDelay) {
 
 
 // DOM ready
-    
-$(document).ready(function() {   
+
+$(document).ready(function() {
 
     $('textarea.resizable:not(.processed)').TextAreaResizer();
 
-    // initialisation 
-    
+    // initialisation
+
     editAreaLoader.window_loaded();
     editAreaLoader.init({
         id: "ns2code"	// id of the textarea to transform
@@ -168,7 +168,7 @@ $(document).ready(function() {
         ,language: "en"
         ,syntax: "php"
         ,replace_tab_by_spaces: 4
-    }); 
+    });
 
 
     /** */
@@ -182,12 +182,12 @@ $(document).ready(function() {
     /*
      *  Execute simulation code
      */
-    $('div.ns2-form button#run').click(function(event) {        
+    $('div.ns2-form button#run').click(function(event) {
        event.preventDefault();
 
        $('div.ns2-code-output').text('');
        $('textarea.ns2-trace-text').text('');
-       
+
        var contents = {'ns2code': editAreaLoader.getValue('ns2code')}; //$('div.ns2-form form').serialize();   // editAreaLoader.getValue('ns2code');
        $('div.ns2-code-output').text(contents);
 
@@ -196,8 +196,8 @@ $(document).ready(function() {
        ajax_loading
        .attr({'src': get_static('ant/images/ajax/ajax_loader.gif'), 'alt': 'Loading ...'})
        .css({
-                'width': 'auto', 'height': 'auto', 
-                'border': 0, 'margin': 0, 
+                'width': 'auto', 'height': 'auto',
+                'border': 0, 'margin': 0,
                 'padding-left': '44.5%', 'padding-right': '44.5%', 'padding-top': '25px', 'padding-bottom': '25px'
        })
        $('div.ns2-code-output').append(ajax_loading);
@@ -214,36 +214,35 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             //url: NS2_BASE_URL+'ns2_test_submit/',
-            url: dutils.urls.resolve('ns2_submit'),
+            //url: dutils.urls.resolve('ns2_submit'),
+            url: Urls.ns2_submit(),
             data: contents,
             cache: false,
             success: function(mesg, textStatus, XMLHttpRequest) {
                 // Get the task #
                 //var jObj = $.parseJSON(mesg);
-		var jObj = mesg;
-		//alert(jObj);
+		        var jObj = mesg;
+		        //alert(jObj);
                 var disp_mesg = 'Simulation # <b>' + jObj['id'] + '</b> has been submitted. \n\
-                <br>The result will appear here shortly.'                               
-                                                
+                <br>The result will appear here shortly.'
+
                 if ( jObj['id'] ) {
-                    
                     // Display task #
                     $(document.createElement('p'))
                     .html(disp_mesg)
                     .css('text-align', 'center')
                     .attr('class', 'sim-start-mesg')
                     .appendTo ('div.ns2-code-output');
-                    
+
                     /*
                      * Credits: https://github.com/blog/467-smart-js-polling
                      */
                     // Poll until task is done; then display the result
                     $.poll(INITIAL_POLL_INTERVAL, function(retry) {
-                        
                         //$.getJSON(NS2_BASE_URL + 'cel/state/' + jObj['id'] + '/', function(data) {
-                        var target_url = dutils.urls.resolve('task_state', { task_id: jObj['id']});
+                        //var target_url = dutils.urls.resolve('task_state', { task_id: jObj['id']});
+                        var target_url = Urls.task_state(jObj['id']);
                         $.getJSON(target_url, function(data) {
-                            
 							var output = data['task'];
 							//alert(JSON.stringify(output));
 
@@ -253,7 +252,7 @@ $(document).ready(function() {
                                 .html('<b>Simulation completed ... Loading output</b>');
 
 								var resultObj = output['result'];
-								
+
                                 $('div.ns2-code-output').html(resultObj['mesg'].replace(/\n/g, '<br>'));
 								var output_length = 0;
                                 for (var line_num in resultObj['trace']) {
@@ -261,7 +260,7 @@ $(document).ready(function() {
                                     $('textarea.ns2-trace-text').append(line);
 									output_length += line.length;
                                 }
-                                
+
                                 $('textarea.ns2-trace-text').css('height', '250px');
 								output_length = output_length / 1024.0;
 								var msg = $('div.ns2-code-output').html();
@@ -274,7 +273,7 @@ $(document).ready(function() {
                             }
                         })
                     })
-                }                                                                      
+                }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
 		//alert('Error occured!');
@@ -303,17 +302,18 @@ $(document).ready(function() {
         if (simulation_mode == 'Satellite') {
             alert('Please choose the \'Wired\' mode to analyze trace files for exercises on satellite networks.');
             return;
-        }        
-        else if (simulation_mode == 'Mixed') {
-            alert('Mixed mode currently support only \'Average Throughput\' calculation -- other results are NOT guaranteed!');            
         }
-        
+        else if (simulation_mode == 'Mixed') {
+            alert('Mixed mode currently support only \'Average Throughput\' calculation -- other results are NOT guaranteed!');
+        }
+
 
         $('.trace-file-mode').attr('disabled', 'true');
         $('.toolbar').css({visibility: 'visible'}).slideDown('slow');
         $.ajax({
             //url:    NS2TRACE_URL + $(this).val() + '/' ,
-            url:    dutils.urls.resolve('trace_initialize', {sim_mode: simulation_mode}),
+            //url:    dutils.urls.resolve('trace_initialize', {sim_mode: simulation_mode}),
+            url: Urls.trace_initialize(simulation_mode),
             type:   'GET',
             success: function(mesg, txtStatus, XMLHttpRequest) {
                 createSlidingDiv(mesg, 'Mode Changed', 5000);
@@ -337,7 +337,8 @@ $(document).ready(function() {
         $.ajax({
             type:   'GET',
             //url:    NS2TRACE_URL + 'general_stats/',
-            url:    dutils.urls.resolve('trace_gen_stats'),
+            //url:    dutils.urls.resolve('trace_gen_stats'),
+            url: Urls.trace_gen_stats(),
             success:function(mesg, textStatus, XMLHttpRequest) {
                 createSlidingDiv(mesg, 'Title', 5000);
             },
@@ -386,7 +387,8 @@ $(document).ready(function() {
             $.ajax({
                 type:   'GET',
                 //url:    NS2TRACE_URL + 'avg_thruput/' + node_id + '/',
-                url:    dutils.urls.resolve('trace_avg_thruput', { node_id: node_id}),
+                //url:    dutils.urls.resolve('trace_avg_thruput', { node_id: node_id}),
+                url: Urls.trace_avg_thruput(node_id),
                 success:function(mesg, txtStatus, XMLHttpRequest) {
                     //$('#sim-avg-thruput-node').text(mesg);
                     createSlidingDiv(mesg, 'Average throughput of node #' + node_id + ' (in Kbps)', 5000);
@@ -407,14 +409,14 @@ $(document).ready(function() {
 
         var container = $(document.createElement('div'));
         var label = $(document.createElement('label')).text('Please type in source node # (starts from 0): ');
-        var input = $(document.createElement('input'));  
+        var input = $(document.createElement('input'));
         input.attr({
             type:   'text',
             id:     'e2e-delay-src-node',
             'name':   'e2e-delay-src-node'
         }).css('width', '100px');
         $(container).append(label).append(input);
-        
+
         var label = $(document.createElement('label')).text('Please type in destination node # (starts from 0): ');
         var input = $(document.createElement('input'));
         input.attr({
@@ -423,16 +425,16 @@ $(document).ready(function() {
             'name':   'e2e-delay-dst-node'
         }).css('width', '100px');
         $(container).append($('<br>')).append(label).append(input);
-        
+
         // (Rev #28: #4)
         var label = $(document.createElement('label')).text('Please type in scaling factor [optional]: ');
-        var input = $(document.createElement('input'));    
+        var input = $(document.createElement('input'));
         input.attr({
             type:   'text',
             id:     'delay-scale',
             'name':   'delay-scale',
             value:  1
-        }).css('width', '100px');    
+        }).css('width', '100px');
         $(container).append($(document.createElement('br'))).append(label).append(input);
 
         var btn = $(document.createElement('input'));
@@ -467,22 +469,23 @@ $(document).ready(function() {
                 $('#e2e-delay-dst-node').focus();
                 return;
             }
-            
+
             var scale = parseInt( $('#delay-scale').val() ) ;
             if (isNaN(scale) || scale == 0) {
                 alert('Scale factor can only be a non-zero number -- please revise your input!');
                 $('#delay-scale').val('');
                 $('#delay-scale').focus();
                 return;
-            } 
-            
+            }
+
             $(this).attr('disabled', 'true');
-            
+
             $.ajax({
                 type:   'GET',
                 //url:    NS2TRACE_URL + 'plot/end2end_delay/' + src + '/' + dst + '/' + scale,
                 //url:    NS2TRACE_URL + 'plot/end2end_delay/0/3',
-                url:    dutils.urls.resolve('trace_e2e_delay', {src_node: src, dst_node: dst, scale: scale}),
+                //url:    dutils.urls.resolve('trace_e2e_delay', {src_node: src, dst_node: dst, scale: scale}),
+                url: Urls.trace_e2e_delay(src, dst, scale),
                 success:function(mesg, txtStatus, XMLHttpRequest) {
                     createSlidingDiv(mesg, 'End-to-end delay between nodes ' + src + ' and ' + dst, 5000);
                     if (mesg['error'])
@@ -561,7 +564,8 @@ $(document).ready(function() {
             $.ajax({
                 type:   'GET',
                 //url:    NS2TRACE_URL + 'plot/pkt_retransmits/' + src + '/' + dst + '/',
-                url:    dutils.urls.resolve('trace_retransmits', {src_node: src, dst_node: dst}),
+                //url:    dutils.urls.resolve('trace_retransmits', {src_node: src, dst_node: dst}),
+                url: Urls.trace_retransmits(src, dst),
                 success:function(mesg, txtStatus, XMLHttpRequest) {
                     createSlidingDiv(mesg, 'Packet retransmission count between nodes ' + src + ' and ' + dst, 5000);
                     if (mesg['error'])
@@ -588,7 +592,7 @@ $(document).ready(function() {
         var container = $(document.createElement('div'));
         var label = $(document.createElement('label')).text('Please type in node # (starts from 0): ');
         $(container).append(label);
-        
+
         var input = $(document.createElement('input'));
         input.attr({
             type:   'text',
@@ -673,7 +677,8 @@ $(document).ready(function() {
 
             $('div.slide-dialog').remove();
 
-            var url = dutils.urls.resolve('trace_bytes_rcvd', {node_id: node_id, levels: trace_levels});
+            //var url = dutils.urls.resolve('trace_bytes_rcvd', {node_id: node_id, levels: trace_levels});
+            var url = Urls.trace_bytes_rcvd(node_id, trace_levels);
             url = url.replace('*)', '');
             //alert(url);
             $.ajax({
@@ -702,7 +707,8 @@ $(document).ready(function() {
         event.preventDefault();
         $.ajax({
             //url:    NS2TRACE_URL + 'clear_session/',
-            url:    dutils.urls.resolve('trace_clr_session'),
+            //url:    dutils.urls.resolve('trace_clr_session'),
+            url: Urls.trace_clr_session(),
             type:   'GET',
             success:function(mesg, txtStatus, XMLHttpRequest) {
                 createSlidingDiv(mesg, '', 5000);
@@ -729,7 +735,7 @@ $(document).ready(function() {
         var input3 = $(document.createElement('input'));
         var label4 = $(document.createElement('label')).text('Please type in destination port # (starts from 0): ');
         var input4 = $(document.createElement('input'));
-        
+
         input.attr({
             type:   'text',
             id:     'src-node',
@@ -757,7 +763,7 @@ $(document).ready(function() {
         $(container).append($('<br>')).append(label3).append(input3);
         $(container).append($('<br>'))
         .append(label4)
-        .append(input4)    
+        .append(input4)
         .append( $(document.createElement('div'))
                 .text('Please turn MAC trace on for wireless scenarios')
                 .css('border-top', '1px dotted silver')
@@ -814,7 +820,8 @@ $(document).ready(function() {
             $.ajax({
                 type:   'GET',
                 //url:    url,
-                url:    dutils.urls.resolve('trace_hop_cnt', {src_node: src_node, src_port: src_port, dst_node: dst_node, dst_port: dst_port}),
+                //url:    dutils.urls.resolve('trace_hop_cnt', {src_node: src_node, src_port: src_port, dst_node: dst_node, dst_port: dst_port}),
+                url: Urls.trace_hop_cnt(src_node, src_port, dst_node, dst_port),
                 success:function(mesg, txtStatus, XMLHttpRequest) {
                     //$('#sim-avg-thruput-node').text(mesg);
                     createSlidingDiv(mesg, 'Hop count vs. packet sequence # plot', 5000);
@@ -833,51 +840,51 @@ $(document).ready(function() {
         createSlidingDiv2(container, '', 0);
     });
 
-    
+
     // (Rev #31: #1)
     // Filter the output of simulation based on search pattern
     $('#filter-btn').click(function(event) {
         var count = 0;
         var pattern = $.trim( $('#filter-pattern').val() );
-        
+
         if (pattern.length == 0) {
             alert('Please type in a pattern to search!');
             $('#filter-pattern').focus();
-            return;            
+            return;
         }
 
         var inputs = [];
-        var output = '';        
+        var output = '';
         var contents = $('.ns2-code-output').html();
         if ( contents.search('<br>') >= 0 )
             inputs = contents.split('<br>');
         else
-            inputs = contents.split('<BR>');    // Stupid IE           
-                
+            inputs = contents.split('<BR>');    // Stupid IE
+
         for (var i in inputs) {
             if ( inputs[i].match(pattern) ) {
-                ++count;            
-                output = [ output, inputs[i] ].join('<br>');                
+                ++count;
+                output = [ output, inputs[i] ].join('<br>');
             }
-        }      
+        }
 
         $('#pattern-match-count').text(count);
-        $('.filtered-output').html( output );                            
+        $('.filtered-output').html( output );
     });
-    
+
     // (Rev #35: #1)
     $('#filter-clr').click(function() {
         $('#pattern-match-count').text(0);
-        $('.filtered-output').html('');                            
+        $('.filtered-output').html('');
     })
-    
+
     // (Rev #34: #1)
     // Plot from user input data
     $('#custom-plot').click(function(e) {
         e.preventDefault();
-        // Read the inputs from the text area, and store them in 
+        // Read the inputs from the text area, and store them in
         // [ [x1, y1], [x2, y2], ... ] format
-        
+
         if (! $('#custom-plot-data').val() ) {
             alert('Please type in some data to be plotted!')
             return;
@@ -885,34 +892,34 @@ $(document).ready(function() {
         var plot_label = ( $('#plot-label').val().length ? $('#plot-label').val() : 'plot-label' );
         var x_axis_label = ( $('#x-axis-label').val().length ? $('#x-axis-label').val() : 'x-axis' );
         var y_axis_label = ( $('#y-axis-label').val().length ? $('#y-axis-label').val() : 'y-axis' );
-        
+
         var input_data = $('#custom-plot-data').val().split('\n');
         var data = [];
-        
+
         for (var i = 0; i < input_data.length; i++) {
             var line = $.trim( input_data[i] );
-            
+
             if ( ! line.length || line.indexOf(',') < 0 )
                 continue;
-            
+
             var xval = line.split(',')[0];
             var yval = line.split(',')[1];
             data.push( [xval, yval] );
-        }        
-        
+        }
+
         var mesg = {
             'data': data,
             'label': plot_label
         }
-        onDataReceived(mesg, x_axis_label, y_axis_label);        
+        onDataReceived(mesg, x_axis_label, y_axis_label);
     });
-    
-    
+
+
     // (Rev #35: #2)
     // Reload trace file, if any, of the recently executed simulation
     $('#reload-trace-file').click(function(e) {
         e.preventDefault();
-        
+
     })
-    
+
 });
