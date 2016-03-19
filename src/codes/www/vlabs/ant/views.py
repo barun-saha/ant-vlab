@@ -66,6 +66,7 @@ def theory(request, object_id=9):
     context = RequestContext(request)
     # Required to differentiate between ISAD and ANT in post-comment.js
     context['SITE_BASE'] = '/cse28/ant/'
+    t.content = t.content.replace('_STATIC_URL_', settings.STATIC_URL)
 
     return render_to_response(
         'ant/theory.html',
@@ -121,6 +122,7 @@ def simulation(request, object_id):
     # (Rev #42 : #1)
     #t = get_object_or_404(Theory, pk=object_id)
     s = get_object_or_404(Simulation.objects.select_related(), theory=object_id)
+    s.problem = s.problem.replace('_STATIC_URL_', settings.STATIC_URL)
     return render_to_response(
         'ant/simulation.html',
         {
@@ -281,6 +283,7 @@ def get_exercise_problem(request, exercise_id):
     of the Exercise table.
     '''
     ep = get_object_or_404(Exercise, id=exercise_id)
+    ep.problem = ep.problem.replace('_STATIC_URL_', settings.STATIC_URL)
     if settings.DEBUG:  # Ajax delay demo
         #import time
         #time.sleep(1)
@@ -357,7 +360,7 @@ def get_exercise_answer(request, object_id=9, exercise_id=1):
     s = get_object_or_404(Solution, exercise=exercise_id)
 
     mesgToDisplay = "<div class='centerAlign'> <input type='button' value='View Solution' "
-    mesgToDisplay += "onclick='confirm(\"Are you sure you dont want to give another try?\") ? window.open(\"/ant/ant/show_solution/%s/\", \"AntSolution\",\"width=800,height=600,resizable=yes,toolbar=no,linkbar=no,scrollbars=yes,location=0,directories=no,status=no,menubar=no,copyhistory=no\",false) : \"False\" ' />"
+    mesgToDisplay += "onclick='confirm(\"Are you sure you want to view the solution?\") ? window.open(\"/ant/ant/show_solution/%s/\", \"AntSolution\",\"width=800,height=600,resizable=yes,toolbar=no,linkbar=no,scrollbars=yes,location=0,directories=no,status=no,menubar=no,copyhistory=no\",false) : \"False\" ' />"
     mesgToDisplay += "</div>"
     mesgToDisplay = mesgToDisplay % (exercise_id,)
     return HttpResponse(mesgToDisplay)
@@ -365,6 +368,7 @@ def get_exercise_answer(request, object_id=9, exercise_id=1):
 
 def show_solution(request, object_id=9, exercise_id=1):
     s = get_object_or_404(Solution, exercise=exercise_id)
+    s.image_url = s.image_url.replace('_STATIC_URL_', settings.STATIC_URL)
     return render_to_response(
         'ant/solution.html',
         {
