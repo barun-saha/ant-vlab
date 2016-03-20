@@ -16,13 +16,13 @@ NS3_PATH=/home/$USER_ID/Desktop/ns3/ns-allinone-3.10
 
 echo 'Home path created:' $HOME_PATH
 
-sudo mkdir $DESKTOP_PATH
+sudo mkdir -p $DESKTOP_PATH
 echo 'Desktop created'
 
 
 ls /var/vlabs/ant/ns3/ns3 > /dev/null 2>&1
 if [ $? -eq 0 ]
-then 
+then
 	# Removing existing link
 	sudo rm /var/vlabs/ant/ns3/ns3
 fi
@@ -76,10 +76,10 @@ test_failed() {
 
 
 # NS3 building
-#cd $NS3_PATH 
+#cd $NS3_PATH
 #python build.py || build_failed "$NS3_PATH"
-./waf configure
-./waf build
+./waf configure --disable-python --nopyc --nopyo --disable-examples
+./waf build --disable-python --nopyc --nopyo --disable-examples
 
 # Testing NS3 file
 #cd $NS3_PATH/ns-3.10
