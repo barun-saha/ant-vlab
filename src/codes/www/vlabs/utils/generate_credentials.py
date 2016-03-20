@@ -82,8 +82,8 @@ app_credentials = {
 	intermediate_string = '''
 	'db_host': 'localhost',
 	'db_port': '3306',
-	'broker_host': 'D',
-	'broker_port': 'E',
+	'broker_host': 'localhost',
+	'broker_port': '5672',
 	'broker_user': 'ruser',
 '''
 
@@ -105,7 +105,7 @@ app_credentials = {
 #	password = "".join(
 #		[random.choice(ALPHABET) \
 #			for i in xrange(password_length + 1)])
-	
+
 	# Read the password from file
 	db_pfile = None
 	rmq_pfile = None

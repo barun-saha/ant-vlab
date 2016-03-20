@@ -1,5 +1,5 @@
 # (Rev #32: #1)
-from celery.decorators import task
+import django_rq
 from django.conf import settings
 from django.http import HttpResponse
 import time
@@ -18,7 +18,6 @@ import globals
 from django.contrib.sessions.backends.db import SessionStore
 
 
-@task(name="ant.tasks.ns2run")
 def ns2run(code, session_key):
     #code = request.POST.get('ns2code')
     #print 'Session key:', session_key
@@ -61,7 +60,7 @@ def ns2run(code, session_key):
             return HttpResponse('<p class="error">Error: ' + error_mesg + '</p>')
 
     is_error = False
-    
+
     # Substitute certain strings in the user script
     # Any file set to create within the program will be created at /var/vlabs_demo/ant
     changed_contents = ''
@@ -76,16 +75,16 @@ def ns2run(code, session_key):
         # Disable any exec statement present in the script
         changed_contents = re.sub(r'(\bexec\b)', r'#\1', changed_contents)
 
-        # (Rev #35: #1)    
+        # (Rev #35: #1)
         # Replace PED_A (or PED_B) with globals.WIMAX_REF_PATH/PED_A (or
         # globals.WIMAX_REF_PATH/PED_B)
-        changed_contents = re.sub( r'(\s*ITU_PDP\s*)(.*PED_A).*', 
+        changed_contents = re.sub( r'(\s*ITU_PDP\s*)(.*PED_A).*',
                                     r'\1' + '"' + globals.WIMAX_REF_PATH + '/PED_A"',
                                     changed_contents )
-        changed_contents = re.sub( r'(\s*ITU_PDP\s*)(.*PED_B).*', 
+        changed_contents = re.sub( r'(\s*ITU_PDP\s*)(.*PED_B).*',
                                     r'\1' + '"' + globals.WIMAX_REF_PATH + '/PED_B"',
                                     changed_contents )
-        
+
         script_file = open(script_file_path, 'w')
         script_file.write(changed_contents)
         script_file.close()
@@ -116,12 +115,12 @@ def ns2run(code, session_key):
             trace_file_name = mobj.group(1)
             trace_file_exists = True
             #trace_file_path = globals.NS2_SCRIPT_STORAGE_PATH + '/' + session_key + '/' + trace_file_name
-            
+
     #print 'Trace file: ', trace_file_name
     # Generate the argument list
     args = (globals.NS2_PATH, script_file_path,)
-    #print args          
-   
+    #print args
+
     # Spawn the sub process
     process = sp.Popen(args, shell=False, stdout=sp.PIPE, stderr=sp.PIPE)
     result, error =  process.communicate()
@@ -141,12 +140,12 @@ def ns2run(code, session_key):
     mesg = re.sub(globals.NS2_SCRIPT_STORAGE_PATH, r'[base]', mesg)         # Hide the server storage path
     #print mesg
     output = {'mesg': mesg,}
-    
+
     #print 'Trace file:', trace_file_name
 
     if trace_file_exists:
         # *** Store trace file name for the current user session ***
-        
+
         # ??? Trace file name ???
         #request.session[request.session.session_key] = {'trace_file_name' : trace_file_name}
 	# 22 Oct 2013
@@ -155,7 +154,7 @@ def ns2run(code, session_key):
 	s[session_key] = {'trace_file_name' : trace_file_name}
 	s.save()
         #
-        
+
         #print request.session.get(request.session.session_key)
         output['trace_file_name'] = trace_file_name
 
@@ -176,11 +175,10 @@ def ns2run(code, session_key):
 
     #print 'Output:', output
     return output
-    
-    
 
-@task(name="ant.tasks.ns3run")
-def ns3run(code, session_key):    
+
+
+def ns3run(code, session_key):
     #code = request.POST.get('ns3code')
     #print request.session.session_key
     #return HttpResponse(json.dumps({'mesg': 'Working'}))
@@ -219,7 +217,7 @@ def ns3run(code, session_key):
 
     is_error = False
 
-    
+
     os.chdir(globals.NS3_INSTALL_PATH)
     args = ( 'python', 'waf', '--run', '/'.join( (globals.NS3_SYM_LINK, script_file_name,) ) )
     #print args
@@ -260,3 +258,13 @@ def ns3run(code, session_key):
     output = {'mesg': filtered_msg,}
 
     return output
+
+
+def job_result(request, uuid):
+    job = django_rq.get_queue(name=settings.REDIS_QNAME).fetch_job(uuid)
+    output = {
+        'status': job.status,
+        'result': job.result,
+    }
+
+    return HttpResponse(json.dumps(output), content_type='application/json')

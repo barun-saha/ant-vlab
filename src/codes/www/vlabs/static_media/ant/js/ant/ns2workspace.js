@@ -242,13 +242,13 @@ $(document).ready(function() {
                     $.poll(INITIAL_POLL_INTERVAL, function(retry) {
                         //$.getJSON(NS2_BASE_URL + 'cel/state/' + jObj['id'] + '/', function(data) {
                         //var target_url = dutils.urls.resolve('task_state', { task_id: jObj['id']});
-                        var target_url = Urls.task_state(jObj['id']);
-                        $.getJSON(target_url, function(data) {
-							var output = data['task'];
+                        var target_url = Urls.job_result(jObj['id']);
+                        $.getJSON(target_url, function(output) {
+							//var output = data['task'];
 							//alert(JSON.stringify(output));
 
                             //if ( result['state'] && (result['state'].toUpperCase() == 'SUCCESS')) {
-							if (output['status'].toUpperCase() == 'SUCCESS') {
+							if (output['status'].toLowerCase() == 'finished') {
                                 $('p.sim-start-mesg')
                                 .html('<b>Simulation completed ... Loading output</b>');
 

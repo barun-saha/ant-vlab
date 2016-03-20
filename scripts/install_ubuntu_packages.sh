@@ -76,8 +76,11 @@ do
 	sudo -E apt-get -y install build-essential libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev
 	sudo -E apt-get -y install --fix-missing
 
+	sudo -E apt-get install -y redis-server
+	sudo -E apt-get install -y supervisor
+	sudo -E apt-get -y install --fix-missing
+
 	sudo -E apt-get update
 
 	COUNTER=$((COUNTER + 1))
 done
-

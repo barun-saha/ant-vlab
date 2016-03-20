@@ -46,15 +46,15 @@ urlpatterns += patterns('ant.views',
     url(r'^export2pdf/$',                           'export2pdf'),
 )
 
-# Celery related
-urlpatterns += patterns('ant.celery_helper',            
-#    url(r'^cel/state/(?P<uuid>[a-z0-9\-]+)/$',                  'task_state',   name='task_state',),
-    url(r'^cel/result/(?P<uuid>[a-z0-9\-]+)/$',                  'task_result', name='task_result',),
+# Python RQ
+urlpatterns += patterns('ant.tasks',
+    url(r'^job/result/(?P<uuid>[a-z0-9\-]+)/$',                  'job_result', name='job_result',),
 )
 
-urlpatterns += patterns('djcelery.views',            
-    url(r'^cel/state/(?P<task_id>[a-z0-9\-]+)/$',                  'task_status',   name='task_state',),
-)
+# urlpatterns += patterns('djcelery.views',
+#     url(r'^cel/state/(?P<task_id>[a-z0-9\-]+)/$',                  'task_status',   name='task_state',),
+# )
+
 
 if settings.DEBUG:
     urlpatterns += patterns('',

@@ -27,6 +27,8 @@ import sys
 sys.stdout = sys.stderr
 
 
+import django_rq
+
 # (Rev #36: #1)
 allowed_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 block_list = []
@@ -434,10 +436,15 @@ def ns2test_submit(request):
         session_key = request.session.session_key
         #print 'Session key:', session_key
         try:
-            new_task = tasks.ns2run.delay(code, session_key)
-        ##print '<b>%d</b>' % (result.get(),)
+            # Previously with Celery
+            #new_task = tasks.ns2run.delay(code, session_key)
+            # With RQ
+            queue = django_rq.get_queue(settings.REDIS_QNAME)
+            job = queue.enqueue(tasks.ns2run, code, session_key)
+
+            ##print '<b>%d</b>' % (result.get(),)
             #print 'Simulation # :', new_task.task_id
-            output['id'] = new_task.task_id
+            output['id'] = job.id
         except Exception, ex:
             output['error'] = 'Failed to submit simulation!\n%s' % ex
             #print ex

@@ -186,6 +186,7 @@ INSTALLED_APPS = (
     # Change #32,
     'djcelery',
     'django_js_reverse',
+    'django_rq',
 )
 
 SESSION_COOKIE_AGE = 1800  # 30 min
@@ -212,3 +213,15 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static_media/')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+REDIS_QNAME = 'q_ant'
+
+RQ_QUEUES = {
+    REDIS_QNAME: {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'PASSWORD': 'some-password',
+        'DEFAULT_TIMEOUT': 120,
+    }
+}

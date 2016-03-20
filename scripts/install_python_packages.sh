@@ -41,7 +41,7 @@ do
 	# http://stackoverflow.com/questions/5178292/pip-install-mysql-python-fails-with-environmenterror-mysql-config-not-found
 	sudo -E apt-get -y install libmysqlclient-dev
 	sudo -E pip install MySQL-python
-	
+
 	# Commented because it autimatically updates the Django to the newest version
 	#sudo -E pip install django-maintenancemode
 	sudo -E pip install django-ajaxcomments
@@ -49,9 +49,8 @@ do
 	sudo -E pip install recaptcha-client
 	sudo -E pip install PIL
 
-	# Installation of celery and django-celery
-	#sudo -E pip install celery
-	#sudo -E pip install django-celery
+	sudo -E pip install rq
+	sudo -E pip install django-rq
 
 	sudo -E apt-get update
 

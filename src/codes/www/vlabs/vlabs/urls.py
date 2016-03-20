@@ -10,7 +10,7 @@ admin.autodiscover()
 
 #     # (Change #50)
 #     #(r'^ant/shoutbox/',        include('vlabs.shoutloud.urls')),
-#     
+#
 #     # (Change #23: #1)
 #     #(r'^ant/ns2trace/',        include('vlabs.ns2trace.urls',)),
 #     #(r'^ant/ant/ns2trace/',    include('vlabs.ns2trace.urls',)),
@@ -37,4 +37,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
      (r'^', include('ant.urls')),
+)
+
+urlpatterns += patterns('',
+    url(r'^django-rq/', include('django_rq.urls')),
 )
