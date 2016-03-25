@@ -6,7 +6,7 @@ log ''
 log '*** Executing install_ns2.sh'
 
 # Download NS-2 and other packages from GitHub
-# Since the file size is large, wget may fail. In that case we retry 
+# Since the file size is large, wget may fail. In that case we retry
 # upto 5 times.
 
 DOWNLOAD_URL_NS='https://github.com/barun-saha/ns2-wimax-bluetooth-wsn/archive/master.zip'
@@ -96,9 +96,14 @@ cd "$CURRENT_DIR"
 # Creating symlinks to link the shared objects
 echo 'Creating symlinks'
 cd $LIB_DIR
-sudo ln -sf $CURRENT_DIR/$TCL_DIR/libtcl8.4.so libtcl8.4.so
-sudo ln -sf $CURRENT_DIR/$TK_DIR/libtk8.4.so libtk8.4.so
-sudo ln -sf $CURRENT_DIR/$OTCL_DIR/libotcl.so libotcl.so
+# Accessing symlink-ed lib threw permission denied error; could not yet figure
+# out why; hence copying them instead
+# sudo ln -sf $CURRENT_DIR/$TCL_DIR/libtcl8.4.so libtcl8.4.so
+# sudo ln -sf $CURRENT_DIR/$TK_DIR/libtk8.4.so libtk8.4.so
+# sudo ln -sf $CURRENT_DIR/$OTCL_DIR/libotcl.so libotcl.so
+sudo cp $CURRENT_DIR/$TCL_DIR/libtcl8.4.so libtcl8.4.so
+sudo cp $CURRENT_DIR/$TK_DIR/libtk8.4.so libtk8.4.so
+sudo cp $CURRENT_DIR/$OTCL_DIR/libotcl.so libotcl.so
 cd "$CURRENT_DIR"
 
 
@@ -114,7 +119,7 @@ BIT_INFO=$(getconf LONG_BIT)
 value=64
 
 if [ $BIT_INFO = $value ]
-then 
+then
 	#applying 64-bit.patch
 	echo 'This is a 64-bit machine'
 	echo 'Applying patch for 64-bit'
