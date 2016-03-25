@@ -11,6 +11,10 @@ CURRENT_DIR=$(pwd)
 TIMESTAMP=$(date +'%F %T')
 SYSTEM=$(hostname)
 
+HOME_PATH=/home/barun
+ANT_PATH=$HOME_PATH/codes/www/vlabs
+
+
 # Utility functions
 log() {
 	echo "$@" >> "$LOG_FILE"
@@ -24,7 +28,6 @@ error() {
 # A function to generate a random password
 # http://serverfault.com/a/261417/58453
 generate_password() {
-	cat /dev/urandom | tr -dc 'a-zA-Z0-9-_!@#$+=' | fold -w 12 | head -n 1
+	cat /dev/urandom | tr -dc 'a-zA-Z0-9-_!@#$+=' | fold -w 32 | head -n 1
 }
 #
-

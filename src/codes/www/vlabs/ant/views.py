@@ -21,7 +21,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 # (Rev #32: #1)
 from . import tasks
-import celery
 
 import sys
 sys.stdout = sys.stderr
@@ -424,7 +423,7 @@ def export2pdf(request):
     pass
 
 
-# Submit a Celery task to execute ns2 code
+# Submit a task to execute ns2 code
 # Returns UUID of the created task
 def ns2test_submit(request):
     # (Rev #32: #1)
@@ -436,8 +435,6 @@ def ns2test_submit(request):
         session_key = request.session.session_key
         #print 'Session key:', session_key
         try:
-            # Previously with Celery
-            #new_task = tasks.ns2run.delay(code, session_key)
             # With RQ
             queue = django_rq.get_queue(settings.REDIS_QNAME)
             job = queue.enqueue(tasks.ns2run, code, session_key)

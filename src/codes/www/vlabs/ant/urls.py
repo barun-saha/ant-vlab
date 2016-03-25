@@ -51,10 +51,6 @@ urlpatterns += patterns('ant.tasks',
     url(r'^job/result/(?P<uuid>[a-z0-9\-]+)/$',                  'job_result', name='job_result',),
 )
 
-# urlpatterns += patterns('djcelery.views',
-#     url(r'^cel/state/(?P<task_id>[a-z0-9\-]+)/$',                  'task_status',   name='task_state',),
-# )
-
 
 if settings.DEBUG:
     urlpatterns += patterns('',

@@ -2,67 +2,67 @@
     "lab": {
         "build_requirements": {
             "platform": {
-                "arch": "i386", 
+                "arch": "i386",
                 "build_steps": {
-                    "build": [], 
-                    "configure": [], 
-                    "post_build": [], 
-                    "pre_build": [], 
+                    "build": [],
+                    "configure": [],
+                    "post_build": [],
+                    "pre_build": [],
                     "status": []
-                }, 
-                "installer": [], 
-                "os": "ubuntu", 
-                "osVersion": "10.04", 
+                },
+                "installer": [],
+                "os": "ubuntu",
+                "osVersion": "10.04",
                 "service_pack": ""
             }
-        }, 
+        },
         "description": {
             "developer": [
                 {
                     "contact": {
-                        "alternate_email": "", 
-                        "email": "smisra@sit.iitkgp.ernet.in", 
-                        "mobile_number": "", 
+                        "alternate_email": "",
+                        "email": "smisra@sit.iitkgp.ernet.in",
+                        "mobile_number": "",
                         "office_number": ""
-                    }, 
-                    "department": "School of Information Technology", 
-                    "institute": "IIT Kharagpur", 
-                    "name": "Sudip Misra", 
-                    "organization": "", 
-                    "role": "Lab Developer", 
-                    "title": "", 
+                    },
+                    "department": "School of Information Technology",
+                    "institute": "IIT Kharagpur",
+                    "name": "Sudip Misra",
+                    "organization": "",
+                    "role": "Lab Developer",
+                    "title": "",
                     "web": ""
                 },
                 {
                     "contact": {
-                        "alternate_email": "", 
-                        "email": "barun.saha04@gmail.com", 
-                        "mobile_number": "", 
+                        "alternate_email": "",
+                        "email": "barun.saha04@gmail.com",
+                        "mobile_number": "",
                         "office_number": ""
-                    }, 
-                    "department": "School of Information Technology", 
-                    "institute": "IIT Kharagpur", 
-                    "name": "Barun Saha", 
-                    "organization": "", 
-                    "role": "Lab RA", 
-                    "title": "", 
+                    },
+                    "department": "School of Information Technology",
+                    "institute": "IIT Kharagpur",
+                    "name": "Barun Saha",
+                    "organization": "",
+                    "role": "Lab RA",
+                    "title": "",
                     "web": ""
                 }
-            ], 
+            ],
             "discipline": [
                 "Computer Science & Engineering"
-            ], 
-            "id": "cse28", 
-            "integration_level": 5, 
-            "name": "Advanced Network Technologies", 
-            "server-side": true, 
-            "status": "Released", 
+            ],
+            "id": "cse28",
+            "integration_level": 5,
+            "name": "Advanced Network Technologies",
+            "server-side": true,
+            "status": "Released",
             "type": "Simulation"
-        }, 
+        },
         "runtime_requirements": {
             "platform": {
-                "arch": "i386", 
-                "hosting": "dedicated", 
+                "arch": "i386",
+                "hosting": "dedicated",
                 "installer": [
                     "sudo apt-get -y install python python-dev python-setuptools python-pip",
 					"sudo apt-get -y install build-essential",
@@ -85,12 +85,9 @@
 					"sudo apt-get -y install libboost-python-dev libboost-python1.40-dev libboost-python1.40.0 libgcc1 libgv-python",
 					"sudo apt-get -y install libmysqlclient16 libpython2.6",
 					"sudo apt-get -y install python-mysqldb python-pkg-resources",
-					"sudo apt-get -y install rabbitmq-server",
 					"pip install amqplib==1.0.0",
 					"pip install anyjson==0.3.1",
-					"pip install celery==2.3.1",
 					"pip install django-appconf==0.6",
-					"pip install django-celery==2.3.3",
 					"pip install django-compressor==1.2",
 					"pip install django-contact-form==0.3",
 					"pip install django-debug-toolbar==0.9.4",
@@ -109,37 +106,36 @@
 					"pip install pyxdg==0.18",
 					"pip install simplejson==2.0.9",
 					"pip install wsgiref==0.1.2"
-                ], 
+                ],
                 "lab_actions": {
-                    "backup": [], 
+                    "backup": [],
                     "clean": [],
                     "init": [
-						"sh rabbitmq_setup.sh",
                         "sh configure.sh"
-                    ], 
-                    "pause": [], 
-                    "publish": [], 
-                    "restore": [], 
-                    "resume": [], 
-                    "shutdown": [], 
+                    ],
+                    "pause": [],
+                    "publish": [],
+                    "restore": [],
+                    "resume": [],
+                    "shutdown": [],
                     "start": [
                         "sudo service apache2 restart"
                     ],
-                    "stats": [], 
+                    "stats": [],
                     "stop": []
-                }, 
+                },
                 "memory": {
-                    "max_required": "2gb", 
+                    "max_required": "2gb",
                     "min_required": "256mb"
-                }, 
-                "os": "ubuntu", 
-                "osVersion": "10.04", 
-                "servicepack": "", 
+                },
+                "os": "ubuntu",
+                "osVersion": "10.04",
+                "servicepack": "",
                 "storage": {
                     "min_required": "10gb"
                 }
             }
         }
-    }, 
+    },
     "template": "1.0"
 }

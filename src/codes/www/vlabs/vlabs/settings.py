@@ -23,34 +23,6 @@ __ENV_PROD__ = True
 ###
 
 
-### Configure django-celery
-import djcelery
-djcelery.setup_loader()
-
-CELERY_RESULT_BACKEND = "amqp"
-CELERY_IMPORTS = ("vlabs.ant.tasks", )
-
-## Worker settings
-## If you're doing mostly I/O you can have more processes,
-## but if mostly spending CPU, try to keep it close to the
-## number of CPUs on your machine. If not set, the number of CPUs/cores
-## available will be used.
-CELERYD_CONCURRENCY = 10
-# CELERYD_LOG_FILE = "celeryd.log"
-CELERYD_LOG_LEVEL = "INFO"
-
-CELERY_RESULT_EXCHANGE = 'xant'
-CELERY_AMQP_TASK_RESULT_EXPIRES = 18000  # Task queue expires after 5 hours
-#CELERYD_LOG_FILE = 'ns2web_celery.log'
-CELERY_SEND_EVENTS = True
-###
-
-BROKER_HOST = app_credentials['broker_host']
-BROKER_PORT = app_credentials['broker_port']
-BROKER_USER = app_credentials['broker_user']
-BROKER_PASSWORD = app_credentials['broker_password']
-BROKER_VHOST = app_credentials['broker_vhost']
-
 ADMINS = (
     ('Barun Saha', 'barun<DOT>saha04<AT>gmail<DOT>com'),
 )
@@ -184,7 +156,6 @@ INSTALLED_APPS = (
     # Change #21, #2
     #'threadedcomments',
     # Change #32,
-    'djcelery',
     'django_js_reverse',
     'django_rq',
 )
@@ -221,7 +192,7 @@ RQ_QUEUES = {
         'HOST': 'localhost',
         'PORT': 6379,
         'DB': 0,
-        'PASSWORD': 'some-password',
+        'PASSWORD': app_credentials['redis_password'],
         'DEFAULT_TIMEOUT': 120,
     }
 }

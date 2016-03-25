@@ -1,3 +1,21 @@
+source ../scripts/common.sh
+
+log '*** Executing install_redis.sh'
+
+REDIS_PASSWD_FILE=$HOME_PATH/redis_passwd
+
+log 'Reading password for Redis'
+
+if [[ -f "$REDIS_PASSWD_FILE" && -r "REDIS_PASSWD_FILE" ]]
+then
+    REDIS_PASSWD=$(cat "$REDIS_PASSWD_FILE")
+else
+    REDIS_PASSWD=$(generate_password)
+    echo "$REDIS_PASSWD" > "$REDIS_PASSWD_FILE"
+    chmod -w "$REDIS_PASSWD_FILE"
+fi
+
+
 echo '[program:django_rq_worker_ant]
 command=python /home/barun/codes/www/vlabs/manage.py rqworker q_ant
 autostart=true

@@ -34,7 +34,7 @@ MAX_LENGTH = 15
 # Locations where various passwords are stored
 HOME_PATH = '/home/barun'
 ANT_DB_USR_PASSWD_FILE = '/'.join([HOME_PATH, 'ant_mysql_usr_passwd',])
-ANT_RMQ_USR_PASSWD_FILE = '/'.join([HOME_PATH, 'ant_rmq_usr_passwd',])
+REDIS_PASSWD_FILE = '/'.join([HOME_PATH, 'redis_passwd',])
 
 
 def generate_credentials(secret_key_file, output_file):
@@ -82,25 +82,21 @@ app_credentials = {
 	intermediate_string = '''
 	'db_host': 'localhost',
 	'db_port': '3306',
-	'broker_host': 'localhost',
-	'broker_port': '5672',
-	'broker_user': 'ruser',
 '''
 
 	final_string = '''
-	'broker_vhost': 'rhost',
 	'secret_key': __get_secret_key(),
 }
 '''
 
 	db_password_string = ''
-	rmq_password_string = ''
+	redis_password_string = ''
 
 	# Generate credentials for each type
 	# In ANT Virtual Lab, we need credentials for database and rabbitmq
 
 	db_cred_name = '\t\'db_password\': '
-	rmq_cred_name = '\t\'broker_password\': '
+	redis_cred_name = '\t\'redis_password\': '
 #	password_length = random.randint(MIN_LENGTH, MAX_LENGTH)
 #	password = "".join(
 #		[random.choice(ALPHABET) \
@@ -108,30 +104,30 @@ app_credentials = {
 
 	# Read the password from file
 	db_pfile = None
-	rmq_pfile = None
+	redis_pfile = None
 	try:
 		db_pfile = open(ANT_DB_USR_PASSWD_FILE, 'r')
-		rmq_pfile = open(ANT_RMQ_USR_PASSWD_FILE, 'r')
+		redis_pfile = open(REDIS_PASSWD_FILE, 'r')
 	except IOError, ioe:
 		#print 'Could not read', SE_USR_PASSWD_FILE, ':', str(ioe)
 		sys.exit(1)
 
 	with db_pfile:
 		database_password = db_pfile.read().strip()
-	with rmq_pfile:
-		rabbitmq_password = rmq_pfile.read().strip()
+	with redis_pfile:
+		redis_password = redis_pfile.read().strip()
 
 	db_password_string = ''.join(
 		[db_password_string, db_cred_name, '\'', database_password, '\',',]
 	)
-	rmq_password_string = ''.join(
-		[rmq_password_string, rmq_cred_name, '\'', rabbitmq_password, '\',',]
+	redis_password_string = ''.join(
+		[redis_password_string, redis_cred_name, '\'', redis_password, '\',',]
 	)
 
 
 	# Generate the final contents
 	final_string = ''.join(
-		[header_string, import_string, body, db_password_string, intermediate_string, rmq_password_string, final_string,]
+		[header_string, import_string, body, db_password_string, intermediate_string, redis_password_string, final_string,]
 	)
 
 	# Create the Python module

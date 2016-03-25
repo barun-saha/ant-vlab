@@ -23,7 +23,6 @@ install:
 	$(MAKE) deploy
 	$(MAKE) init_db
 	$(MAKE) install_redis
-	#$(MAKE) install_celery
 	$(MAKE) install_ns2
 	$(MAKE) install_ns3
 	$(MAKE) test_installation
@@ -99,11 +98,6 @@ install_redis:
 	echo '' >> $(LOG_FILE)
 	echo '*** Executing make: installing Redis and django-rq' >> $(LOG_FILE)
 	bash ../scripts/install_redis.sh
-
-# install_celery:
-# 	echo '' >> $(LOG_FILE)
-# 	echo '*** Executing make: installing celery' >> $(LOG_FILE)
-# 	bash ../scripts/install_celery.sh
 
 install_ns2:
 	echo '' >> $(LOG_FILE)
