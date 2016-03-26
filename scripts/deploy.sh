@@ -23,8 +23,8 @@ chown -R barun:www-data $HOME_PATH/codes
 # Apache needs write permission on vlabs/ to generate two files
 chmod g+w $ANT_PATH
 
-log "Moving other configuration files"
-cp -r conf/www /usr/local/
+# log "Moving other configuration files"
+# cp -r conf/www /usr/local/
 cp -r _wimax_ref_ /var/vlabs/ant
 
 # Creating symlinks

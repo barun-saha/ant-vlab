@@ -11,11 +11,10 @@ APT_SRC_FILE=/etc/apt/sources.list
 APT_CONF_FILE=/etc/apt/apt.conf
 
 
-#SHELL := /bin/bash
-#export TEST:="Something Good!"
-
 install:
-	echo '' > $(LOG_FILE);
+	echo '' > $(LOG_FILE)
+	echo 'Preparing installation of the ANT virtual Lab ...' >> $(LOG_FILE)
+	rm -rf $(HOME_PATH)/*
 	echo '*** Executing make install' >> $(LOG_FILE)
 	#$(MAKE) clean_all
 	$(MAKE) init
