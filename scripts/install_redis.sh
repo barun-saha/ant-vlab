@@ -31,6 +31,10 @@ autorestart=true
 stderr_logfile=/var/log/django_rq_worker_ant.err.log
 stdout_logfile=/var/log/django_rq_worker_ant.out.log' > /etc/supervisor/conf.d/django_rq_worker_ant.conf
 
+# Making it fail-safe
+/etc/init.d/supervisor stop
+/etc/init.d/supervisor start
+# supervisor should be up by now; if not, the following would not have any effect
 supervisorctl reread
 supervisorctl update
 supervisorctl restart django_rq_worker_ant

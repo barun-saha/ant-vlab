@@ -477,10 +477,10 @@ def ns3_submit(request):
         #print 'Sumitting task ...'
         code = request.POST.get('ns3code')
         session_key = request.session.session_key
-        new_task = tasks.ns3run.delay(code, session_key)
-        #print '<b>%d</b>' % (result.get(),)
-        #print 'Simulation # :', new_task.task_id
-        output['id'] = new_task.task_id
+        #new_task = tasks.ns3run.delay(code, session_key)
+        queue = django_rq.get_queue(settings.REDIS_QNAME)
+        job = queue.enqueue(tasks.ns3run, code, session_key)
+        output['id'] = job.id
     else:
         output['error'] = 'Invalid attempt to access a resource!'
 

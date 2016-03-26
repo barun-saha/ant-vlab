@@ -56,7 +56,7 @@ sudo ln -sf g++-4.4 g++
 # Creating synlink for ns3ant
 cd $NS3_PATH/ns-3.10
 #sudo mkdir ns3ant
-#sudo ln -sf /var/vlabs/ant/ns3 ns3ant
+sudo ln -sf /var/vlabs/ant/ns3 ns3ant
 
 # Cleaning .waf file
 cd $NS3_PATH/ns-3.10
