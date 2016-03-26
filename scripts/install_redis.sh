@@ -22,7 +22,8 @@ grep -v '^[[:space:]]*requirepass' "$REDIS_CONF_FILE" > "$TMP_FILE"
 cat "$TMP_FILE" > "$REDIS_CONF_FILE"
 echo "requirepass $REDIS_PASSWD" >> "$REDIS_CONF_FILE"
 rm "$TMP_FILE"
-/etc/init.d/redis-server restart
+
+sudo /etc/init.d/redis-server restart
 
 echo '[program:django_rq_worker_ant]
 command=python /home/barun/codes/www/vlabs/manage.py rqworker q_ant
@@ -32,12 +33,14 @@ stderr_logfile=/var/log/django_rq_worker_ant.err.log
 stdout_logfile=/var/log/django_rq_worker_ant.out.log' > /etc/supervisor/conf.d/django_rq_worker_ant.conf
 
 # Making it fail-safe
-/etc/init.d/supervisor stop
-/etc/init.d/supervisor start
+sudo /etc/init.d/supervisor stop
+sudo unlink /tmp/supervisor.sock
+sudo unlink /var/run/supervisor.sock
+sudo /etc/init.d/supervisor start
 # supervisor should be up by now; if not, the following would not have any effect
-supervisorctl reread
-supervisorctl update
-supervisorctl restart django_rq_worker_ant
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl restart django_rq_worker_ant
 
 # Need to place somewhere else
 export LANGUAGE=en_US.UTF-8
