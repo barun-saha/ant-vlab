@@ -200,6 +200,13 @@ def about_us(request):
         context_instance=RequestContext(request)
     )
 
+def license(request):
+    return render_to_response(
+        'ant/license.html',
+        {},
+        context_instance=RequestContext(request)
+    )
+
 ###def contact(request):
 ###    ContactFormSet = modelformset_factory(Contact, fields = ('name', 'email', 'website', 'organization', 'subject', 'comment',))
 ###    managementFormData = {
