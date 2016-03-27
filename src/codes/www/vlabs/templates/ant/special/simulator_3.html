@@ -14,25 +14,25 @@
     </style>
     <![EndIf]-->
 
-    
-     <form action="" method="" style="position: relative;">
+
+    <form action="" method="" style="position: relative;">
 	{% load staticfiles %}
 	<h2>Throughput vs time plot</h2>
 
    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-   <script type="text/javascript" src="{% static 'ant/js/jquery.min-min.js' %}"></script>
-   <script type="text/javascript" src="{% static 'ant/js/jquery-ui.min-min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'ant/js/jquery-min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'ant/js/jquery-ui-1.7.3.custom-min.js' %}"></script>
    <!--[if IE]><script type="text/javascript" src="{{ MEDIA_URL }}js/excanvas.min-min.js"></script><![endif]-->
-   <script language="javascript" type="text/javascript" src="{% static 'ant/js/jquery.flot.min-min.js' %}"></script>
-   
+   <script language="javascript" type="text/javascript" src="{% static 'ant/lib/flot/jquery.flot.min.js' %}"></script>
+
 	<div id="placeholder" style="width:450px; height:350px;
              margin: 0px; margin-bottom:  3px; padding: 0px;" class=""></div>
 
     <div id="graphs-plotted">
-    </div> 
+    </div>
 
 	    <p>&nbsp;</p>
-	    
+
          <table cellpadding="0" cellspacing="0" class="techno" style="width: 380px;s">
              <thead>
                  <tr>
@@ -81,7 +81,7 @@
     var data = [];
     var i = 0;
 
-    var plot_options = {                
+    var plot_options = {
         yaxis: { min: 0 },
         xaxis: { tickDecimals: 0 },
         legend: {
@@ -287,7 +287,7 @@
 
         for (var i = 0; i < bw.length; i++)
             for (var j = 0; j < pd.length; j++)
-                for (var k = 0; k < qt.length; k++) {                    
+                for (var k = 0; k < qt.length; k++) {
                     data.push(datasets["" + bw[i] + "," + pd[j] + "," + qt[k]]);
                 }
 
@@ -321,7 +321,7 @@
         $("input#queue_type3").click(drawGraph);
 
         drawGraph();
-       
+
     });
 
-</script>    
+</script>

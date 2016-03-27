@@ -9,13 +9,13 @@
 <!-- Fix the positioning of div tags for IE and Firefox -->
 <style type="text/css">
     .ieFix {
-        position: absolute;        
+        position: absolute;
     }
 </style>
 <!--[if IE]>
 <style type="text/css">
     .ieFix {
-        position: fixed;        
+        position: fixed;
     }
 </style>
 <![EndIf]-->
@@ -27,13 +27,13 @@
 <style type="text/css">
     .ieFixTop {
         top: -70px;
-    }    
+    }
 </style>
 <![EndIf]-->
 
 {% if simulation.type != 'flash' %}
 <!--[if IE]>
-<style type="text/css">    
+<style type="text/css">
     .ieHTMLSimFixTop {
         top: -150px;
     }
@@ -52,7 +52,7 @@
         <div id="simulation" class="twoColRight" style="border-left: 1px dotted silver;">
 
             {% if simulation.type == 'flash' %}
-            <object type="application/x-shockwave-flash" data="{% static 'ant/video/simulations/ant/' %}{{ object_id }}/{{ simulation.video_url }}" 
+            <object type="application/x-shockwave-flash" data="{% static 'ant/video/simulations/ant/' %}{{ object_id }}/{{ simulation.video_url }}"
                 width="510" height="415">
                 <param name="movie" value="{% static 'ant/video/simulations/ant/' %}{{ object_id }}/{{ simulation.video_url }}">
                 <param name="quality" value="high">
@@ -60,7 +60,7 @@
                 <param name="loop" value="true">
                 <param name="wmode" value="transparent">
             </object>
-	    
+
             <!--object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,16,0"
                 width="530" height="415" >
@@ -74,10 +74,11 @@
                 </embed>
             </object-->
             {% else %}
-            <script type="text/javascript" src="{% static 'ant/js/_django/dutils-min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'ant/js/_django/dutils.conf.urls-min.js' %}"></script>
+
+            <script src="{% static 'django_js_reverse/js/reverse.js' %}"></script>
             <script type="text/javascript">
-                myAjaxLoader("#simulation", "/ant/ant/" + {{ simulation.theory.id }} + "/html_sim/");
+                var url = Urls.html_simulator({{ simulation.theory.id }});
+                myAjaxLoader("#simulation", url);
             </script>
             {% endif %}
 
