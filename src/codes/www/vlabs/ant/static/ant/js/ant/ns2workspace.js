@@ -823,7 +823,7 @@ $(document).ready(function() {
             }
 
             $(this).attr('disabled', 'true');
-            var url = NS2TRACE_URL + ['plot/hop_cnt_seq_num', src_node, src_port, dst_node, dst_port].join('/') + '/';
+            //var url = NS2TRACE_URL + ['plot/hop_cnt_seq_num', src_node, src_port, dst_node, dst_port].join('/') + '/';
             setUpCsrf();
             $.ajax({
                 type:   'GET',

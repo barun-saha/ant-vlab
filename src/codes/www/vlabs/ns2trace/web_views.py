@@ -73,13 +73,13 @@ If the problem still persists, report us back along with this ID:
 		''' % (str(ke), request.session.session_key,)
 
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
-	
+		return HttpResponse(json.dumps(error), content_type='application/json')
+
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
 
-	
+
 	return HttpResponse('Trace file format currently being used: ' + sim_mode)
 
 
@@ -108,17 +108,17 @@ def general_stats(request):
 				raise KeyError, 'Trace file mode not set!'
 		else:
 			raise KeyError, 'Wrong key!!!'
-		
+
 	except KeyError, ke:
 		#print str(ke)
 		mesg = str(ke)
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
+		return HttpResponse(json.dumps(error), content_type='application/json')
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
-	 
-   
+
+
 def avg_thruput(request, node_id):
 	#print 'Avg thruput'
 	try:
@@ -137,16 +137,16 @@ def avg_thruput(request, node_id):
 				raise KeyError, 'Trace file mode not set!'
 		else:
 			#print 'Trace file key NOT found'
-			raise KeyError, 'Wrong key!!!'		
+			raise KeyError, 'Wrong key!!!'
 	except KeyError, ke:
 		#print str(ke)
 		mesg = str(ke)
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
+		return HttpResponse(json.dumps(error), content_type='application/json')
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
-	
+
 
 #def bytes_received(request, node_id):
 #	#print 'Bytes received'
@@ -167,7 +167,7 @@ def avg_thruput(request, node_id):
 #					'label': label,
 #				}
 #				#print bytes_rcvd
-#				return HttpResponse(json.dumps(bytes_rcvd), mimetype="application/json")
+#				return HttpResponse(json.dumps(bytes_rcvd), content_type="application/json")
 #			else:
 #				raise KeyError, 'Trace file mode not set!'
 #		else:
@@ -176,7 +176,7 @@ def avg_thruput(request, node_id):
 #		#print str(ke)
 #		mesg = str(ke)
 #		error = {'error' : mesg}
-#		return HttpResponse(json.dumps(error), mimetype="application/json")
+#		return HttpResponse(json.dumps(error), content_type="application/json")
 #	except Exception, ex:
 #		#print str(ex)
 #		return HttpResponse(ex)
@@ -201,7 +201,7 @@ def bytes_received_at_levels(request, node_id, levels):
 					layers = (levels or '').split('|')
 					#print layers
 					layers = [ l.strip() for l in layers if l.strip() != '' ]
-					
+
 				# Create a TraceAnalyzer object
 				ta = TraceAnalyzer(d[NS_TRACEFILE_KEY], d[NS_TRACEFILE_MODE])
 				#print 'web_views:: levels:', levels, ' layers:', layers
@@ -212,7 +212,7 @@ def bytes_received_at_levels(request, node_id, levels):
 					'label': label,
 				}
 				#print bytes_rcvd
-				return HttpResponse(json.dumps(bytes_rcvd), mimetype='application/json')
+				return HttpResponse(json.dumps(bytes_rcvd), content_type='application/json')
 			else:
 				raise KeyError, 'Trace file mode not set!'
 		else:
@@ -221,7 +221,7 @@ def bytes_received_at_levels(request, node_id, levels):
 		#print str(ke)
 		mesg = str(ke)
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
+		return HttpResponse(json.dumps(error), content_type='application/json')
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
@@ -266,7 +266,7 @@ def end2end_delay(request, src_node, dst_node, scale=1):
 					'data':	 delay_updt,
 				}
 				#print json.dumps(delay)
-				return HttpResponse(json.dumps(delay), mimetype='application/json')
+				return HttpResponse(json.dumps(delay), content_type='application/json')
 			else:
 				raise KeyError, 'Trace file mode not set!'
 		else:
@@ -275,18 +275,18 @@ def end2end_delay(request, src_node, dst_node, scale=1):
 		#print str(ke)
 		mesg = str(ke)
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
+		return HttpResponse(json.dumps(error), content_type='application/json')
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
-	
+
 
 def pkt_retransmits(request, src_node, dst_node):
 	#print 'Pkt retransmits'
 	try:
 		#d = request.session.get(request.session.session_key)
 		d = request.session[request.session.session_key]
-		if d is None:			
+		if d is None:
 			raise Exception, INVALID_SESSION_MSG
 		if NS_TRACEFILE_KEY in d:
 			#print 'Trace file key found'
@@ -301,7 +301,7 @@ def pkt_retransmits(request, src_node, dst_node):
 					'label': label,
 				}
 				#print retransmits
-				return HttpResponse(json.dumps(retransmits), mimetype='application/json')
+				return HttpResponse(json.dumps(retransmits), content_type='application/json')
 			else:
 				raise KeyError, 'Trace file mode not set!'
 		else:
@@ -310,7 +310,7 @@ def pkt_retransmits(request, src_node, dst_node):
 		#print str(ke)
 		mesg = str(ke)
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
+		return HttpResponse(json.dumps(error), content_type='application/json')
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
@@ -329,7 +329,7 @@ def hop_count_pkt_seq_num(request, src_node, src_port, dst_node, dst_port):
 	try:
 		#d = request.session.get(request.session.session_key)
 		d = request.session[request.session.session_key]
-		if d is None:			
+		if d is None:
 			raise Exception, INVALID_SESSION_MSG
 		if NS_TRACEFILE_KEY in d:
 			#print 'Trace file key found'
@@ -343,9 +343,9 @@ def hop_count_pkt_seq_num(request, src_node, src_port, dst_node, dst_port):
 				count = {
 					'data': count,
 					'label': label,
-				}				
+				}
 				#print json.dumps(count)
-				return HttpResponse(json.dumps(count), mimetype='application/json')
+				return HttpResponse(json.dumps(count), content_type='application/json')
 			else:
 				raise KeyError, 'Trace file mode not set!'
 		else:
@@ -354,7 +354,7 @@ def hop_count_pkt_seq_num(request, src_node, src_port, dst_node, dst_port):
 		#print str(ke)
 		mesg = str(ke)
 		error = {'error' : mesg}
-		return HttpResponse(json.dumps(error), mimetype='application/json')
+		return HttpResponse(json.dumps(error), content_type='application/json')
 	except Exception, ex:
 		#print str(ex)
 		return HttpResponse(ex)
