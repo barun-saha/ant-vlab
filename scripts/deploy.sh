@@ -18,6 +18,10 @@ mkdir -p $HOME_PATH/codes
 cp -r codes/* $HOME_PATH/codes/
 cp -r content $HOME_PATH/
 
+
+# Symlink from static_media to access trace files
+ln -s /var/vlabs/ant "$ANT_PATH/static_media/traces"
+
 # Set ownership of files
 chown -R barun:www-data $HOME_PATH/codes
 # Apache needs write permission on vlabs/ to generate two files

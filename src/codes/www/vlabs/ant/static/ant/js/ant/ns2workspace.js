@@ -268,6 +268,10 @@ $(document).ready(function() {
 								msg += '<br>Loaded trace file of size ' + output_length + ' KB';
 								$('div.ns2-code-output').html(msg);
                                 $('.trace-file-mode').removeAttr('disabled');
+
+                                // Link to trace file
+                                var tr_link = 'Download full <a href="' + resultObj['trace_file_name'] + '">trace file</a>.';
+                                $('#trace-file-link').html(tr_link);
                             }
                             else {
                               retry();

@@ -159,12 +159,14 @@ def ns2run(code, session_key):
         output['trace_file_name'] = trace_file_name
 
         # Convert physical path of trace file to URL
-        output['trace'] = trace_file_name.replace(r'/var/', settings.MEDIA_URL)
+        output['trace'] = ''
         #print trace_file_name
         # Return the contrnts of the trace file
         try:
-            tr_file = open(trace_file_name, 'r')
-            output['trace'] = tr_file.readlines()
+            with open(trace_file_name, 'r') as tr_file:
+                # Send only the first 20 lines of trace file for display
+                # http://stackoverflow.com/a/1767589/147021
+                output['trace'] = [next(tr_file) for x in xrange(20)]
         except IOError, ioe:
             output['error'] = str(ioe)
         finally:
@@ -174,6 +176,7 @@ def ns2run(code, session_key):
         output['trace'] = ''
 
     #print 'Output:', output
+    output['trace_file_name'] = trace_file_name.replace(r'/var/vlabs/ant/', settings.STATIC_URL + 'traces/')
     return output
 
 
