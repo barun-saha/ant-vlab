@@ -50,7 +50,7 @@ do
 	sudo -E pip install PIL
 
 	sudo -E pip install django-js-reverse
-	
+
 	sudo -E pip install rq
 	sudo -E pip install django-rq
 
