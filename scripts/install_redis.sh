@@ -41,10 +41,3 @@ sudo /etc/init.d/supervisor start
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl restart django_rq_worker_ant
-
-# Need to place somewhere else
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-locale-gen en_US.UTF-8
-sudo dpkg-reconfigure locales
