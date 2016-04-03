@@ -44,11 +44,13 @@ do
 
 	# Commented because it autimatically updates the Django to the newest version
 	#sudo -E pip install django-maintenancemode
-	sudo -E pip install django-ajaxcomments
-	sudo -E pip install django-tinymce
-	sudo -E pip install recaptcha-client
+	# sudo -E pip install django-ajaxcomments
+	# sudo -E pip install django-tinymce
+	# sudo -E pip install recaptcha-client
 	sudo -E pip install PIL
 
+	sudo -E pip install django-js-reverse
+	
 	sudo -E pip install rq
 	sudo -E pip install django-rq
 
