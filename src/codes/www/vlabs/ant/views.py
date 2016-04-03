@@ -42,7 +42,7 @@ def index(request):
     t = Theory.objects.filter(id__in = allowed_list)
     return render_to_response(
         'ant/home.html',
-        {'theory': t},
+        {'theory': t, 'reverse_proxy_url': settings.REVERSE_PROXY_URL},
         context_instance=RequestContext(request)
     )
 
@@ -63,6 +63,7 @@ def theory(request, object_id=9):
 #    return HttpResponse('Session')
 
     t = get_object_or_404(Theory, pk=object_id)
+    # Replace static URLs in the contents from database
     t.content = t.content.replace('_STATIC_URL_', settings.STATIC_URL)
     context = RequestContext(request)
     # Required to differentiate between ISAD and ANT in post-comment.js
@@ -73,7 +74,8 @@ def theory(request, object_id=9):
         'ant/theory.html',
         {
             'object_id':    object_id,
-            'theory':       t
+            'theory':       t,
+            'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=context
     )
@@ -91,6 +93,7 @@ def introduction(request, object_id=1):
             'title':        t.title,
             'introduction':    t.extra,
             'object_id':    object_id,
+            'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=RequestContext(request)
     )
@@ -111,6 +114,7 @@ def procedure(request, object_id=9):
             'title':        p.theory.title,
             'procedure':    p.content,
             'object_id':    object_id,
+            'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=RequestContext(request)
     )
@@ -130,6 +134,7 @@ def simulation(request, object_id):
             'title':        s.theory.title,
             'object_id':    object_id,
             'simulation':   s,
+            'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=RequestContext(request)
     )
@@ -153,6 +158,7 @@ def self_evaluation(request, object_id):
             'title':        se[0].theory.title,
             'object_id':    object_id,
             'sevaluation':  se,
+            'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=RequestContext(request)
     )
@@ -171,6 +177,7 @@ def exercise(request, object_id):
             'title':        e[0].theory.title,
             'object_id':    object_id,
             'exercise':     e,
+            'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=RequestContext(request)
     )
@@ -188,7 +195,8 @@ def references(request, object_id):
         {
         'title':        r[0].theory.title,
         'object_id':    object_id,
-        'reference':    r
+        'reference':    r,
+        'reverse_proxy_url': settings.REVERSE_PROXY_URL
         },
         context_instance=RequestContext(request)
     )

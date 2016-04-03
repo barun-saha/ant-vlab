@@ -175,11 +175,24 @@ SESSION_SAVE_EVERY_REQUEST = True
 #else:
     #from settings_env.development import *
 
+
+# Enable this if you are hosting the lab behind reverse proxy
+REVERSE_PROXY_PREFIX = 'ant'
+# Enable this if no reverse proxy is used
+# REVERSE_PROXY_PREFIX = ''
+
+if len(REVERSE_PROXY_PREFIX) > 0:
+    REVERSE_PROXY_URL = '/' + REVERSE_PROXY_PREFIX
+else:
+    REVERSE_PROXY_URL = ''
+
+JS_REVERSE_SCRIPT_PREFIX = REVERSE_PROXY_URL + '/'
+
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/ant_static/'
+STATIC_URL = REVERSE_PROXY_URL + '/ant_static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static_media/')
 
 DEBUG = True

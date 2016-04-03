@@ -4,6 +4,15 @@
     {{ title }}
 {% endblock %}
 
+{% block url_intro %}{{ reverse_proxy_url }}{% url 'introduction' object_id %}{% endblock %}
+{% block url_theory %}{{ reverse_proxy_url }}{% url 'theory' object_id %}{% endblock %}
+{% block url_sim %}{{ reverse_proxy_url }}{% url 'simulation' object_id %}{% endblock %}
+{% block url_selfev %}{{ reverse_proxy_url }}{% url 'self_evaluation' object_id %}{% endblock %}
+{% block url_proc %}{{ reverse_proxy_url }}{% url 'procedure' object_id %}{% endblock %}
+{% block url_ex %}{{ reverse_proxy_url }}{% url 'exercise' object_id %}{% endblock %}
+{% block url_ref %}{{ reverse_proxy_url }}{% url 'references' object_id %}{% endblock %}
+
+
 {% block content %}
 <style type="text/css">
     div#title {
@@ -13,17 +22,17 @@
         color: #0033CC;
     }
     div#contents {
-        
+
     }
     p {
         padding: 5px;
-    }    
+    }
     li {
         margin-left: 1.1em;
     }
 </style>
 
-<div id="title">    
+<div id="title">
 </div>
 <div id="contents" class="font-normal">
 
@@ -40,11 +49,11 @@
         <ol>
             <li>Read the theory about the experiment</li>
             <li>View the simulation provided for a chosen, related problem</li>
-            <li>Take the self evaluation to judge your understanding (optional, 
+            <li>Take the self evaluation to judge your understanding (optional,
                 but recommended)</li>
-            <li>Go to the exercises section, choose a problem, and carefully 
+            <li>Go to the exercises section, choose a problem, and carefully
                 read the problem description</li>
-            <li>Write a script (or make necessary changes) to simulate the desired 
+            <li>Write a script (or make necessary changes) to simulate the desired
                 scenario in the <strong>code editor</strong> just below the problem statement
             </li>
             <li>Click on the <strong>'Run'</strong> button to execute the simulation script</li>
@@ -65,22 +74,22 @@
     <h3>Experiment Specific Instructions</h3>
 
     <p> {{ procedure|safe }} </p>
-    
-    
+
+
     <h2>Trace File Analysis</h2>
 
     <p>
-    A simple tool has been provided as part of this lab to analyze the trace files 
+    A simple tool has been provided as part of this lab to analyze the trace files
     generated after simulation with ns2. A summary of the available options, and
     usage guide is given below.
     </p>
-    
+
     <h3>Features List</h3>
     <p>
         Following is a list of functionalities provided by the Trace Analysis tool:
     <ul>
         <li>
-            <strong>Trace file formats: </strong> Following trace file formats are 
+            <strong>Trace file formats: </strong> Following trace file formats are
             being supported:
             <ul>
                 <li>Wired</li>
@@ -108,27 +117,27 @@
             <ul>
                 <li><strong>Inputs:</strong> Node #</li>
                 <li><strong>Output:</strong> Number</li>
-            </ul>                      
+            </ul>
         </li>
         <li>
             <strong>Bytes Received:</strong> Plots cumulative count of bytes received by
             a node over the entire simulation duration
             <br>
             <ul>
-                <li><strong>Inputs:</strong> Node #; for wireless scenario, trace 
+                <li><strong>Inputs:</strong> Node #; for wireless scenario, trace
                     levels (AGT, MAC, RTR)</li>
                 <li><strong>Output:</strong> Graph</li>
-            </ul>                     
+            </ul>
         </li>
         <li>
             <strong>End-to-end Delay: </strong> Plots the end-to-end delay delay encountered
             by packets while moving from a source node to the destination node
             <br>
             <ul>
-                <li><strong>Inputs:</strong> Source node #, destination node #, 
+                <li><strong>Inputs:</strong> Source node #, destination node #,
                     scaling factor [optional] -- scaling factor helps to amplify the y-axis values</li>
                 <li><strong>Output:</strong> Graph</li>
-            </ul>                        
+            </ul>
         </li>
         <li>
             <strong>Packet Retransmissions:</strong> Plots # of retransmission(s) of
@@ -137,26 +146,26 @@
             <ul>
                 <li><strong>Inputs:</strong> Source node #, destination node #</li>
                 <li><strong>Output:</strong> Graph</li>
-            </ul>                        
+            </ul>
         </li>
         <li>
             <strong>Hop Count:</strong> Plots the # of hops traveled by a packet to reach
             the destination node from the source node. It counts the destination node as well.
             <br>
             <ul>
-                <li><strong>Inputs:</strong> Source node #, source port #, 
+                <li><strong>Inputs:</strong> Source node #, source port #,
                     destination node #, destination port #</li>
                 <li><strong>Output:</strong> Graph</li>
-            </ul>                      
+            </ul>
         </li>
     </ul>
     </p>
-        
+
     <h3>Limitations</h3>
     <div class="note">
         <ol>
             <li>
-                For analyzing the problems in the "Satellite Networks" experiment, 
+                For analyzing the problems in the "Satellite Networks" experiment,
                 please use the Wired mode of analysis
             </li>
             <li>
@@ -174,7 +183,7 @@
             </li>
         </ol>
     </div>
-      
+
 </div>
 
 {% endblock %}

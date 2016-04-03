@@ -75,13 +75,13 @@
         <br>
         <div id="ddtabs2" class="glowingtabs">
             <ul>
-                <li><a href="{% url 'introduction' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/flag.png' %}">Introduction</center></span></a></li>
-                <li><a href="{% url 'theory' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/theory.jpg' %}">Theory</center></span></a></li>
-                <li><a href="{% url 'simulation' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/sim.jpg' %}">Simulation</center></span></a></li>
-                <li><a href="{% url 'self_evaluation' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/eval.jpg' %}">Self-evaluation</center></span></a></li>
-                <li><a href="{% url 'procedure' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/procedure.jpg' %}">Procedure</center></span></a></li>
-                <li><a href="{% url 'exercise' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/kivio.png' %}">Exercises</center></span></a></li>
-                <li><a href="{% url 'references' object_id %}"><span><center><img src="{% static 'ant/images/new/sections/library.png' %}">References</center></span></a></li>
+                <li><a href="{% block url_intro %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/flag.png' %}">Introduction</center></span></a></li>
+                <li><a href="{% block url_theory %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/theory.jpg' %}">Theory</center></span></a></li>
+                <li><a href="{% block url_sim %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/sim.jpg' %}">Simulation</center></span></a></li>
+                <li><a href="{% block url_selfev %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/eval.jpg' %}">Self-evaluation</center></span></a></li>
+                <li><a href="{% block url_proc %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/procedure.jpg' %}">Procedure</center></span></a></li>
+                <li><a href="{% block url_ex %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/kivio.png' %}">Exercises</center></span></a></li>
+                <li><a href="{% block url_ref %}{% endblock %}"><span><center><img src="{% static 'ant/images/new/sections/library.png' %}">References</center></span></a></li>
             </ul>
 
         </div>
@@ -109,7 +109,7 @@
 
 </div>
 
-<div class="experiment-list-popup" style="display: none;"><ol><li><a href="{% url 'theory' 1 %}">Basics of Network Simulation</a></li><li><a href="{% url 'theory' 2 %}">Simulating a Local Area Network</a></li><li><a href="{% url 'theory' 3 %}">Measuring Network Performance</a></li><li><a href="{% url 'theory' 4 %}">Simulation of a Satellite Network</a></li><li><a href="{% url 'theory' 5 %}">Simulating a WiFi Network</a></li><li><a href="{% url 'theory' 6 %}">Simulating a WiMax Network</a></li><li><a href="{% url 'theory' 7 %}">Simulating a Mobile Adhoc Network</a></li><li><a href="{% url 'theory' 8 %}">Simulating a Wireless Sensor Network</a></li><li><a href="{% url 'theory' 9 %}">Setting up a Bluetooth Network</a></li><li><a href="{% url 'theory' 10 %}">Setting up a ZigBee Network and studying a few protocols</a></li></ol></div>
+<div class="experiment-list-popup" style="display: none;"><ol><li><a href="{{ reverse_proxy_url }}{% url 'theory' 1 %}">Basics of Network Simulation</a></li><li><a href="{% url 'theory' 2 %}">Simulating a Local Area Network</a></li><li><a href="{% url 'theory' 3 %}">Measuring Network Performance</a></li><li><a href="{% url 'theory' 4 %}">Simulation of a Satellite Network</a></li><li><a href="{% url 'theory' 5 %}">Simulating a WiFi Network</a></li><li><a href="{% url 'theory' 6 %}">Simulating a WiMax Network</a></li><li><a href="{% url 'theory' 7 %}">Simulating a Mobile Adhoc Network</a></li><li><a href="{% url 'theory' 8 %}">Simulating a Wireless Sensor Network</a></li><li><a href="{% url 'theory' 9 %}">Setting up a Bluetooth Network</a></li><li><a href="{% url 'theory' 10 %}">Setting up a ZigBee Network and studying a few protocols</a></li></ol></div>
 
 
 <div  id="top_arrow" class="topArrow">

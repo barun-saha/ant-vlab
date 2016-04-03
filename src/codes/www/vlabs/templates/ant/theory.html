@@ -4,6 +4,8 @@
     {{ theory.title }}
 {% endblock %}
 
+{% block url_theory %}{% url 'theory' object_id %}{% endblock %}
+
 {% block content %}
 <style type="text/css">
     div#title {
@@ -13,11 +15,11 @@
         color: #0033CC;
     }
     div#contents {
-        
+
     }
 </style>
 
-<div id="title">    
+<div id="title">
 </div>
 <div id="contents" class="font-normal">
     <div class="experiment-objectives">
@@ -34,7 +36,7 @@
         </p>
     </div>
     <hr class="dotted-line" />
-    
+
     {{ theory.content|safe }}
 </div>
 
