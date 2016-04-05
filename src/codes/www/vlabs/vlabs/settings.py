@@ -177,9 +177,9 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 
 # Enable this if you are hosting the lab behind reverse proxy
-REVERSE_PROXY_PREFIX = 'ant'
+#REVERSE_PROXY_PREFIX = 'ant'
 # Enable this if no reverse proxy is used
-# REVERSE_PROXY_PREFIX = ''
+REVERSE_PROXY_PREFIX = ''
 
 if len(REVERSE_PROXY_PREFIX) > 0:
     REVERSE_PROXY_URL = '/' + REVERSE_PROXY_PREFIX
