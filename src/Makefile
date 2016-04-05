@@ -9,6 +9,7 @@ PYTHON=$(shell which python)
 IP_ADDRESS=$(shell ip addr show eth0 | grep 'inet ')
 APT_SRC_FILE=/etc/apt/sources.list
 APT_CONF_FILE=/etc/apt/apt.conf
+SUPERVISOR=/etc/init.d/supervisor
 
 
 install:
@@ -17,16 +18,14 @@ install:
 	rm -rf $(HOME_PATH)/*
 	echo '*** Executing make install' >> $(LOG_FILE)
 	#$(MAKE) clean_all
-	$(MAKE) init
-	$(MAKE) install_packages
 	$(MAKE) deploy
-	$(MAKE) init_db
-	$(MAKE) install_redis
 	$(MAKE) install_ns2
 	$(MAKE) install_ns3
-	$(MAKE) test_installation
+	#$(MAKE) test_installation
 
-deploy:
+deploy: init install_packages init_db install_redis
+	# Static files can be collected only when settings.py is correctly
+	# configured, which is why *all* previous steps must be executed
 	echo '' >> $(LOG_FILE)
 	echo "*** Executing make: deploy" >> $(LOG_FILE)
 	bash ../scripts/deploy.sh
@@ -61,6 +60,9 @@ repo:
 	sudo echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf.d/90forceyes
 	sudo echo 'APT::Get::force-yes "true";' >> /etc/apt/apt.conf.d/90forceyes
 	sudo echo 'Acquire::Languages "none";' >> /etc/apt/apt.conf.d/00aptitude
+
+	# (Stop and) remove supervisor if it already exists and is running
+	test -f  $(SUPERVISOR) && $(SUPERVISOR) stop || pkill supervisord
 
 #	$(MAKE) reset_packages
 	echo "Updating Ubuntu repository" >> $(LOG_FILE)

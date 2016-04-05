@@ -12,11 +12,11 @@
 
 source ../scripts/common.sh
 
-
-
 MAX_ATTEMPTS=2
-COUNTER=1
-while [[ $COUNTER -le $MAX_ATTEMPTS ]]
+counter=1
+SUPERVISOR=/etc/init.d/supervisor
+
+while [[ $counter -le $MAX_ATTEMPTS ]]
 do
 	log 'Installing necessary Ubuntu packages'
 
@@ -77,10 +77,13 @@ do
 	sudo -E apt-get -y install --fix-missing
 
 	sudo -E apt-get install -y redis-server
+	# (Stop and) remove supervisor if it is already running
+	[[ -f  "$SUPERVISOR" ]] && $SUPERVISOR stop
+	pkill supervisord
 	sudo -E apt-get install -y supervisor
 	sudo -E apt-get -y install --fix-missing
 
 	sudo -E apt-get update
 
-	COUNTER=$((COUNTER + 1))
+	counter=$((counter + 1))
 done

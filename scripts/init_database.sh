@@ -76,7 +76,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get remove --purge -y "^mysql.*"
 #sudo apt-get autoremove
 #sudo apt-get autoclean
 sudo rm -rf /var/lib/mysql
-sudo rm -rf /var/log/mysql 
+sudo rm -rf /var/log/mysql
 
 #ROOT_PASSWD=$(cat "$ROOT_PASSWD")
 echo mysql-server mysql-server/root_password password $ROOT_PASSWD | debconf-set-selections
@@ -88,7 +88,7 @@ do
     sudo -E apt-get update
     sudo -E DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
     sudo -E apt-get install --fix-missing
-    
+
     if [[ $? -eq 0 ]]
     then
         log 'mysql-server installed!'
@@ -126,6 +126,7 @@ log "Database $DB created."
 
 
 # Now initialize the databse with contents
+cp -r content $HOME_PATH/
 log 'Restoring database dump'
 $MYSQL --user=root --password=$ROOT_PASSWD "$DB" < "$DUMP_FILE"
 
@@ -133,17 +134,3 @@ if [[ $? -ne 0 ]]
 then
     error 'Failed to initialize database with SQL dump!'
 fi
-
-
-# Managed in makefile
-
-## Invoke syncdb to create tables necessary for Django -- but has Django been
-## installed yet?
-#log '11. Executing syncdb'
-#PYTHON=$(which python)
-#$PYTHON $SE_PATH/manage.py syncdb
-
-#if [[ $? -ne 0 ]]
-#then
-#    error 'Failed to run syncdb!'
-#fi
