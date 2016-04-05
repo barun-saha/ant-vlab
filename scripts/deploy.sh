@@ -45,6 +45,10 @@ log 'Generating django_js_reverse.js'
 python $ANT_PATH/manage.py collectstatic_js_reverse
 # Symlink from static_media to access trace files
 ln -s /var/vlabs/ant $ANT_PATH/static_media/traces
+
+# Create a .htaccess file to prevent browsing files
+echo 'Options -Indexes' > $ANT_PATH/static_media/.htaccess
+
 # Set ownership of files
 chown -R barun:www-data $HOME_PATH/codes
 # Apache needs write permission on vlabs/ to generate two files
