@@ -1,5 +1,8 @@
 // URL prefix for accessing static files
-var STATIC_URL = '/ant_static/';
+var STATIC_URL;
+$.getJSON(Urls.get_static_url(), function(data) {
+    STATIC_URL = data ['url'];
+});
 
 function get_static(url) {
     var str = STATIC_URL;
@@ -7,7 +10,7 @@ function get_static(url) {
     return str;
 }
 
-$(document).ready(function() {    
+$(document).ready(function() {
     SyntaxHighlighter.config.clipboardSwf = get_static('ant/lib/wireit/res/SyntaxHighlighter/clipboard.swf');
     SyntaxHighlighter.all();
 
@@ -66,7 +69,7 @@ $(document).ready(function() {
         .addClass('bottom-shadow-1px')
     })
     .mouseout(function() {
-        $(this)        
+        $(this)
         .removeClass('bottom-shadow-1px')
     })
     .click(function() {
@@ -79,7 +82,7 @@ $(document).ready(function() {
        };
        $('div#contents').attr('className', steps[$('div#contents').attr('className')]);
     });
-    
+
     // End changes
 
 
@@ -92,12 +95,12 @@ $(document).ready(function() {
         $(this)
         .removeClass('bottom-shadow-1px')
     })
-    .click(function(e) {                         
+    .click(function(e) {
         $('.experiment-list-popup')
         .fadeIn('slow')
         .css( {'top': ($('.experiments').outerHeight() + e.pageY) + 'px', 'right': '5px'} )
-    });                        
-    
+    });
+
     $('.experiment-list-popup')
     .click(function() {
         $(this).fadeOut('slow')
@@ -106,7 +109,7 @@ $(document).ready(function() {
         function() { },
         function() {
             $(this).fadeOut('slow')
-        }        
+        }
     )
 });
 

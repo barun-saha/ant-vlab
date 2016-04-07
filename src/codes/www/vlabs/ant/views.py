@@ -394,6 +394,17 @@ def show_solution(request, object_id=9, exercise_id=1):
         context_instance=RequestContext(request),
     )
 
+def experiments_list(request):
+    list = Theory.objects.all()
+    output_list = []
+    for t in list:
+        #print t.id, t.title
+        output_list.append( (t.title,) )
+
+    #print output_list
+    return HttpResponse( json.dumps(output_list) )
+
+
 def comments(request, object_id=1):
     theory = get_object_or_404(Theory, pk=object_id)
 
@@ -522,3 +533,6 @@ def xhr_test(request):
     else:
         message = "Hello!"
     return HttpResponse(message)
+
+def get_static_url(request):
+    return HttpResponse( json.dumps({'url': settings.STATIC_URL}), content_type="application/json" )

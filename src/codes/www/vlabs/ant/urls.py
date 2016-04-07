@@ -27,6 +27,8 @@ urlpatterns = patterns('ant.views',
     url(r'^tinymce/$',                          'tinymce',),
     # (Rev #25: #4)
     url(r'recaptchajaX/$',                      'verify_recaptcha'),
+    url(r'experiments-list/$',                          'experiments_list', name='experiments_list'),
+    url(r'get_static_url/$', 'get_static_url', name='get_static_url'),
 )
 
 ###urlpatterns += patterns('',
