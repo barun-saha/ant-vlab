@@ -44,11 +44,11 @@
 <!-- Header -->
 <div id="header">
     <ul id="menuTop">
-        <li><a href="{% url 'index_page' %}" target="_self">Home</a></li>
-        <li><a href="{% url 'about_us' %}" target="_self">Credits</a></li>
-        <li><a href="http://virtual-labs.ac.in/feedback/" target="_blank">
+        <li><a href="{{ reverse_proxy_url }}{% url 'index_page' %}" target="_self">Home</a></li>
+        <li><a href="{{ reverse_proxy_url }}{% url 'about_us' %}" target="_self">Credits</a></li>
+        <li><a href="https://docs.google.com/forms/d/19t8KDHcClh0XHUiRKo-su4Grkf0CyotuGH5gtBD6V-g/viewform" target="_blank">
             Feedback</a></li>
-        <li><a href="http://virtual-labs.ac.in/cse08/">Software Engineering Virtual Lab</a></li>
+        <li><a href="http://vlabs.iitkgp.ernet.in/se/">Software Engineering Virtual Lab</a></li>
         <li><a href="http://vlab.co.in/">Virtual Labs</a></li>
     </ul>
 </div>

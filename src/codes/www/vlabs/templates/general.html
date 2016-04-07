@@ -49,22 +49,13 @@
 <div id="no_print"></div>
 
 <!-- Header -->
-<!--div id="header">
-    <ul id="menuTop">
-        <li style="list-style: none;"><a href="/ant/ant/" target="_self" title="Visit the home page of Advanced Network Technologies Virtual Lab">Home</a></li>
-        <li style="list-style: none;"><a href="/ant/ant/about_us/" target="_self" title="Know about the great minds behind Advanced Network Technologies Virtual Lab">Credits</a></li>
-        <li style="list-style: none;"><a href="/ant/ant/contact/" target="_self" title="Tell us what you feel">Contact Us</a></li>
-        <li style="list-style: none;"><a href="http://virtual-labs.ac.in/feedback/" target="_blank" title="Official feedback page for Advanced Network Technologies Virtual Lab">Feedback</a></li>
-        <li style="list-style: none;"><a href="/" target="_self" title="Visit Virtual Labs at SIT, IIT Kharagpur">Vlabs@IIT KGP</a></li>
-    </ul>
-</div-->
 <div id="header">
     <ul id="menuTop">
-        <li><a href="{% url 'index_page' %}" target="_self">Home</a></li>
-        <li><a href="{% url 'about_us' %}" target="_self">Credits</a></li>
-        <li><a href="http://virtual-labs.ac.in/feedback/" target="_blank">
+        <li><a href="{{ reverse_proxy_url }}{% url 'index_page' %}" target="_self">Home</a></li>
+        <li><a href="{{ reverse_proxy_url }}{% url 'about_us' %}" target="_self">Credits</a></li>
+        <li><a href="https://docs.google.com/forms/d/19t8KDHcClh0XHUiRKo-su4Grkf0CyotuGH5gtBD6V-g/viewform" target="_blank">
             Feedback</a></li>
-        <li><a href="http://virtual-labs.ac.in/cse08/">Software Engineering Virtual Lab</a></li>
+            <li><a href="http://vlabs.iitkgp.ernet.in/se/">Software Engineering Virtual Lab</a></li>
         <li><a href="http://vlab.co.in/">Virtual Labs</a></li>
     </ul>
 </div>
