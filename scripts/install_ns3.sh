@@ -12,6 +12,7 @@ DESKTOP_PATH=/home/$USER_ID/Desktop
 DOWNLOAD_URL_NS3='https://github.com/barun-saha/ns3_vlab/archive/master.zip'
 BIN_PATH=/usr/bin
 NS3_PATH=/home/$USER_ID/Desktop/ns3/ns-allinone-3.10
+CODE_STORAGE_PATH=/var/vlabs/ant/ns3
 
 
 echo 'Home path created:' $HOME_PATH
@@ -61,6 +62,10 @@ sudo ln -sf /var/vlabs/ant/ns3 ns3ant
 # Cleaning .waf file
 cd $NS3_PATH/ns-3.10
 ./waf clean
+
+# Remove all previously stored code. If any file has any error, the next build
+# would fail.
+rm "$CODE_STORAGE_PATH"/*.cc
 
 build_failed() {
 	echo "Build failed in $1"
