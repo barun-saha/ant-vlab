@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vlabs.iitkgp.ernet.in/ant/5/theory/" />
+<title>ant_5_simulation</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ant_5_simulation</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ant/5/simulation/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=p</td>
+	<td>Consider an access point and two base stations A and B as shown in figure. Base stations can communicate with the access point, if they are within the communication range. Initially base station A is not within communication range. After sometimes, A starts moving and comes within the range and starts transmitting packets to the access point.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='statement']/p[2]</td>
+	<td>Base station A does not know the presence of another base station B (hidden node) and vice versa. Both the hidden nodes start transmitting at the same time and collision occurs. To overcome this RTS and CTS frames are used.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#statement &gt; ul &gt; li</td>
+	<td>Base station can transmit packets to access point , it they are in communication range</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='simulator']/div[2]/object</td>
+	<td>/ant/ant_static/ant/video/simulations/ant/5/Simulation_wifi.swf</td>
+</tr>
+</tbody></table>
+</body>
+</html>

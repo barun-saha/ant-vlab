@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vlabs.iitkgp.ernet.in/ant/10/self_evaluation/" />
+<title>ant_10_procedure</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ant_10_procedure</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ant/10/procedure/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='contents']/ol[2]/li[4]</td>
+	<td>Create an instance of simulator for required simulation and generate a trace file for the analysis of simulation.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='contents']/ol[2]/pre[3]</td>
+	<td>set dist(15m) 8.54570e-07<br />Phy/WirelessPhy set CSThresh_ $dist(15m)<br />Phy/WirelessPhy set RXThresh_ $dist(15m)</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='contents']/ol[2]/li[12]</td>
+	<td>Similarly set up and start device as shown below for different nodes:</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='contents']/ol[2]/pre[7]</td>
+	<td>$ns_ at 0.5 &quot;$node_(1) sscs startDevice 1 0 0 6 0&quot; ;# startDevice &lt;FFD&gt; &lt;assoPermit&gt; &lt;txBeacon&gt; &lt;BO&gt; &lt;SO&gt;<br />$ns_ at 1.5 &quot;$node_(2) sscs startDevice 1 0 0 6 0&quot;<br />$ns_ at 2.5 &quot;$node_(3) sscs startDevice 1 0 0 6 0&quot;<br />$ns_ at 3.5 &quot;$node_(4) sscs startDevice 1 0 0 6 0&quot;<br />$ns_ at 4.5 &quot;$node_(5) sscs startDevice 1 0 0 6 0&quot;<br />$ns_ at 5.5 &quot;$node_(6) sscs startDevice 1 0 0 6 0&quot;</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='contents']/ul/li[7]</td>
+	<td>Hop Count: Plots the # of hops traveled by a packet to reach the destination node from the source node. It counts the destination node as well. <br /> Inputs: Source node #, source port #, destination node #, destination port # Output: Graph</td>
+</tr>
+</tbody></table>
+</body>
+</html>

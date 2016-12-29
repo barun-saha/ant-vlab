@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vlabs.iitkgp.ernet.in/ant/9/simulation/" />
+<title>ant_9_self_evaluation</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ant_9_self_evaluation</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ant/9/self_evaluation/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=q_1</td>
+	<td>1. Bluetooth is</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=option1_2</td>
+	<td>PAN</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=q_2</td>
+	<td>exact:2. Which statement is NOT true regarding Bluetooth ?</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=option2_3</td>
+	<td>Bluetooth technology provides both point-to-point and point-to-multipoint connection</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#option1_2 &gt; input[name=&quot;q_1&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnSubmit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>1 answers out of 6 questions are correct!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=q_1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnSubmit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>All of your answers are, unfortunately, wrong! Please revise the topics.</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
